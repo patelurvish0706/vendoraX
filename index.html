@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="en">
 
 <head>
@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/login.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 
 </head>
 
@@ -44,10 +48,13 @@
                 <div class="NavLink" id="MoreServices"><span class="material-symbols-outlined">menu</span></div>
 
                 <div id="MoreServicesBtns" class="NavMenu">
-                    <div id="NavMenuBtn" onclick="manageCart()"><span class="material-symbols-outlined">shopping_cart</span>Cart</div>
+                    <div id="NavMenuBtn" onclick="manageCart()"><span
+                            class="material-symbols-outlined">shopping_cart</span>Cart</div>
                     <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">orders</span>Orders</div>
-                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">storefront</span>Nearest Shops</div>
-                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">person_raised_hand</span>Complains
+                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">storefront</span>Nearest
+                        Shops</div>
+                    <div id="NavMenuBtn" onclick=""><span
+                            class="material-symbols-outlined">person_raised_hand</span>Complains
                     </div>
 
 
@@ -63,8 +70,9 @@
 
             <div id="ShopkeeperProcessArea">
 
-                <div id="ShopkeeperOptionsBtns" >
-                    <div class="optBtn" style="color:#fff;background-color: #4c6381;"><span class="material-symbols-outlined">arrow_back_ios</span>Back</div>
+                <div id="ShopkeeperOptionsBtns">
+                    <div class="optBtn" style="color:#fff;background-color: #4c6381;"><span
+                            class="material-symbols-outlined">arrow_back_ios</span>Back</div>
 
                     <!-- Content -->
 
@@ -75,7 +83,7 @@
 
                 <!-- all products -->
                 <div id="ProductPage">
-                    
+
                 </div>
 
                 <!-- Ordered -->
@@ -188,7 +196,7 @@
 
                 <!-- Cart -->
                 <div id="ProductPage" style="display: none;">
-                    
+
                 </div>
 
                 <!-- Complains -->
@@ -418,6 +426,7 @@
 
     <div class="LoginRegisterContainer" style="display: none;width: 100%;height: 100%;">
         <div id="blurlayer" style="width: inherit;padding: 20px 0;">
+
             <div class="formContainer" id="registerForm" style="display: none;">
                 <form id="theRegForm">
                     <p></p>
@@ -445,222 +454,148 @@
 
                     <label for="repass">*Re-Enter Password</label>
                     <input type="password" id="repass" name="repass" placeholder="Burgers@50" />
-                    
-                    <label>*Address</label> 
-                    <textarea id="address" placeholder="Select from map or type"></textarea>
 
-                    <button type="button" onclick="getLocation()">Use Current Location</button>
+                    <label for="pincode">Pincode</label>
+                    <input type="number" id="pincode" name="pincode" placeholder="380006" />
+
 
                     <div id="map" style="width: 100% ;height:300px; "></div>
-                    <!-- <div id="map" style="height:300px; margin-top:10px;"></div> -->
-<script>
 
-let map;
-let marker;
+                    <label>*Address</label>
+                    <textarea id="address" placeholder="Select from map or type"></textarea>
 
-window.addEventListener("load", function () {
+                    <input type="hidden" id="lat" name="lat">
+                    <input type="hidden" id="lng" name="lng">
 
-    map = L.map('map').setView([23.0225, 72.5714], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-
-    // 🔥 important fix
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 200);
-
-    // click → set location
-    map.on('click', function (e) {
-        let lat = e.latlng.lat;
-        let lng = e.latlng.lng;
-
-        if (marker) map.removeLayer(marker);
-
-        marker = L.marker([lat, lng]).addTo(map);
-
-        document.getElementById("lat").value = lat;
-        document.getElementById("lng").value = lng;
-        document.getElementById("address").value = lat + ", " + lng;
-    });
-
-});
-
-// get browser location
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (pos) {
-            let lat = pos.coords.latitude;
-            let lng = pos.coords.longitude;
-
-            map.setView([lat, lng], 15);
-
-            if (marker) map.removeLayer(marker);
-            marker = L.marker([lat, lng]).addTo(map);
-
-            // 🔥 fix again after move
-            setTimeout(() => {
-                map.invalidateSize();
-            }, 100);
-
-            document.getElementById("lat").value = lat;
-            document.getElementById("lng").value = lng;
-            document.getElementById("address").value = lat + ", " + lng;
-        });
-    } else {
-        alert("Geolocation not supported");
-    }
-}
-
-
-setTimeout(() => {
-    map.invalidateSize();
-    map.setView(map.getCenter(), map.getZoom()); // force redraw
-}, 200);
-
-</script>
-                    <input type="hidden" id="lat">
-                    <input type="hidden" id="lng">
                     <div>
                         <button type="submit">Register</button>
                         <button type="reset">Cancel</button>
                     </div>
+
                     <label for="pass" onclick="showLogin()"
                         style="text-decoration: 1px solid underline;cursor: pointer;">Login Here</label>
                     <p></p>
+                </form>
 
-                    <!-- <script>
-                        let map = L.map('map').setView([23.0225, 72.5714], 13); // default Ahmedabad
+                <script>
+                    const form = document.getElementById("theRegForm");
+                    const err = document.getElementById("ErrRegister");
 
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            attribution: '© OpenStreetMap'
-                        }).addTo(map);
+                    const uname = document.getElementById("uname");
+                    const email = document.getElementById("email");
+                    const mobile = document.getElementById("mobile");
+                    const pass = document.getElementById("pass");
+                    const repass = document.getElementById("repass");
+                    const pincode = document.getElementById("pincode");
+                    const address = document.getElementById("address");
 
-                        let marker;
+                    let map = L.map('map').setView([23.0225, 72.5714], 13);
+                    let marker;
 
-                        // click on map → set location
-                        map.on('click', function (e) {
-                            let lat = e.latlng.lat;
-                            let lng = e.latlng.lng;
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '© OpenStreetMap'
+                    }).addTo(map);
+
+                    // setTimeout(() => map.invalidateSize(), 200);
+                    setTimeout(() => {
+                        map.invalidateSize();
+                    }, 2000);
+
+                    // click to select location
+                    map.on('click', async function (e) {
+                        const { lat, lng } = e.latlng;
+
+                        if (marker) map.removeLayer(marker);
+                        marker = L.marker([lat, lng]).addTo(map);
+
+                        document.getElementById("lat").value = lat;
+                        document.getElementById("lng").value = lng;
+
+                        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+                        const data = await res.json();
+
+                        address.value = data.display_name;
+                    });
+
+                    // pincode → map location
+                    // const pincode = document.getElementById("pincode");
+
+                    pincode.addEventListener("input", async () => {
+
+                        if (pincode.value.length !== 6) return;
+
+                        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`);
+                        const data = await res.json();
+
+                        if (data.length > 0) {
+                            const lat = data[0].lat;
+                            const lon = data[0].lon;
+
+                            map.setView([lat, lon], 15);
 
                             if (marker) map.removeLayer(marker);
-
-                            marker = L.marker([lat, lng]).addTo(map);
-
-                            document.getElementById("lat").value = lat;
-                            document.getElementById("lng").value = lng;
-                            document.getElementById("address").value = lat + ", " + lng;
-                        });
-
-                        // get browser location
-                        function getLocation() {
-                            if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(function (pos) {
-                                    let lat = pos.coords.latitude;
-                                    let lng = pos.coords.longitude;
-
-                                    map.setView([lat, lng], 15);
-
-                                    if (marker) map.removeLayer(marker);
-                                    marker = L.marker([lat, lng]).addTo(map);
-
-                                    document.getElementById("lat").value = lat;
-                                    document.getElementById("lng").value = lng;
-                                    document.getElementById("address").value = lat + ", " + lng;
-                                });
-                            } else {
-                                alert("Geolocation not supported");
-                            }
+                            marker = L.marker([lat, lon]).addTo(map);
                         }
-                    </script> -->
-                
-                    
-                </form>
-                <script>
-                    // const theRegForm = document.querySelector("#theRegForm");
-                    // const ErrRegister = document.getElementById('ErrRegister')
+                    });
 
-                    theRegForm.addEventListener("submit", function (e) {
+                    let lastPin = "";
+
+                    pincode.addEventListener("input", async () => {
+
+                        if (pincode.value.length !== 6 || pincode.value === lastPin) return;
+
+                        lastPin = pincode.value;
+
+                        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`);
+                        const data = await res.json();
+
+                        if (data.length > 0) {
+                            const lat = data[0].lat;
+                            const lon = data[0].lon;
+
+                            map.setView([lat, lon], 15);
+
+                            if (marker) map.removeLayer(marker);
+                            marker = L.marker([lat, lon]).addTo(map);
+                        }
+                    });
+
+
+
+                    // submit
+                    form.addEventListener("submit", async (e) => {
                         e.preventDefault();
 
-                        const name = document.getElementById("uname").value.trim();
-                        const email = document.getElementById("email").value.trim();
-                        const pass = document.getElementById("pass").value;
-                        const repass = document.getElementById("repass").value;
-
-
-                        if (!name || !email || !pass || !repass) {
-                            // alert("All fields are required");
-                            ErrRegister.innerText = "All * fields are required";
+                        if (!uname.value || !email.value || !mobile.value || !pass.value || !repass.value) {
+                            err.innerText = "All * fields required";
                             return;
                         }
 
-                        // Name validation
-                        if (name.length < 3) {
-                            // alert("Name must be at least 3 characters");
-                            ErrRegister.innerText = "Name must be at least 3 characters";
-
+                        if (pass.value !== repass.value) {
+                            err.innerText = "Passwords not match";
                             return;
                         }
 
-                        // Email validation
-                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-                        if (!email.match(emailPattern)) {
-                            // alert("Enter valid email");
-                            ErrRegister.innerText = "Enter valid email";
-                            return;
-                        }
+                        const formData = new FormData(form);
+                        formData.append("address", address.value);
 
-                        // Password validation
-                        if (pass.length < 6) {
-                            // alert("Password must be at least 6 characters");
-                            ErrRegister.innerText = "Password must be at least 6 characters";
-                            return;
-                        }
+                        const res = await fetch("./script/customer_register.php", {
+                            method: "POST",
+                            body: formData
+                        });
 
-                        // Confirm password
-                        if (pass !== repass) {
-                            // alert("Passwords do not match");
-                            ErrRegister.innerText = "Passwords do not match";
+                        const result = await res.text();
 
-                            return;
-                        }
-
-
-                        let msg = DOit.addUser(new User(name, email, pass))
-
-                        // alert(msg);
-
-                        if (msg) {
-                            ErrRegister.innerHTML = `<p style="color:green;">Register Succesfull</p>`;
-                            theRegForm.reset();
-
-                            setTimeout(() => {
-                                showLogin()
-                                ErrRegister.innerHTML = ``;
-                            }, 1000);
+                        if (result === "success") {
+                            err.innerHTML = "<span style='color:green'>Registered</span>";
+                            form.reset();
                         } else {
-                            ErrRegister.innerHTML = `<p style="color:orange;">Email already Exist</p>`;
-                            return
+                            err.innerText = result;
                         }
-
-
-                        // let allUsers = DOit.allUsers()
-                        // console.log(allUsers);
-
-
-                        // console.log(JSON.parse(localStorage.getItem("Users"))); // Output: JohnDoe// Retrieve an item
-                        // localStorage.removeItem("Users");
-                        // localStorage.clear();
-
-                        // theRegForm.reset();
-
-                        // setTimeout(() => {
-                        //     showLogin()
-                        // }, 1000);
                     });
                 </script>
+
             </div>
 
             <div class="formContainer" id="loginForm">
@@ -690,77 +625,56 @@ setTimeout(() => {
                         style="text-decoration: 1px solid underline;cursor: pointer;">Register Here</label>
                     <p></p>
                 </form>
+                
                 <script>
-                    const loginForm = document.querySelector("#theloginForm");
-                    const Errlogin = document.getElementById('Errlogin')
+const loginForm = document.querySelector("#theloginForm");
+const Errlogin = document.getElementById("Errlogin");
 
-                    loginForm.addEventListener("submit", function (e) {
-                        e.preventDefault();
+loginForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-                        const email = document.getElementById("logEmail").value.trim();
-                        const pass = document.getElementById("logPass").value;
+    const input = document.getElementById("logEmail").value.trim();
+    const pass = document.getElementById("logPass").value;
 
-                        if (!email || !pass) {
-                            // alert("All fields are required");
-                            Errlogin.innerText = "All * fields are required";
-                            return;
-                        }
+    if (!input || !pass) {
+        Errlogin.innerText = "All * fields are required";
+        return;
+    }
 
+    const formData = new FormData();
+    formData.append("logEmail", input);
+    formData.append("logPass", pass);
 
-                        // Email validation
-                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-                        if (!email.match(emailPattern)) {
-                            // alert("Invalid email");
-                            Errlogin.innerText = "Invalid email";
-                            return;
-                        }
+    const res = await fetch("./script/customer_login.php", {
+        method: "POST",
+        body: formData
+    });
 
+    const result = await res.text();
 
-                        let msg = DOit.tryLogin(email, pass)
+    if (result === "success") {
 
-                        if (msg == -1 || msg == undefined) {
-                            // alert("Invalid Email or Password!")
-                            Errlogin.innerHTML = `<p style="color:orange;">Invalid Email or Password!</p>`;
-                            return
-                        } else if (msg == -2) {
-                            Errlogin.innerText = "Users not Registered";
-                        }
-                        else {
-                            loginForm.reset();
-                            let id = msg;
+        Errlogin.innerHTML = `<p style="color:green;">Login Success</p>`;
+        loginForm.reset();
 
-                            // set coockie
-                            document.cookie = `id=${id}; path=/; max-age=28800`; // Expires in 8 hour
-                            console.log(document.cookie); // Output: username=JohnDoe
-                            // document.cookie = "username=; path=/; max-age=0";
+        setTimeout(() => {
+            closeTab();
+            Errlogin.innerHTML = ``;
+            location.reload();
+        }, 800);
 
-                            // alert('Logged iN')
-                            Errlogin.innerHTML = `<p style="color:green;">Login Success</p>`;
-
-                            // greetUser
-                            // document.getElementById('greetUser').innerText = `Welcome ${JSON.parse(localStorage.getItem("Users"))[id].uname}`;
-
-                            setTimeout(() => {
-                                closeTab()
-                                Errlogin.innerHTML = ``;
-                                window.location.reload();
-                            }, 800);
-                        }
-
-                        // localStorage.setItem("Users", JSON.stringify(allUsers) );
-                        // console.log(JSON.parse(localStorage.getItem("Users"))); // Output: JohnDoe// Retrieve an item
-                        // localStorage.removeItem("Users");
-                        // localStorage.clear();
-
-                    });
+    } else {
+        Errlogin.innerHTML = `<p style="color:orange;">${result}</p>`;
+    }
+});
                 </script>
             </div>
+
         </div>
     </div>
 
 
 </body>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script src="js/login.js"></script>
 <script src="js/script.js"></script>

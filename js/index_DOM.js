@@ -252,54 +252,170 @@ function defaultLoad() {
 defaultLoad();
 // defaultLoad___();
 
-function manageCustomerInfo() {
+
+async function manageCustomerInfo() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()"><span class="material-symbols-outlined" style="font-size:1rem;">arrow_back_ios</span>Back</div>
+    <div class="optBtn hover">My Account</div>
+  `;
+
+  // ProductPage.innerHTML = `...your form HTML...`;
+  ProductPage.innerHTML = `
+        <fieldset style="margin:10px;background-color: #fff; border-radius:5px;box-shadow: 0px 7px 10px #0000000f;">
+            <form id="AddingTaskForm" style="padding: 0;width: 95%;">
+
+                <p id="addFormErr" style="color:red;margin-bottom:10px;"></p>
+
+                <label for="title">Customer Name</label>
+                <input type="text" id="title" name="title" placeholder="Alison Burgers" />
+
+                <label for="mobile">Mobile no</label>
+                <input type="number" id="mobile" name="stock" placeholder="998765432" />
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="alisonb@gmail.com" />
+
+                <label for="pincode">Pincode</label>
+                <input type="number" id="pincode" name="pincode" placeholder="380026" />
+
+                <div id="map" style="height:400px;"></div>
+
+                <label for="addresss">Address</label>
+                <textarea type="text" id="addresss" name="addresss" rows="5" style="resize: vertical;" placeholder="1, Alpha city, Near RiverSide Hotel, Ahmedabad , 300026"></textarea>
+                
+                <input type="hidden" id="lat" name="lat">
+                <input type="hidden" id="lng" name="lng">
+
+                <div>
+                    <button type="submit">Save</button>
+                    <button type="reset">Cancel</button>
+                </div>
+
+                <button  class="hover" onclick="logout_customer()">Logout</button>
+            </form>
+        </fieldset>
+        `;
+
+  closeOptMenus(false, false);
+
+  const err = document.getElementById("addFormErr");
+
+  // load data
+  const res = await fetch("./script/get_customer.php");
+  const result = await res.json();
+
+  if (result.status !== "valid") {
+    showLogin();
+    return;
+  }
+
+  const d = result.data;
+
+  const title = document.getElementById("title");
+  const mobile = document.getElementById("mobile");
+  const email = document.getElementById("email");
+  const pincode = document.getElementById("pincode");
+  const address = document.getElementById("addresss");
+  let latVal = d.latitude || 23.0225;
+  let lngVal = d.longitude || 72.5714;
+
+  // fill
+  title.value = d.name || "";
+  mobile.value = d.mobile || "";
+  email.value = d.email || "";
+
+let map = L.map('map').setView([latVal, lngVal], 15);
+let marker;
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+document.getElementById("lat").value = latVal;
+document.getElementById("lng").value = lngVal;
+
+// if already saved → show marker
+if (d.latitude && d.longitude) {
+    marker = L.marker([latVal, lngVal]).addTo(map);
+}
+
+// fix render if container dynamic
+setTimeout(() => map.invalidateSize(), 200);
+
+  // split pincode from address
+  if (d.address) {
+    const match = d.address.match(/(.*) - (\d{6})$/);
+    if (match) {
+      address.value = match[1];
+      pincode.value = match[2];
+    } else {
+      address.value = d.address;
+    }
+  }
+
+map.on('click', async function (e) {
+    const { lat, lng } = e.latlng;
+
+    if (marker) map.removeLayer(marker);
+    marker = L.marker([lat, lng]).addTo(map);
+
+    document.getElementById("lat").value = lat;
+    document.getElementById("lng").value = lng;
+
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+    const data = await res.json();
+
+    address.value = data.display_name;
+});
+
+  // pincode → map
+  let lastPin = "";
+  pincode.addEventListener("input", async () => {
+    if (pincode.value.length !== 6 || pincode.value === lastPin) return;
+    lastPin = pincode.value;
+
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`);
+    const data = await r.json();
+
+    if (data.length) {
+      map.setView([data[0].lat, data[0].lon], 15);
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([data[0].lat, data[0].lon]).addTo(map);
+    }
+  });
+
+  // submit update
+  document.getElementById("AddingTaskForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("title", title.value);
+    formData.append("mobile", mobile.value);
+    formData.append("email", email.value);
+    formData.append("pincode", pincode.value);
+    formData.append("addresss", address.value);
+    formData.append("lat", document.getElementById("lat").value);
+    formData.append("lng", document.getElementById("lng").value);
+
+    const r = await fetch("./script/update_customer.php", {
+      method: "POST",
+      body: formData
+    });
+
+    const msg = await r.text();
+
+    if (msg === "success") {
+      err.innerHTML = "<span style='color:green'>Updated</span>";
+    } else {
+      err.innerText = msg;
+    }
+  });
+}
+
+function manageCustomerInfo__() {
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()"><span class="material-symbols-outlined" style="font-size:1rem;">arrow_back_ios</span>Back</div>
     <div class="optBtn hover">My Account</div>
     `;
-
-  // let map = L.map('map').setView([23.0225, 72.5714], 13); // default Ahmedabad
-
-  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //     attribution: '© OpenStreetMap'
-  // }).addTo(map);
-
-  // let marker;
-
-  // // click on map → set location
-  // map.on('click', function (e) {
-  //     let lat = e.latlng.lat;
-  //     let lng = e.latlng.lng;
-
-  //     if (marker) map.removeLayer(marker);
-
-  //     marker = L.marker([lat, lng]).addTo(map);
-
-  //     document.getElementById("lat").value = lat;
-  //     document.getElementById("lng").value = lng;
-  //     document.getElementById("address").value = lat + ", " + lng;
-  // });
-
-  // // get browser location
-  // function getLocation() {
-  //     if (navigator.geolocation) {
-  //         navigator.geolocation.getCurrentPosition(function (pos) {
-  //             let lat = pos.coords.latitude;
-  //             let lng = pos.coords.longitude;
-
-  //             map.setView([lat, lng], 15);
-
-  //             if (marker) map.removeLayer(marker);
-  //             marker = L.marker([lat, lng]).addTo(map);
-
-  //             document.getElementById("lat").value = lat;
-  //             document.getElementById("lng").value = lng;
-  //             document.getElementById("address").value = lat + ", " + lng;
-  //         });
-  //     } else {
-  //         alert("Geolocation not supported");
-  //     }
-  // }
 
   ProductPage.innerHTML = ``;
 
@@ -318,16 +434,14 @@ function manageCustomerInfo() {
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="alisonb@gmail.com" />
 
-                <label for="addresss">Address</label>
-                <textarea type="text" id="addresss" name="addresss" rows="5" style="resize: vertical;" placeholder="1, Alpha city, Near RiverSide Hotel, Ahmedabad , 300026"></textarea>
-
-                <button type="button" onclick="getLocation()">Use Current Location</button>
+                <label for="pincode">Pincode</label>
+                <input type="number" id="pincode" name="pincode" placeholder="380026" />
 
                 <div id="map" style="height:400px;"></div>
 
-                <input type="hidden" id="lat">
-                <input type="hidden" id="lng">
-                
+                <label for="addresss">Address</label>
+                <textarea type="text" id="addresss" name="addresss" rows="5" style="resize: vertical;" placeholder="1, Alpha city, Near RiverSide Hotel, Ahmedabad , 300026"></textarea>
+                                
                 <div>
                     <button type="submit">Save</button>
                     <button type="reset">Cancel</button>

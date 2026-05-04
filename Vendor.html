@@ -433,7 +433,7 @@
                         <h2>Register</h2>
                         <h2 id="close"
                             style="font-weight: 500;border-radius: 5px;cursor: pointer;padding: 0 8px 3px 8px;background-color: #0001;"
-                            onclick="closeTab()">
+                            onclick="closeTab(true)">
                             x
                         </h2>
                     </div>
@@ -541,7 +541,7 @@
                             ErrRegister.innerHTML = `<p style="color:green;">Register Successful</p>`;
 
                             theRegForm.reset();
-                            closeTab()
+                            closeTab(true)
 
                             setTimeout(() => {
                                 manageShop()
@@ -577,7 +577,7 @@
                 cursor: pointer;
                 padding: 0 8px 3px 8px;
                 background-color: #0001;
-              " onclick="closeTab()">
+              " onclick="closeTab(true)">
                             x
                         </h2>
                     </div>

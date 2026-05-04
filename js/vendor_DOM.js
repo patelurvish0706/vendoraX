@@ -321,7 +321,7 @@ function manageShop() {
     <div id="map" style="height:300px"></div>
 
     <button type="submit">Save</button>
-    <button onclick="logout()">Logout</button>
+    <button onclick="logout()" class="hover">Logout</button>
   </form>
   </fieldset>
 
