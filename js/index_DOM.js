@@ -118,6 +118,13 @@ function defaultLoad___() {
 
 function defaultLoad() {
 
+    const token = getCookie("customer_token");
+
+    if (!token) {
+        Login();
+        return;
+    }
+
     ShopkeeperOptionsBtns.addEventListener("mouseenter", () => {
     const scrollHandler = (e) => {
       // scroll 100px horizontally on wheel
