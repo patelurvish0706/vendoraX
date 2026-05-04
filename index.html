@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VendoraX - Explore Local Tech Stores </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+</head>
+
+<body>
+    <div id="container">
+        <div id="navbar">
+            <div id="Navlogo">
+                <div id="cornerStart">◣</div>
+
+                <div id="VX">V</div>
+                <div id="endora">endora</div>
+                <div id="VX">X</div>
+                <div id="tagline">Buy easy.<br>Service assured.</div>
+
+                <div id="cornerEnd">◥</div>
+            </div>
+
+            <div id="NavlinkContainer">
+
+                <div class="NavLink" id="AccountServices"><span class="material-symbols-outlined">person</span>
+                </div>
+                <div id="AccountServicesBtns" class="NavMenu">
+                    <div id="NavMenuBtn" onclick="Login()"><span id="btnSmallTag">Already Customer? - </span> Sign-In
+                    </div>
+                    <div id="NavMenuBtn" onclick="Register()"><span id="btnSmallTag">New Customer? - </span> Register
+                    </div>
+                    <div id="NavMenuBtn" onclick="manageCustomerInfo()">Your Account</div>
+                </div>
+
+                <div class="NavLink" id="MoreServices"><span class="material-symbols-outlined">menu</span></div>
+
+                <div id="MoreServicesBtns" class="NavMenu">
+                    <div id="NavMenuBtn" onclick="manageCart()"><span class="material-symbols-outlined">shopping_cart</span>Cart</div>
+                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">orders</span>Orders</div>
+                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">storefront</span>Nearest Shops</div>
+                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">person_raised_hand</span>Complains
+                    </div>
+
+
+                    <div id="NavMenuBtn" onclick="gotoVendor()"><span id="btnSmallTag">For vendor - </span> Manage
+                        Business</div>
+                    <div id="NavMenuBtn" onclick="gotoVendorFaqs()">FAQ's</div>
+                    <div id="NavMenuBtn" onclick="gotoAboutVendoraX()">About Vendora-X</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageContent">
+
+            <div id="ShopkeeperProcessArea">
+
+                <div id="ShopkeeperOptionsBtns" >
+                    <div class="optBtn" style="color:#fff;background-color: #4c6381;"><span class="material-symbols-outlined">arrow_back_ios</span>Back</div>
+
+                    <!-- Content -->
+
+                    <div class="optBtn" style="background-color: transparent;box-shadow: none;"></div>
+                    <div class="optBtn" id="endBtnCover"></div>
+                </div>
+
+
+                <!-- all products -->
+                <div id="ProductPage">
+                    
+                </div>
+
+                <!-- Ordered -->
+                <div id="ProductPage" style="display: none;">
+                    <fieldset>
+                        <div id="ProductOptionsBtns" style="justify-content: space-between ;align-items: center;">
+                            <div style="display: flex;gap: 10px;">
+                                <div class="optBtn">Orders</div>
+                            </div>
+                            <div id="NavlinkContainer" style="display: flex;justify-self: flex-end;">
+                                <input type="search" style="font-size: 1rem;width: 200px;margin-right: 5px;"
+                                    name="search" id="navSearch" class="deactive" placeholder="Search">
+                                <div class="NavLink" id="searchBtn" style="color:#fff;background-color: #4c6381;"><span
+                                        class="material-symbols-outlined">search</span></div>
+                            </div>
+                        </div>
+
+
+                        <div id="ListingOrderItems">
+                            <div id="orderdetailContainer" style="margin: 10px 0;border-radius: 5px;">
+                                <div id="editImage"
+                                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                                    Laptop
+                                </div>
+                                <div id="productImage">
+                                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
+                                </div>
+
+                                <div id="ProductEditInfo">
+                                    <form id="AddingTaskForm">
+                                        <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
+                                        <label style="font-size: 0.8rem;"><i>HP</i></label>
+
+                                        <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                            SSD</label>
+
+                                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
+
+                                        <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
+
+                                        <div style="margin-bottom:5px ;">
+                                            <label for="cashOnDel">Cash On Delivery</label>
+                                        </div>
+                                    </form>
+
+
+                                    <form id="AddingTaskForm">
+                                        <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
+                                        <label style="font-size: 0.8rem;"><b>9864626362</b></label>
+
+                                        <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide
+                                            Hotel, Ahmedabad - 360028</label>
+
+                                        <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
+
+                                        <label style="font-size: 0.8rem;color:Green;"><b>Delivered
+                                                Succesfully.</b></label>
+
+                                        <label style="font-size: 0.9rem;"><span>Valid Warranty</span> <b><i>24
+                                                    Months</i></b></label>
+                                    </form>
+
+                                    <form style="display:flex;align-items: flex-end;margin: 0;">
+                                        <!-- <div>
+                                        <label for="status"></label>
+                                        <select name="status" id="status">
+                                            <option value="Packed" selected>Processing</option>
+                                            <option value="Packed" >Shipped</option>
+                                            <option value="Packed" >Out for Delivery</option>
+                                            <option value="Packed" >Completed</option>
+                                        </select>
+                                    </div> -->
+                                        <div>
+                                            <button type="submit" style="margin: 0;">Raise Issue</button>
+                                            <!-- <button type="reset" style="margin: 0;">Deny</button> -->
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- profiler Raise Complain  -->
+                    <div id="ProductProfiler" style="display:none ;position: absolute;left: 0;">
+                        <div id="detailContainer"
+                            style="height: max-content;width: 40%;padding: 10px;display: flex;flex-direction: column;">
+                            <label><b>HP Pavilion i5</b> - <i>HP</i></label>
+                            <label> <span style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                    SSD</span> </label>
+                            <label style="font-size: 0.8rem;font-weight: 400;">Warranty <b>24 Months</b> </label>
+
+                            <form id="AddingTaskForm" style="width: stretch;padding-bottom: 0;">
+                                <label style="margin-top: 5px;">Problem</label>
+                                <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
+
+                                <label style="margin-top: 5px;">Explain Issue</label>
+                                <textarea rows="5" placeholder="Facing lag while using more than 2 hour."
+                                    style="width: stretch;"></textarea>
+
+                                <div>
+                                    <button type="submit" style="margin: 0;border: none;">Raise Issue</button>
+                                    <button type="reset" style="margin: 0;border: none;">Cancle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart -->
+                <div id="ProductPage" style="display: none;">
+                    
+                </div>
+
+                <!-- Complains -->
+                <div id="ProductPage" style="display: none;">
+                    <fieldset>
+                        <div id="ProductOptionsBtns" style="justify-content: space-between ;align-items: center;">
+                            <div style="display: flex;gap: 10px;">
+                                <div class="optBtn"> Complains</div>
+                                <!-- <div class="optBtn">Popular</div> -->
+                            </div>
+                            <!-- <div id="NavlinkContainer" style="display: flex;justify-self: flex-end;">
+                                <input type="search" style="font-size: 1rem;width: 200px;margin-right: 5px;"
+                                    name="search" id="navSearch" class="deactive" placeholder="Search">
+                                <div class="NavLink" id="searchBtn" style="color:#fff;background-color: #4c6381;"><span
+                                        class="material-symbols-outlined">search</span></div>
+                            </div> -->
+                        </div>
+
+
+                        <div id="ListingOrderItems">
+                            <div id="orderdetailContainer" style="margin: 10px 0;border-radius: 5px;">
+                                <div id="editImage"
+                                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                                    Laptop
+                                </div>
+                                <div id="productImage">
+                                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
+                                </div>
+
+                                <div id="ProductEditInfo">
+                                    <form id="AddingTaskForm">
+                                        <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
+                                        <label style="font-size: 0.8rem;"><i>HP</i></label>
+
+                                        <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                            SSD</label>
+
+                                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
+
+                                        <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
+
+                                        <div style="margin-bottom:5px ;">
+                                            <label for="cashOnDel">Cash On Delivery</label>
+                                        </div>
+                                        <label style="font-size: 0.8rem;color:orange;"><b>Request Under
+                                                Process.</b></label>
+
+                                    </form>
+
+
+                                    <form id="AddingTaskForm">
+                                        <label style="font-size: 1rem;"><b>Problem</b></label>
+                                        <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
+
+                                        <label style="font-size: 0.8rem;"><b>Explain Issue</b></label>
+                                        <textarea rows="4" placeholder="Facing lag while using more than 2 hour."
+                                            style="width: stretch;"></textarea>
+
+                                    </form>
+
+                                    <form style="display:flex;align-items: flex-end;margin: 0;">
+                                        <div>
+                                            <button type="submit" style="margin: 0;">Cancle Complain</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+
+
+                    <!-- profiler Raise Complain  -->
+                    <div id="ProductProfiler" style="display:none ;position: absolute;left: 0;">
+                        <div id="detailContainer"
+                            style="height: max-content;width: 40%;padding: 10px;display: flex;flex-direction: column;">
+                            <label><b>HP Pavilion i5</b> - <i>HP</i></label>
+                            <label> <span style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                    SSD</span> </label>
+                            <label style="font-size: 0.8rem;font-weight: 400;">Warranty <b>24 Months</b> </label>
+
+                            <form id="AddingTaskForm" style="width: stretch;padding-bottom: 0;">
+                                <label style="margin-top: 5px;">Problem</label>
+                                <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
+
+                                <label style="margin-top: 5px;">Explain Issue</label>
+                                <textarea rows="5" placeholder="Facing lag while using more than 2 hour."
+                                    style="width: stretch;"></textarea>
+
+                                <div>
+                                    <button type="submit" style="margin: 0;border: none;">Raise Issue</button>
+                                    <button type="reset" style="margin: 0;border: none;">Cancle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nearest Shops -->
+                <div id="ProductProfiler" style="display:none; position: absolute;left: 0;">
+                    <div id="detailContainer"
+                        style="height: max-content;width: 80%;padding: 10px;display: flex;flex-direction: column;">
+                        <div
+                            style="display: flex; justify-content: space-between;align-items: center;margin-bottom: 5px;">
+                            <label><b>Nearest Shops</b></label>
+                            <label
+                                style="background-color: #fff;color: #4c6381;font-size: 1.5rem; padding: 0 9px 2px 9px;border-radius: 5px;">x</label>
+                        </div>
+
+
+                        <!-- <div id="map" style="width: stretch;height: 500px;border-radius: 5px;"></div> -->
+
+                        <!-- Leaflet JS -->
+                        <!-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+                        <script>
+                            // SSIT Bhat location (fixed as current location)
+                            const ssitLat = 23.1150;
+                            const ssitLng = 72.6300;
+
+                            const ssitIcon = L.icon({
+                                iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // red marker
+                                iconSize: [40, 40],
+                                iconAnchor: [20, 40],
+                                popupAnchor: [0, -40]
+                            });
+
+                            // Create map
+                            const map2 = L.map('map').setView([ssitLat, ssitLng], 14);
+
+                            // OpenStreetMap tiles
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '© OpenStreetMap'
+                            }).addTo(map2);
+
+                            // Marker for SSIT
+                            L.marker([ssitLat, ssitLng], { icon: ssitIcon })
+                                .addTo(map2)
+                                .bindPopup("SSIT Bhat (Current Location)")
+                                .openPopup();
+
+                            // Load JSON data
+                            fetch('./js/shopkeeper.json')
+                                .then(res => res.json())
+                                .then(data => {
+
+                                    data.shops.forEach(shop => {
+
+                                        L.marker([shop.lat, shop.lng])
+                                            .addTo(map2)
+                                            .bindPopup(`
+                                                <b>${shop.shopName}</b><br>
+                                                Owner: ${shop.ownerName}<br>
+                                                Phone: ${shop.ownerNumber}
+                                            `);
+                                    });
+
+                                })
+                                .catch(err => console.log(err));
+
+                        </script> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="ProductProfiler" style="display: none;">
+        <div id="detailContainer" style="height: 50vh;">
+            <div id="editImage"
+                style="position: absolute;margin: 25px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                Laptop
+            </div>
+            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
+
+
+            <div id="ProductEditInfo" style="display: flex;justify-content: center;">
+                <form id="AddingTaskForm">
+                    <label style="font-size: 2rem;"><b>HP Pavilion i5</b></label>
+                    <label style="font-size: 1rem;"><i>HP</i></label>
+
+                    <label style="font-size: 1.2rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB SSD</label>
+
+                    <label style="display: flex;align-items: center;padding: 0;margin: 0;font-size: 0.9rem;"> <span
+                            class="material-symbols-outlined"
+                            style="padding:0px 5px 0px 0px;font-size: 1rem;">store</span>TechWorld</label>
+                    <label style="display: flex;align-items: center;padding: 0;margin: 5px 0 0 0;font-size: 0.9rem;">
+                        <span class="material-symbols-outlined"
+                            style="padding:0px 5px 0px 0px;font-size: 1rem;">call</span>9764645664 <label
+                            style="font-size: 0.6rem;padding:5px 9px; background-color: #4c6381;border-radius: 5px; margin: 0 0 0 5px;color:#fff;">Ask
+                            for help</label></label>
+
+                    <label><span>Warranty</span> <b> 2 years</b></label>
+
+                    <label style="font-size: 1.5rem;"><b>₹ 58000</b></label>
+
+                    <div style="margin-top:5px ;">
+                        <input type="radio" id="onlinePay" name="PayMode" disabled> <label for="onlinePay"
+                            style="color: #797e84;">Pay Online - UPI</label>
+                    </div>
+
+                    <div style="margin-bottom:5px ;">
+                        <input type="radio" id="cashOnDel" name="PayMode" checked> <label for="cashOnDel">Cash On
+                            Delivery</label>
+                    </div>
+                    <div>
+                        <button type="submit">Add to Cart</button>
+                        <button type="reset">Buy Now</button>
+                    </div>
+
+
+
+                </form>
+
+                <div id="closeTable"
+                    style="margin-top:10px;border-radius:5px;padding: 0px;background-color: #fff;height: max-content;cursor: pointer;">
+                    <span class="material-symbols-outlined">close</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="LoginRegisterContainer" style="display: none;width: 100%;height: 100%;">
+        <div id="blurlayer" style="width: inherit;padding: 20px 0;">
+            <div class="formContainer" id="registerForm" style="display: none;">
+                <form id="theRegForm">
+                    <p></p>
+                    <div style="height:50px; display: flex;justify-content: space-between;align-items: center;">
+                        <h2>Register</h2>
+                        <h2 id="close"
+                            style="font-weight: 500; border-radius: 5px; cursor: pointer; padding:0 8px 3px 8px; background-color: #0001;"
+                            onclick="closeTab()">
+                            x</h2>
+                    </div>
+
+                    <p style="color: red;" class="errPlace" id="ErrRegister"></p>
+
+                    <label for="uname">*Name</label>
+                    <input type="text" id="uname" name="uname" placeholder="Alison Burgers" />
+
+                    <label for="email">*Email</label>
+                    <input type="email" id="email" name="email" placeholder="alison@gmail.com" />
+
+                    <label for="mobile">*Mobile No</label>
+                    <input type="number" id="mobile" name="mobile" placeholder="9987456321" />
+
+                    <label for="pass">*Password</label>
+                    <input type="password" id="pass" name="pass" placeholder="Burgers@50" />
+
+                    <label for="repass">*Re-Enter Password</label>
+                    <input type="password" id="repass" name="repass" placeholder="Burgers@50" />
+                    
+                    <label>*Address</label> 
+                    <textarea id="address" placeholder="Select from map or type"></textarea>
+
+                    <button type="button" onclick="getLocation()">Use Current Location</button>
+
+                    <div id="map" style="width: 100% ;height:300px; "></div>
+                    <!-- <div id="map" style="height:300px; margin-top:10px;"></div> -->
+<script>
+
+let map;
+let marker;
+
+window.addEventListener("load", function () {
+
+    map = L.map('map').setView([23.0225, 72.5714], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // 🔥 important fix
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 200);
+
+    // click → set location
+    map.on('click', function (e) {
+        let lat = e.latlng.lat;
+        let lng = e.latlng.lng;
+
+        if (marker) map.removeLayer(marker);
+
+        marker = L.marker([lat, lng]).addTo(map);
+
+        document.getElementById("lat").value = lat;
+        document.getElementById("lng").value = lng;
+        document.getElementById("address").value = lat + ", " + lng;
+    });
+
+});
+
+// get browser location
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+            let lat = pos.coords.latitude;
+            let lng = pos.coords.longitude;
+
+            map.setView([lat, lng], 15);
+
+            if (marker) map.removeLayer(marker);
+            marker = L.marker([lat, lng]).addTo(map);
+
+            // 🔥 fix again after move
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 100);
+
+            document.getElementById("lat").value = lat;
+            document.getElementById("lng").value = lng;
+            document.getElementById("address").value = lat + ", " + lng;
+        });
+    } else {
+        alert("Geolocation not supported");
+    }
+}
+
+
+setTimeout(() => {
+    map.invalidateSize();
+    map.setView(map.getCenter(), map.getZoom()); // force redraw
+}, 200);
+
+</script>
+                    <input type="hidden" id="lat">
+                    <input type="hidden" id="lng">
+                    <div>
+                        <button type="submit">Register</button>
+                        <button type="reset">Cancel</button>
+                    </div>
+                    <label for="pass" onclick="showLogin()"
+                        style="text-decoration: 1px solid underline;cursor: pointer;">Login Here</label>
+                    <p></p>
+
+                    <!-- <script>
+                        let map = L.map('map').setView([23.0225, 72.5714], 13); // default Ahmedabad
+
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '© OpenStreetMap'
+                        }).addTo(map);
+
+                        let marker;
+
+                        // click on map → set location
+                        map.on('click', function (e) {
+                            let lat = e.latlng.lat;
+                            let lng = e.latlng.lng;
+
+                            if (marker) map.removeLayer(marker);
+
+                            marker = L.marker([lat, lng]).addTo(map);
+
+                            document.getElementById("lat").value = lat;
+                            document.getElementById("lng").value = lng;
+                            document.getElementById("address").value = lat + ", " + lng;
+                        });
+
+                        // get browser location
+                        function getLocation() {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(function (pos) {
+                                    let lat = pos.coords.latitude;
+                                    let lng = pos.coords.longitude;
+
+                                    map.setView([lat, lng], 15);
+
+                                    if (marker) map.removeLayer(marker);
+                                    marker = L.marker([lat, lng]).addTo(map);
+
+                                    document.getElementById("lat").value = lat;
+                                    document.getElementById("lng").value = lng;
+                                    document.getElementById("address").value = lat + ", " + lng;
+                                });
+                            } else {
+                                alert("Geolocation not supported");
+                            }
+                        }
+                    </script> -->
+                
+                    
+                </form>
+                <script>
+                    // const theRegForm = document.querySelector("#theRegForm");
+                    // const ErrRegister = document.getElementById('ErrRegister')
+
+                    theRegForm.addEventListener("submit", function (e) {
+                        e.preventDefault();
+
+                        const name = document.getElementById("uname").value.trim();
+                        const email = document.getElementById("email").value.trim();
+                        const pass = document.getElementById("pass").value;
+                        const repass = document.getElementById("repass").value;
+
+
+                        if (!name || !email || !pass || !repass) {
+                            // alert("All fields are required");
+                            ErrRegister.innerText = "All * fields are required";
+                            return;
+                        }
+
+                        // Name validation
+                        if (name.length < 3) {
+                            // alert("Name must be at least 3 characters");
+                            ErrRegister.innerText = "Name must be at least 3 characters";
+
+                            return;
+                        }
+
+                        // Email validation
+                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                        if (!email.match(emailPattern)) {
+                            // alert("Enter valid email");
+                            ErrRegister.innerText = "Enter valid email";
+                            return;
+                        }
+
+                        // Password validation
+                        if (pass.length < 6) {
+                            // alert("Password must be at least 6 characters");
+                            ErrRegister.innerText = "Password must be at least 6 characters";
+                            return;
+                        }
+
+                        // Confirm password
+                        if (pass !== repass) {
+                            // alert("Passwords do not match");
+                            ErrRegister.innerText = "Passwords do not match";
+
+                            return;
+                        }
+
+
+                        let msg = DOit.addUser(new User(name, email, pass))
+
+                        // alert(msg);
+
+                        if (msg) {
+                            ErrRegister.innerHTML = `<p style="color:green;">Register Succesfull</p>`;
+                            theRegForm.reset();
+
+                            setTimeout(() => {
+                                showLogin()
+                                ErrRegister.innerHTML = ``;
+                            }, 1000);
+                        } else {
+                            ErrRegister.innerHTML = `<p style="color:orange;">Email already Exist</p>`;
+                            return
+                        }
+
+
+                        // let allUsers = DOit.allUsers()
+                        // console.log(allUsers);
+
+
+                        // console.log(JSON.parse(localStorage.getItem("Users"))); // Output: JohnDoe// Retrieve an item
+                        // localStorage.removeItem("Users");
+                        // localStorage.clear();
+
+                        // theRegForm.reset();
+
+                        // setTimeout(() => {
+                        //     showLogin()
+                        // }, 1000);
+                    });
+                </script>
+            </div>
+
+            <div class="formContainer" id="loginForm">
+                <form id="theloginForm">
+                    <p></p>
+                    <div style="height:50px; display: flex;justify-content: space-between;align-items: center;">
+                        <h2>Login</h2>
+                        <h2 id="close"
+                            style="font-weight: 500; border-radius: 5px; cursor: pointer; padding:0 8px 3px 8px; background-color: #0001;"
+                            onclick="closeTab()">
+                            x</h2>
+                    </div>
+
+                    <p style="color: red;" class="errPlace" id="Errlogin"></p>
+
+                    <label for="logEmail">*Email / Mobile</label>
+                    <input type="email" id="logEmail" name="logEmail" placeholder="alison@gmail.com" />
+
+                    <label for="logPass">*Password</label>
+                    <input type="password" id="logPass" name="logPass" placeholder="Burgers@50" />
+
+                    <div>
+                        <button type="submit">Login</button>
+                        <button type="reset">Cancel</button>
+                    </div>
+                    <label for="pass" onclick="showReg()"
+                        style="text-decoration: 1px solid underline;cursor: pointer;">Register Here</label>
+                    <p></p>
+                </form>
+                <script>
+                    const loginForm = document.querySelector("#theloginForm");
+                    const Errlogin = document.getElementById('Errlogin')
+
+                    loginForm.addEventListener("submit", function (e) {
+                        e.preventDefault();
+
+                        const email = document.getElementById("logEmail").value.trim();
+                        const pass = document.getElementById("logPass").value;
+
+                        if (!email || !pass) {
+                            // alert("All fields are required");
+                            Errlogin.innerText = "All * fields are required";
+                            return;
+                        }
+
+
+                        // Email validation
+                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                        if (!email.match(emailPattern)) {
+                            // alert("Invalid email");
+                            Errlogin.innerText = "Invalid email";
+                            return;
+                        }
+
+
+                        let msg = DOit.tryLogin(email, pass)
+
+                        if (msg == -1 || msg == undefined) {
+                            // alert("Invalid Email or Password!")
+                            Errlogin.innerHTML = `<p style="color:orange;">Invalid Email or Password!</p>`;
+                            return
+                        } else if (msg == -2) {
+                            Errlogin.innerText = "Users not Registered";
+                        }
+                        else {
+                            loginForm.reset();
+                            let id = msg;
+
+                            // set coockie
+                            document.cookie = `id=${id}; path=/; max-age=28800`; // Expires in 8 hour
+                            console.log(document.cookie); // Output: username=JohnDoe
+                            // document.cookie = "username=; path=/; max-age=0";
+
+                            // alert('Logged iN')
+                            Errlogin.innerHTML = `<p style="color:green;">Login Success</p>`;
+
+                            // greetUser
+                            // document.getElementById('greetUser').innerText = `Welcome ${JSON.parse(localStorage.getItem("Users"))[id].uname}`;
+
+                            setTimeout(() => {
+                                closeTab()
+                                Errlogin.innerHTML = ``;
+                                window.location.reload();
+                            }, 800);
+                        }
+
+                        // localStorage.setItem("Users", JSON.stringify(allUsers) );
+                        // console.log(JSON.parse(localStorage.getItem("Users"))); // Output: JohnDoe// Retrieve an item
+                        // localStorage.removeItem("Users");
+                        // localStorage.clear();
+
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="js/login.js"></script>
+<script src="js/script.js"></script>
+<script src="js/index_DOM.js"></script>
+
+</html>

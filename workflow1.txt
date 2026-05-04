@@ -1,0 +1,188 @@
+For Vendor,
+
+1. Register + Login 
+    * Phone
+    * Email
+    * Password
+2. Add Shop Details ------------------ [This is used to show in Business page on Platform]
+    * Name
+    * Location (Lat, Long)
+    * VendorName
+3. Add products
+    * ProductName
+    * ProductModel
+    * ProductCompanyName
+    * ProductDescription - specification - size - weight
+    * ProductKeywords - for searching purpose
+    * ProductImage
+    * Category  ---------- [Also create Custom Catagory] ---- [Mobile,laptop,Cables,headphones,charger,accessories]
+    * CurrentStock
+    * SellingPrice
+    * WarrantyDuration/Services
+4. Order Page -------------------------[Can see all orders with customer detail]
+    * Can confirm call to customer for validate order
+    * add non register costumer detail to product
+5. Manage Complains -------------------------[Can see customer complains and product detail]
+    * On call resolution
+    * Providing Solution Based on Warranty
+    * Adding Solution Based on Warranty
+
+
+For Customer,
+
+1. Register + Login 
+    * Phone
+    * Email
+    * Password
+2. Add Customer Details
+    * Name
+    * Location (Lat, Long)
+    * CustomerName
+3. Surfing Product
+    * Can see Products of Nearest tech Shops based on (Lat, Long)
+4. Add to Cart
+5. Buy Now ------------- [Direct on product's BuyNow Order the Single Prod] ----- [From Add to Cart BuyNow Order All diff listed Store]
+    * eg: 
+
+        Cart:
+            shop1:
+                charger
+                cable
+            shop2:
+                smartWatch
+            shop3:
+                mobileCover
+    
+    -> This submission goes to each vendor's Order Page
+
+        * Also Provide Date of Require Delivery
+
+6. 
+
+
+
+
+
+
+
+
+[---- PAGES ----]
+
+1. Landing Page
+    -> Login Signup
+    -> Search Shop + Product
+    -> Based on Location, List nearest Shops' products.
+
+2. Business Page
+    -> Search Product
+    -> Based on vendors details and products list. just showing all Catalog of Shop
+
+    * Shop Name
+    * Owner Name
+    * Location
+    * Vendor's contact
+    * Vendor's email
+
+    * All Products of that shop
+        * ProductImage
+        * ProductName
+        * ProductDescription
+        * Price
+        * ! - Few Stock (if low stock Count) ---- alert vendor
+
+    = Add Cart
+    = Buy Now
+
+
+    --------------------------------------
+
+    * Navbar
+        * Customer Name
+        * Customer Number [See but cant change]
+        * Email
+        * Location
+
+        * My Orders [Before Stage of Confirming by vendor]
+            * All Ordered Products
+        * My purchase
+            * All Purchased Products 
+                * Show Product Details
+                * Raise Complain (if valid warranty)
+                * Raised Complains 
+                * Resolution
+
+
+3. Vendor Dashboard
+
+    -> Where vendor can modify business needs
+
+    * list Product - can Update & Delete Product Details / add Stock
+    * add product - add New product
+    * orders - list Product + customer Details who placed orders - can approve based on availability (Reduce Stock Count on each Approve Order)
+    * Offline Selling - Selling Product to customer in shop offline + search for existing customer or add new (Number + Name)
+    * Sold Products - list Sold Products and Customer Name with WarrantyDuration
+    * Find customer - find Customer and all Product Purchased By him.
+    * Complains 
+        * Pending - list all product + customer + Complain
+        * Resolved - list all product + customer + Resolution
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+Benifits 
+
+Costumer can order tech devices from favorait local store to home 
+Can maintain warranty and trust
+Easy vendor communication
+
+Vendor can easily inform new products stocks to costomer
+Easy to manage warranty and complain
+manage sales of tech products and after sales operations
+
+warranty and service alerts to maintain device very well condition
+Vendor can analys High saling product and defective product
+
+Large scaled shops can make more profits due to more sells and crm supports
+
+
+Cons
+
+Customer can found nearest tech shops arround him self
+Application is for small businesses 
+Lots of improvisation needed as per requirement
+Online transaction and Refund or return for product feature is future task
+Limited products due to local vendors selling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="26.5 64.8 447.0 370.4" zoomAndPan="magnify" style="fill: rgb(0, 0, 0);" original_string_length="2004" width="229.5px" height="189.85909090909092px"><g id="__id12_sf13dbr14t"><path d="M224.7 349.7L203.6 370.7 355.5 370.7 473.5 250 355.5 129.3 203.6 129.3 224.7 150.3 339.6 150.3 436.6 250 339.6 349.7z" style="fill: rgb(76, 99, 129);"/></g><g id="__id13_sf13dbr14t"><path d="M165.1 296.6L26.5 435.2 85.5 435.2 194 326.7 274.7 326.7 315.3 286 373.2 286 409.2 250 373.2 214 315.3 214 274.7 173.3 194 173.3 85.5 64.8 26.5 64.8 165.1 203.4 248.9 203.4 295.5 250 248.9 296.6z" style="fill: rgb(76, 99, 129);"/></g><g id="__id14_sf13dbr14t"><path d="M155.7 407.3L213.4 349.7 185.1 349.7 127.5 407.3z" style="fill: rgb(76, 99, 129);"/></g><g id="__id15_sf13dbr14t"><path d="M213.4 150.3L155.7 92.7 127.5 92.7 185.1 150.3z" style="fill: rgb(76, 99, 129);"/></g><g id="__id16_sf13dbr14t"><path d="M319.4 326.1L349.4 296.4 319.8 296.4 289.9 326.1z" style="fill: rgb(76, 99, 129);"/></g><g id="__id17_sf13dbr14t"><path d="M349.4 203.6L319.4 173.9 289.9 173.9 319.8 203.6z" style="fill: rgb(76, 99, 129);"/></g><g id="__id18_sf13dbr14t"><path d="M84.7 423.4L200.8 307.3 167 307.3 53.8 423.4z" style="fill: rgb(255, 255, 255);"/></g><g id="__id19_sf13dbr14t"><path d="M200.8 192.7L84.7 76.6 53.8 76.6 167 192.7z" style="fill: rgb(255, 255, 255);"/></g><g id="__id20_sf13dbr14t"><path d="M379.8 238.3L362.9 221.4 302.4 221.4 265.7 183.2 240.8 184 295 238.3z" style="fill: rgb(255, 255, 255);"/></g><g id="__id21_sf13dbr14t"><path d="M265.7 316.8L302.4 278.6 362.9 278.6 379.8 261.7 295 261.7 240.8 316z" style="fill: rgb(255, 255, 255);"/></g><g id="__id22_sf13dbr14t"><path d="M354 362.5L462.1 250.5 456.5 250 462.1 249.5 354 137.5 346 146.5 447.2 250 346 353.5z" style="fill: rgb(255, 255, 255);"/></g><g id="__id23_sf13dbr14t"><path d="M345.8 365.1L337.3 355.3 228.5 355.3 217.9 365z" style="fill: rgb(255, 255, 255);"/></g><g id="__id24_sf13dbr14t"><path d="M337.3 144.7L345.8 134.9 217.9 135 228.5 144.7z" style="fill: rgb(255, 255, 255);"/></g></svg>

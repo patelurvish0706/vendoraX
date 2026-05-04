@@ -1,0 +1,39 @@
+VendoraX for Small retailer of Tech Gadgets which loved by their local Customer and want to buy product from that shop.
+
+Eg: a famouse mobile shop in town sells different devices like smartphones, laptop, chargers cables , SmartWatchs, headphones , etc tech Gadgets.
+
+Their local Loyal Customer who always loves to purchases from that tech shop. can easily check and book for a product online. [they communicate telephonically or by their self-Offline (Payment integration is future Task)]. Vendor Confirm Order with customer Detail (if customer is also on platform). someone purchase offline that also mark sold from vendor by adding customer name and phone.
+
+From that Day of selling product to customer, Service and Warranty date is started mention as duration for device. if customer is not satisfied by product or got issues with it. he can raise a warranty issue. and vendor resolve that complain as mentioned. Solution Description also added after resolution to complain.
+
+by this shopkeeper can identify best selling products, complained products and manage their shop and imporvise growth of shop. and identify suply demand and also easy to customers to purchase their needie items quickly and can trust more with warranty and service.
+
+vendor can manage after sells operation, check sells and complaines. also manage inventory. 
+customer easily purchase products. check for local stores from home. get full support with warranty. and direct shopkeeper interaction.
+
+
+Product details are added by vendor while adding products.
+Detailes :
+
+    Id - Auto - based On VendorId and its product count
+    Name - Product Name
+    Description - About Product
+    Category - Which product it is - Vendor can create Category
+        e.g (Laptop,Tablet,Mobile,SmartWatch,Cabels,Charger,Headset,Accessories,Etc)
+    Price - Actual Selling Price
+    Warranty - Promise or counted services by vendor on defect
+
+        (In Month) + Description
+        Services Count + Description
+
+    
+    
+
+
+
+
+About
+
+how to start business
+faqs - customer , vendor
+about VendoraX

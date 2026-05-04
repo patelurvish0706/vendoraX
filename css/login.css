@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+form {
+    padding: 25px 0 25px 0;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    color: #4c6381;
+    min-width: 200px;
+    justify-self: center;
+}
+
+form .errPlace {
+    color: red;
+    margin-bottom: 10px;
+}
+
+form label {
+    margin: 5px 0;
+}
+
+form p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="time"],
+form input[type="date"],
+form input[type="number"],
+form input[type="file"],
+form select,
+form textarea {
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    outline: none;
+    /* border: none; */
+    border: 1px solid #4c6381;
+    font-family: "Montserrat Alternates", sans-serif;
+
+    /* font-family: "Sora", sans-serif; */
+    /* color: #6C7F8E; */
+    box-shadow: 0px 0px 5px #dedede;
+    
+    cursor: pointer;
+}
+
+form input[type="time"]:focus,
+form input[type="date"]:focus {
+    background-color: #f2f2f2;
+}
+
+form button {
+    display: inline;
+    color: #4c6381;
+    /* color: #6C7F8E; */
+    background-color: #fff;
+
+    padding: 10px 15px;
+    width: max-content;
+    font-size: 1rem;
+    margin: 10px 10px 20px 0;
+
+    border: 1px solid #4c6381;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px #dedede;
+    border-radius: 5px;
+}
+
+form button:hover {
+    color: #fff;
+    background-color: #4c6381;
+}
+
+.hover {
+    color: #fff;
+    background-color: #4c6381;
+}
+
+#AddingTaskForm  input[type="text"],
+#AddingTaskForm  input[type="email"],
+#AddingTaskForm  input[type="password"],
+#AddingTaskForm  input[type="time"],
+#AddingTaskForm  input[type="date"],
+#AddingTaskForm  input[type="number"],
+#AddingTaskForm input[type="file"],
+#AddingTaskForm select,
+#AddingTaskForm  textarea {
+    border: none;  
+    font-family: "Montserrat Alternates", sans-serif;
+    cursor: pointer;
+    box-shadow: inset 3px 3px 20px 0px #eaeaea;
+}
+
+#AddingTaskForm input[type="file"]::-webkit-file-upload-button{
+    border: none;  
+    border-radius: 5px;
+    font-size: 0.8rem;
+    padding: 5px 6px;
+    background-color: #fff;
+    color: #4c6381;
+    font-family: "Montserrat Alternates", sans-serif;
+    box-shadow: 3px 3px 20px 0px #eaeaea;
+}
+
+.LoginRegisterContainer {
+    position: absolute;
+    top: 0;
+    /* width: 100%; */
+    /* height: 100vh; */
+    /* background-color: #0001; */
+    background-color: #ffffff21;
+
+    overflow: hidden;
+}
+
+#page {
+    /* filter: blur(4px); */
+    filter: blur(0px);
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+#blurlayer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* overflow: scroll; */
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.formContainer {
+    width: 30%;
+    min-width: 400px;
+    box-shadow: 0px 0px 10px #b5bfc6;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.formContainer form {
+    color: #4c6381;
+    /* color: #657886; */
+    /* font-family: "Sora", sans-serif; */
+font-family: "Montserrat Alternates", sans-serif;
+    width: 80%;
+}
+
+hr {
+    display: none;
+}
+
+/* Listing Tasks  */
+
+#ListingAllTask fieldset legend{
+    background-color: #fafafa;
+    border: 1px solid #657886;
+    border-radius: 5px;
+    padding: 2px 10px; 
+
+}
+
+.material-icons {
+        font-size: 20px;
+    }
+
+.theListForm{
+    margin: 5px 0;
+    display:flex;
+    flex-direction:row;
+    width:90%;
+    max-width: 900px;
+}
+
+#TaskListTiming{
+    width:15%;
+    text-align:center;
+}
+
+#taskTime{
+font-family: "Montserrat Alternates", sans-serif;
+    /* font-family: "Montserrat", sans-serif;
+    font-family: "Sora", sans-serif; */
+    font-weight: 600;
+    padding:8px 10px;
+    margin-left: 10px;
+}
+
+#theInnerTask{
+    display:flex;
+    /* flex-direction:column; */
+    width:100%;
+}
+
+#theInnerTaskInputs{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+
+
+#theInnerTaskInputs div{
+    display: flex;
+    flex-direction: column;
+}
+
+#theInnerTaskInputs #timeDateContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+
+#theInnerTaskInputs input{
+    background-color: #f7f7f7;
+    margin-bottom:5px;
+}
+
+#theInnerTaskInputs textarea{
+    background-color: #f7f7f7;
+}
+
+#theInnerTaskInputs input[type="time"],
+#theInnerTaskInputs input[type="date"]{
+    background-color: #f7f7f7;
+    background-color: #fff;
+}
+
+#listedOptBtns{
+    display:flex;
+    flex-direction: column;
+    /* width:40%; */
+    margin-right: 15px;
+}
+
+#listedOptBtns button{
+    margin:0 0 5px 5px;
+    padding: 8px 8px 5px 8px;
+    /* width:40%; */
+}
+
+#listedOptBtns button span{
+    font-size: 18px;
+}
+
+#theInnerTask textarea{
+    resize:vertical;
+}
+
+#theHr{
+    width: 100%;
+    height: 1px;
+    display: block;
+    margin: 10px 0 10px;
+    background-color: #b5bfc6;
+    border: none;
+}
+
+
+/* Errors  */
+
+.editErr{
+    position: absolute ;
+    margin: -33px 0 0 20px;
+    background-color: rgb(255, 248, 248);
+    padding: 3px 15px;
+    border-radius: 5px;
+    border: 1px solid rgb(255, 138, 138);
+}
+
+
+
+@media (max-width:720px) {
+.formContainer {
+    width: 30%;
+    min-width: 95%;
+    padding: 10px 0;
+}
+
+
+}

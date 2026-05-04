@@ -1,0 +1,662 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>VendoraX - Manage Smart, Growth faster.</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/login.css" />
+</head>
+
+<body>
+    <div id="container">
+        <div id="navbar">
+            <!-- Logo -->
+
+            <div id="Navlogo">
+                <div id="cornerStart">◣</div>
+
+                <div id="VX">V</div>
+                <div id="endora">endora</div>
+                <div id="VX">X</div>
+                <div id="tagline">Manage smart,<br />Growth faster.</div>
+
+                <div id="cornerEnd">◥</div>
+            </div>
+
+            <div id="NavlinkContainer">
+                <div class="NavLink" id="AccountServices">
+                    <span class="material-symbols-outlined">store</span>
+                </div>
+                <div id="AccountServicesBtns" class="NavMenu">
+                    <div id="NavMenuBtn" onclick="Login()">
+                        <span id="btnSmallTag">Vendor -</span>Sign-In
+                    </div>
+                    <div id="NavMenuBtn" onclick="Register()">
+                        <span id="btnSmallTag">New Vendor? - </span> Register
+                    </div>
+                    <div id="NavMenuBtn" onclick="manageShop()">Your Account</div>
+                </div>
+
+                <div class="NavLink">
+                    <span class="material-symbols-outlined">package</span>
+                </div>
+
+                <div class="NavLink" id="MoreServices">
+                    <span class="material-symbols-outlined">more_vert</span>
+                </div>
+                <div id="MoreServicesBtns" class="NavMenu">
+                    <div id="NavMenuBtn">
+                        <span id="btnSmallTag">How to Start Business? - </span> Guide
+                    </div>
+                    <div id="NavMenuBtn">FAQ's</div>
+                    <div id="NavMenuBtn">About VendoraX</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageContent">
+            <div id="welcomeVendor">
+                <!-- <span id="ShopDets">Welcome to, <b><i id="NameOfTheVendor">Ankit Verma's</i></b> <br />
+                    <span id="NameOfTheShop">Tech Solution Pro</span>
+                </span>
+                <span id="theTime" style="display: flex;flex-direction: column;">
+                    <label style="display: flex;align-items: center;justify-content: end;"><span class="material-symbols-outlined" style="font-size: 1.5rem;">call</span><b style="font-weight: 500;">9765432109</b></label>
+                    <label style="display: flex;align-items: center;justify-content: end;"><b>Xperia-C-201, 2nd floor, Opp:-Agora mall,Bhat Circle, Sardar Patel Ring Rd, Ahmedabad, Gujarat 382428</b></label> 
+                </span> -->
+            </div>
+
+            <div id="ShopkeeperOptionsBtns"
+                style=" margin-top: 10px;margin-left: -9px;padding-left: 9px;padding-bottom: 10px; ">
+                <!-- <div class="optBtn">Products</div> 
+                <div class="optBtn">Orders</div> 
+                <div class="optBtn">Sell</div>
+                <div class="optBtn">Complains</div> -->
+            </div>
+
+            <div id="ShopkeeperProcessArea">
+                <div id="ProductPage">
+
+                    <!-- manage Order -->
+
+                    <fieldset style="display: none;">
+                        <div id="ProductOptionsBtns">
+                            <div class="optBtn">Pending</div>
+                            <div class="optBtn">Shifted</div>
+                            <div class="optBtn">Completed</div>
+                        </div>
+                    </fieldset>
+
+                    <div id="ListingOrderItems" style="display: none;">
+                        <div id="orderdetailContainer" style="margin-bottom: 10px;">
+                            <div id="editImage"
+                                style="position: absolute;margin: 25px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                                Laptop
+                            </div>
+                            <div id="productImage">
+                                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
+                            </div>
+
+                            <div id="ProductEditInfo">
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
+                                    <label style="font-size: 0.8rem;"><i>HP</i></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                        SSD</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
+
+                                    <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
+
+                                    <div style="margin-bottom:5px ;">
+                                        <label for="cashOnDel">Cash On Delivery</label>
+                                    </div>
+                                </form>
+
+
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
+                                    <label style="font-size: 0.8rem;"><b>9864626362</b></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide
+                                        Hotel, Ahmedabad - 360028</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
+
+                                    <label style="font-size: 0.8rem;color:green;"><b>8 Product Available</b></label>
+
+
+
+                                </form>
+
+                                <form style="display:flex;align-items: flex-end;margin: 0;">
+                                    <div>
+                                        <label for="status"></label>
+                                        <select name="status" id="status">
+                                            <option value="Packed" selected>Processing</option>
+                                            <option value="Packed">Shipped</option>
+                                            <option value="Packed">Out for Delivery</option>
+                                            <option value="Packed">Completed</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button type="submit" style="margin: 0;">Accept</button>
+                                        <button type="reset" style="margin: 0;">Deny</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- <div id="closeTable"
+                                style="margin-top:10px;border-radius:5px;padding: 0px;background-color: #fff;height: max-content;">
+                                <span class="material-symbols-outlined">close</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- Manage Complains -->
+
+
+                    <fieldset style="display: none;">
+                        <div id="ProductOptionsBtns">
+                            <div class="optBtn">Complains</div>
+                            <div class="optBtn">Processing</div>
+                            <div class="optBtn">Resolved</div>
+                        </div>
+                    </fieldset>
+
+                    <div id="ListingOrderItems" style="display: none;">
+                        <div id="orderdetailContainer" style="margin-bottom: 10px;">
+                            <div id="editImage"
+                                style="position: absolute;margin: 10px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                                Laptop
+                            </div>
+                            <div id="productImage">
+                                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
+                            </div>
+
+                            <div id="ProductEditInfo">
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
+                                    <label style="font-size: 0.8rem;"><i>HP</i></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                        SSD</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
+
+                                    <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
+
+                                    <div style="margin-bottom:5px ;">
+                                        <label for="cashOnDel">Cash On Delivery</label>
+                                    </div>
+                                </form>
+
+
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
+                                    <label style="font-size: 0.8rem;"><b>9864626362</b></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide
+                                        Hotel, Ahmedabad - 360028</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
+
+                                    <!-- <label style="font-size: 0.8rem;color:green;"><b>8 Product Available</b></label>                      -->
+                                </form>
+
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>Problem</b></label>
+                                    <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
+
+                                    <label style="font-size: 0.8rem;"><b>Explain Issue</b></label>
+                                    <textarea rows="4" placeholder="Facing lag while using more than 2 hour."
+                                        style="width: stretch;"></textarea>
+
+
+
+                                    <!-- <label style="font-size: 0.9rem;"><span>Valid Warranty</span> <b><i>24
+                                                    Months</i></b></label> -->
+                                </form>
+
+                                <form style="display:flex;align-items: flex-end;margin: 0;">
+                                    <div>
+                                        <label for="status"></label>
+                                        <select name="status" id="status">
+                                            <option value="Packed" selected>Processing</option>
+                                            <option value="Packed">Approve</option>
+                                            <option value="Packed">Resolved</option>
+                                            <!-- <option value="Packed" >Completed</option> -->
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" style="margin: 0;">Accept</button>
+                                        <button type="reset" style="margin: 0;">Deny</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- <div id="closeTable"
+                                style="margin-top:10px;border-radius:5px;padding: 0px;background-color: #fff;height: max-content;">
+                                <span class="material-symbols-outlined">close</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <!-- Manage Sales -->
+
+                    <fieldset style="display: none;">
+                        <div id="ProductOptionsBtns" style="justify-content: space-between ;align-items: center;">
+                            <div style="display: flex;gap: 10px;">
+                                <div class="optBtn">Sold</div>
+                                <div class="optBtn">Complained</div>
+                            </div>
+                            <div id="NavlinkContainer" style="display: flex;justify-self: flex-end;">
+                                <input type="search" style="font-size: 1rem;width: 200px;margin-right: 5px;"
+                                    name="search" id="navSearch" class="deactive" placeholder="Search">
+                                <div class="NavLink" id="searchBtn" style="color:#fff;background-color: #4c6381;"><span
+                                        class="material-symbols-outlined">search</span></div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <div id="ListingOrderItems" style="display: none;">
+                        <div id="orderdetailContainer" style="margin-bottom: 10px;">
+                            <div id="editImage"
+                                style="position: absolute;margin: 10px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                                Laptop
+                            </div>
+                            <div id="productImage">
+                                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt=""
+                                    style="height: 160px;width: 250px">
+                            </div>
+
+                            <div id="ProductEditInfo">
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
+                                    <label style="font-size: 0.8rem;"><i>HP</i></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
+                                        SSD</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
+
+                                    <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
+
+                                    <div style="margin-bottom:5px ;">
+                                        <label for="cashOnDel">Cash On Delivery</label>
+                                    </div>
+                                </form>
+
+
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
+                                    <label style="font-size: 0.8rem;"><b>9864626362</b></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide
+                                        Hotel, Ahmedabad - 360028</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
+
+                                    <!-- <label style="font-size: 0.8rem;color:green;"><b>8 Product Available</b></label>                      -->
+                                </form>
+
+                                <form style="display:flex;align-items: flex-end;margin: 0;">
+                                    <label for="status">Order Placed: 31/03/2026</label>
+                                    <label for="status">Delivered: 03/04/2026</label>
+                                    <label for="status">Raised Issue: <b>Yes</b></label>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="ListingOrderItems" style="display: none;">
+                        <div id="orderdetailContainer" style="margin-bottom: 10px;">
+                            <div id="editImage"
+                                style="position: absolute;margin: 10px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                                Mobile
+                            </div>
+                            <div id="productImage">
+                                <img src="https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80"
+                                    alt="" style="height: 160px;width: 250px;background-size: cover;">
+                            </div>
+
+                            <div id="ProductEditInfo">
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>iPhone 13</b></label>
+                                    <label style="font-size: 0.8rem;"><i>Apple</i></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">128GB, A15 chip</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 1 years</b></label>
+
+                                    <label style="font-size: 1.2rem;"><b>₹ 70000</b></label>
+
+                                    <div style="margin-bottom:5px ;">
+                                        <label for="cashOnDel">Cash On Delivery</label>
+                                    </div>
+                                </form>
+
+
+                                <form id="AddingTaskForm">
+                                    <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
+                                    <label style="font-size: 0.8rem;"><b>9864626362</b></label>
+
+                                    <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide
+                                        Hotel, Ahmedabad - 360028</label>
+
+                                    <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
+
+                                    <!-- <label style="font-size: 0.8rem;color:green;"><b>8 Product Available</b></label>                      -->
+                                </form>
+
+                                <form style="display:flex;align-items: flex-end;margin: 0;">
+                                    <label for="status">Order Placed: 01/04/2026</label>
+                                    <label for="status">Delivered: 03/04/2026</label>
+                                    <label for="status">Raised Issue: <b>No</b></label>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ProductProfiler" style="display: none;">
+        <div id="detailContainer">
+            <div id="editImage"
+                style="position: absolute;margin: 25px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+                Edit Image
+            </div>
+            <div id="productImage">
+                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2" alt="">
+            </div>
+
+            <div id="ProductEditInfo">
+                <form id="AddingTaskForm">
+                    <label for="">Product Name</label>
+                    <input type="text" placeholder="Asus VivoBook">
+
+                    <label for="">Product Company</label>
+                    <input type="text" placeholder="Asus">
+
+                    <label for="">Description</label>
+                    <textarea cols="3" placeholder="Intel i3, 8GB RAM, 256GB SSD"></textarea>
+
+                    <label for="">Price</label>
+                    <input type="number" placeholder="47000">
+
+                    <label for="">Warranty (In Months)</label>
+                    <input type="number" placeholder="12">
+
+                    <label for="">In Stock</label>
+                    <input type="number" placeholder="11">
+
+                    <div>
+                        <button type="submit">Save</button>
+                        <button type="reset">Cancel</button>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div id="closeTable"
+                style="margin-top:10px;border-radius:5px;padding: 0px;background-color: #fff;height: max-content;">
+                <span class="material-symbols-outlined">close</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="LoginRegisterContainer" style="display: none;width: 100%;height: 100%;">
+        <div id="blurlayer" style="width: inherit;padding: 20px 0;">
+            <div class="formContainer" id="registerForm" style="display: none">
+                <form id="theRegForm">
+                    <p></p>
+                    <div style="height: 50px;display: flex;justify-content: space-between;align-items: center;">
+                        <h2>Register</h2>
+                        <h2 id="close"
+                            style="font-weight: 500;border-radius: 5px;cursor: pointer;padding: 0 8px 3px 8px;background-color: #0001;"
+                            onclick="closeTab()">
+                            x
+                        </h2>
+                    </div>
+
+                    <p style="color: red" class="errPlace" id="ErrRegister"></p>
+
+                    <label for="sname">*Shop Name</label>
+                    <input type="text" id="sname" name="sname" placeholder="MegaStore" />
+
+                    <label for="vname">*Vendor Name</label>
+                    <input type="text" id="vname" name="vname" placeholder="Jackson Tommy" />
+
+                    <label for="vemail">*Email</label>
+                    <input type="email" id="vemail" name="vemail" placeholder="JacksonMegaStore@gmail.com" />
+
+                    <label for="vmobile">*Mobile No</label>
+                    <input type="number" id="vmobile" name="vmobile" placeholder="9987456321" />
+
+                    <label for="pass">*Password</label>
+                    <input type="password" id="pass" name="pass" placeholder="MegaStore@50" />
+
+                    <label for="repass">*Re-Enter Password</label>
+                    <input type="password" id="repass" name="repass" placeholder="MegaStore@50" />
+
+                    <label>*Address</label>
+                    <textarea id="address" placeholder="Select from map or type"></textarea>
+
+                    <div>
+                        <button type="submit">Register</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                    <label for="pass" onclick="showLogin()"
+                        style="text-decoration: 1px solid underline; cursor: pointer">Login Here</label>
+                    <p></p>
+
+                </form>
+                <script>
+                    theRegForm.addEventListener("submit", async function (e) {
+                        e.preventDefault();
+
+                        const sname = document.getElementById("sname").value.trim();
+                        const vname = document.getElementById("vname").value.trim();
+                        const email = document.getElementById("vemail").value.trim();
+                        const mobile = document.getElementById("vmobile").value.trim();
+                        const pass = document.getElementById("pass").value;
+                        const repass = document.getElementById("repass").value;
+                        const address = document.getElementById("address").value.trim();
+
+                        const goToId = () => {
+                            const element = document.getElementById("theRegForm");
+                            if (element) {
+                                element.scrollIntoView({ behavior: "smooth" });
+                            }
+                        };
+
+                        if (!sname || !vname || !email || !mobile || !pass || !repass) {
+                            ErrRegister.innerText = "All * fields are required";
+                            goToId();
+                            return;
+                        }
+
+                        if (vname.length < 3) {
+                            ErrRegister.innerText = "Name must be at least 3 characters";
+                            goToId();
+                            return;
+                        }
+
+                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                        if (!email.match(emailPattern)) {
+                            ErrRegister.innerText = "Enter valid email";
+                            goToId();
+                            return;
+                        }
+
+                        if (pass.length < 6) {
+                            ErrRegister.innerText = "Password must be at least 6 characters";
+                            goToId();
+                            return;
+                        }
+
+                        if (pass !== repass) {
+                            ErrRegister.innerText = "Passwords do not match";
+                            goToId();
+                            return;
+                        }
+
+                        // send to PHP
+                        const formData = new FormData();
+                        formData.append("sname", sname);
+                        formData.append("vname", vname);
+                        formData.append("vemail", email);
+                        formData.append("vmobile", mobile);
+                        formData.append("pass", pass);
+                        formData.append("repass", repass);
+                        formData.append("address", address);
+
+                        const res = await fetch("./script/register.php", {
+                            method: "POST",
+                            body: formData
+                        });
+
+                        const data = await res.text();
+
+                        if (data === "success") {
+                            ErrRegister.innerHTML = `<p style="color:green;">Register Successful</p>`;
+
+                            theRegForm.reset();
+                            closeTab()
+
+                            setTimeout(() => {
+                                manageShop()
+                                // document.getElementById("ShopkeeperOptionsBtns").style.display = "none";
+                                document.getElementById("ShopkeeperOptionsBtns").innerHTML = "";
+                                document.getElementById("ProductOptionsBtns").innerHTML =
+                                    `
+                                    <div class="optBtn hover">Add Shop Details</div>
+
+                                `;
+                            }, 500);
+
+                        } else {
+                            ErrRegister.innerHTML = `<p style="color:orange;">${data}</p>`;
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class="formContainer" id="loginForm">
+                <form id="theloginForm">
+                    <p></p>
+                    <div style="
+              height: 50px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            ">
+                        <h2>Login</h2>
+                        <h2 id="close" style="
+                font-weight: 500;
+                border-radius: 5px;
+                cursor: pointer;
+                padding: 0 8px 3px 8px;
+                background-color: #0001;
+              " onclick="closeTab()">
+                            x
+                        </h2>
+                    </div>
+
+                    <p style="color: red" class="errPlace" id="Errlogin"></p>
+
+                    <label for="logEmail">*Email / Mobile</label>
+                    <input type="email" id="logEmail" name="logEmail" placeholder="JacksonMegaStore@gmail.com" />
+
+                    <label for="logPass">*Password</label>
+                    <input type="password" id="logPass" name="logPass" placeholder="MegaStore@50" />
+
+                    <div>
+                        <button type="submit">Login</button>
+                        <button type="reset">Cancel</button>
+                    </div>
+                    <label for="pass" onclick="showReg()"
+                        style="text-decoration: 1px solid underline; cursor: pointer">Register Here</label>
+                    <p></p>
+                </form>
+                <script>
+                    const loginForm = document.querySelector("#theloginForm");
+                    const Errlogin = document.getElementById("Errlogin");
+
+                    loginForm.addEventListener("submit", async function (e) {
+                        e.preventDefault();
+
+                        const email = document.getElementById("logEmail").value.trim();
+                        const pass = document.getElementById("logPass").value;
+
+                        if (!email || !pass) {
+                            // alert("All fields are required");
+                            Errlogin.innerText = "All * fields are required";
+                            return;
+                        }
+
+                        // Email validation
+                        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                        if (!email.match(emailPattern)) {
+                            // alert("Invalid email");
+                            Errlogin.innerText = "Invalid email";
+                            return;
+                        }
+
+                        const formData = new FormData();
+                        formData.append("logEmail", email);
+                        formData.append("logPass", pass);
+
+                        const res = await fetch("./script/login.php", {
+                            method: "POST",
+                            body: formData
+                        });
+
+                        const result = await res.text();
+
+                        if (result === "success") {
+                            Errlogin.innerHTML = "<span style='color:green'>Login Successful</span>";
+
+                            setTimeout(() => {
+                                location.reload(); // reload to trigger auth check
+                            }, 800);
+
+                        } else {
+                            Errlogin.innerText = result;
+                        }
+
+
+                    });
+                </script>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/vendor_DOM.js"></script>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+
+</html>

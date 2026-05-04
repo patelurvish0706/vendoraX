@@ -1,0 +1,74 @@
+{
+  "shops": [
+    {
+      "shopName": "TechFix Hub",
+      "ownerName": "Raj Patel",
+      "ownerNumber": "9876543210",
+      "lat": 23.1180,
+      "lng": 72.6320
+    },
+    {
+      "shopName": "Laptop Care Center",
+      "ownerName": "Amit Shah",
+      "ownerNumber": "9825012345",
+      "lat": 23.1125,
+      "lng": 72.6285
+    },
+    {
+      "shopName": "Mobile Repair Zone",
+      "ownerName": "Vikas Mehta",
+      "ownerNumber": "9898123456",
+      "lat": 23.1172,
+      "lng": 72.6355
+    },
+    {
+      "shopName": "Digital Doctor",
+      "ownerName": "Suresh Kumar",
+      "ownerNumber": "9812345678",
+      "lat": 23.1201,
+      "lng": 72.6290
+    },
+    {
+      "shopName": "FixMyDevice",
+      "ownerName": "Neha Joshi",
+      "ownerNumber": "9909011122",
+      "lat": 23.1132,
+      "lng": 72.6265
+    },
+    {
+      "shopName": "Gadget Garage",
+      "ownerName": "Kunal Desai",
+      "ownerNumber": "9988776655",
+      "lat": 23.1195,
+      "lng": 72.6342
+    },
+    {
+      "shopName": "Quick Repair Point",
+      "ownerName": "Ravi Patel",
+      "ownerNumber": "9876501234",
+      "lat": 23.1108,
+      "lng": 72.6315
+    },
+    {
+      "shopName": "Tech Solution Pro",
+      "ownerName": "Ankit Verma",
+      "ownerNumber": "9765432109",
+      "lat": 23.1160,
+      "lng": 72.6278
+    },
+    {
+      "shopName": "SmartFix Center",
+      "ownerName": "Pooja Singh",
+      "ownerNumber": "9654321098",
+      "lat": 23.1145,
+      "lng": 72.6330
+    },
+    {
+      "shopName": "Device Care Hub",
+      "ownerName": "Harsh Trivedi",
+      "ownerNumber": "9543210987",
+      "lat": 23.1210,
+      "lng": 72.6308
+    }
+  ]
+}

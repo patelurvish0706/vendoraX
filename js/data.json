@@ -1,0 +1,1209 @@
+{
+  "products": [
+    {
+      "category": "Laptops",
+      "items": [
+        {
+          "productName": "HP Pavilion i5",
+          "productPrice": 58000,
+          "productCompany": "HP",
+          "productDescription": "Intel i5, 16GB RAM, 512GB SSD",
+          "productWarranty": "2 Years",
+          "productSeller": "TechWorld",
+          "productImage": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
+        },
+        {
+          "productName": "Lenovo IdeaPad",
+          "productPrice": 50000,
+          "productCompany": "Lenovo",
+          "productDescription": "Ryzen 5, 8GB RAM, 1TB HDD",
+          "productWarranty": "1 Year",
+          "productSeller": "MegaMartStore",
+          "productImage": "https://images.unsplash.com/photo-1518770660439-4636190af475"
+        },
+        {
+          "productName": "Asus VivoBook",
+          "productPrice": 47000,
+          "productCompany": "Asus",
+          "productDescription": "Intel i3, 8GB RAM, 256GB SSD",
+          "productWarranty": "1 Year",
+          "productSeller": "VijaySells",
+          "productImage": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2"
+        },
+        {
+          "productName": "Asus VivoBook",
+          "productPrice": 47000,
+          "productCompany": "Asus",
+          "productDescription": "Intel i3, 8GB RAM, 256GB SSD",
+          "productWarranty": "1 Year",
+          "productSeller": "MegaStore",
+          "productImage": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2"
+        },
+        
+        {
+          "productName": "MacBook Air M1",
+          "productPrice": 90000,
+          "productCompany": "Apple",
+          "productDescription": "M1 chip, 8GB RAM, 256GB SSD",
+          "productWarranty": "1 Year",
+          "productSeller": "iStore",
+          "productImage": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
+        },
+        {
+          "productName": "MSI Gaming Laptop",
+          "productPrice": 95000,
+          "productCompany": "MSI",
+          "productDescription": "i7, 16GB RAM, RTX 3050",
+          "productWarranty": "2 Years",
+          "productSeller": "MegaStore",
+          "productImage": "https://images.unsplash.com/photo-1603302576837-37561b2e2302"
+        },
+        {
+          "productName": "Samsung Galaxy Book",
+          "productPrice": 65000,
+          "productCompany": "Samsung",
+          "productDescription": "i5, 8GB RAM, 512GB SSD",
+          "productWarranty": "1 Year",
+          "productSeller": "TechWorld",
+          "productImage": "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+        }
+      ]
+    },
+
+    {
+  "category": "Mobiles",
+  "items": [
+    {
+      "productName": "OnePlus 11",
+      "productPrice": 55000,
+      "productCompany": "OnePlus",
+      "productDescription": "12GB RAM, 256GB",
+      "productWarranty": "2 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Redmi Note 12",
+      "productPrice": 18000,
+      "productCompany": "Xiaomi",
+      "productDescription": "6GB RAM, 128GB",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Realme GT",
+      "productPrice": 30000,
+      "productCompany": "Realme",
+      "productDescription": "8GB RAM, 128GB",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Vivo V27",
+      "productPrice": 32000,
+      "productCompany": "Vivo",
+      "productDescription": "8GB RAM, 256GB",
+      "productWarranty": "1 Year",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1610792516307-ea5acd9c3b00?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Oppo Reno 8",
+      "productPrice": 28000,
+      "productCompany": "Oppo",
+      "productDescription": "8GB RAM, 128GB",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Moto Edge 30",
+      "productPrice": 35000,
+      "productCompany": "Motorola",
+      "productDescription": "8GB RAM, 128GB",
+      "productWarranty": "2 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "iPhone 13",
+      "productPrice": 70000,
+      "productCompany": "Apple",
+      "productDescription": "128GB, A15 chip",
+      "productWarranty": "1 Year",
+      "productSeller": "iStore",
+      "productImage": "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Redmi Note 12",
+      "productPrice": 18000,
+      "productCompany": "Xiaomi",
+      "productDescription": "6GB RAM, 128GB",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Realme GT",
+      "productPrice": 30000,
+      "productCompany": "Realme",
+      "productDescription": "8GB RAM, 128GB",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Vivo V27",
+      "productPrice": 32000,
+      "productCompany": "Vivo",
+      "productDescription": "8GB RAM, 256GB",
+      "productWarranty": "1 Year",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1610792516307-ea5acd9c3b00?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Oppo Reno 8",
+      "productPrice": 28000,
+      "productCompany": "Oppo",
+      "productDescription": "8GB RAM, 128GB",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "productName": "Moto Edge 30",
+      "productPrice": 35000,
+      "productCompany": "Motorola",
+      "productDescription": "8GB RAM, 128GB",
+      "productWarranty": "2 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80"
+    }
+  ]
+},
+
+    {
+      "category": "Watches",
+      "items": [
+        {
+          "productName": "Apple Watch SE",
+          "productPrice": 30000,
+          "productCompany": "Apple",
+          "productDescription": "Fitness tracking, GPS",
+          "productWarranty": "1 Year",
+          "productSeller": "iStore",
+          "productImage": "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b"
+        },
+        {
+          "productName": "Samsung Galaxy Watch 5",
+          "productPrice": 28000,
+          "productCompany": "Samsung",
+          "productDescription": "AMOLED, Health tracking",
+          "productWarranty": "1 Year",
+          "productSeller": "TechWorld",
+          "productImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+        },
+        {
+          "productName": "Noise ColorFit",
+          "productPrice": 3000,
+          "productCompany": "Noise",
+          "productDescription": "Budget smartwatch",
+          "productWarranty": "6 Months",
+          "productSeller": "VijaySells",
+          "productImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+        },
+        {
+          "productName": "Boat Xtend",
+          "productPrice": 3500,
+          "productCompany": "Boat",
+          "productDescription": "Alexa built-in",
+          "productWarranty": "1 Year",
+          "productSeller": "MegaStore",
+          "productImage": "https://images.unsplash.com/photo-1546868871-7041f2a55e12"
+        },
+        {
+          "productName": "Fitbit Versa 3",
+          "productPrice": 20000,
+          "productCompany": "Fitbit",
+          "productDescription": "Advanced fitness tracking",
+          "productWarranty": "2 Years",
+          "productSeller": "GadgetHub",
+          "productImage": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1"
+        },
+        {
+          "productName": "Amazfit GTR",
+          "productPrice": 12000,
+          "productCompany": "Amazfit",
+          "productDescription": "Long battery life",
+          "productWarranty": "1 Year",
+          "productSeller": "TechWorld",
+          "productImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+        },
+        {
+          "productName": "FireBoltt Ninja",
+          "productPrice": 2500,
+          "productCompany": "FireBoltt",
+          "productDescription": "Budget fitness watch",
+          "productWarranty": "6 Months",
+          "productSeller": "VijaySells",
+          "productImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+        },
+        {
+          "productName": "Garmin Forerunner",
+          "productPrice": 35000,
+          "productCompany": "Garmin",
+          "productDescription": "Professional running watch",
+          "productWarranty": "2 Years",
+          "productSeller": "GadgetHub",
+          "productImage": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1"
+        },
+        {
+          "productName": "Casio G-Shock",
+          "productPrice": 8000,
+          "productCompany": "Casio",
+          "productDescription": "Rugged sports watch",
+          "productWarranty": "2 Years",
+          "productSeller": "MegaStore",
+          "productImage": "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3"
+        },
+        {
+          "productName": "Titan Smart Pro",
+          "productPrice": 10000,
+          "productCompany": "Titan",
+          "productDescription": "Stylish smartwatch",
+          "productWarranty": "1 Year",
+          "productSeller": "TechWorld",
+          "productImage": "https://images.unsplash.com/photo-1546868871-7041f2a55e12"
+        }
+        
+        
+         ]
+    },
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       
+
+{
+  "category": "Headphones",
+  "items": [
+    {
+      "productName": "Sony WH-1000XM4",
+      "productPrice": 25000,
+      "productCompany": "Sony",
+      "productDescription": "Noise cancelling",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd"
+    },
+    {
+      "productName": "Boat Rockerz 450",
+      "productPrice": 1500,
+      "productCompany": "Boat",
+      "productDescription": "Wireless headphones",
+      "productWarranty": "1 Year",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
+    },
+    {
+      "productName": "JBL Tune 760",
+      "productPrice": 6000,
+      "productCompany": "JBL",
+      "productDescription": "Bass boost",
+      "productWarranty": "1 Year",
+      "productSeller": "TechWorld",
+      "productImage": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad"
+    },
+    {
+      "productName": "Apple AirPods Max",
+      "productPrice": 60000,
+      "productCompany": "Apple",
+      "productDescription": "Premium sound",
+      "productWarranty": "1 Year",
+      "productSeller": "iStore",
+      "productImage": "https://images.unsplash.com/photo-1580894894513-541e068a3e2b"
+    },
+    {
+      "productName": "Realme Buds Wireless",
+      "productPrice": 2000,
+      "productCompany": "Realme",
+      "productDescription": "Neckband style",
+      "productWarranty": "6 Months",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1577174881658-0f30ed549adc"
+    },
+    {
+      "productName": "Sennheiser HD 450BT",
+      "productPrice": 12000,
+      "productCompany": "Sennheiser",
+      "productDescription": "Deep bass",
+      "productWarranty": "2 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd"
+    },
+    {
+      "productName": "Skullcandy Crusher",
+      "productPrice": 10000,
+      "productCompany": "Skullcandy",
+      "productDescription": "Extra bass",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd"
+    },
+    {
+      "productName": "Noise Buds VS104",
+      "productPrice": 1800,
+      "productCompany": "Noise",
+      "productDescription": "True wireless earbuds",
+      "productWarranty": "1 Year",
+      "productSeller": "TechWorld",
+      "productImage": "https://images.unsplash.com/photo-1580894894513-541e068a3e2b"
+    },
+    {
+      "productName": "OnePlus Buds Pro",
+      "productPrice": 9000,
+      "productCompany": "OnePlus",
+      "productDescription": "ANC earbuds",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1580894894513-541e068a3e2b"
+    },
+    {
+      "productName": "Boat Airdopes 441",
+      "productPrice": 2500,
+      "productCompany": "Boat",
+      "productDescription": "Gaming earbuds",
+      "productWarranty": "1 Year",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1580894894513-541e068a3e2b"
+    }
+  ]
+},
+{
+  "category": "Controllers",
+  "items": [
+    {
+      "productName": "Sony DualSense",
+      "productPrice": 6000,
+      "productCompany": "Sony",
+      "productDescription": "PS5 controller",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
+    },
+    {
+      "productName": "Xbox Wireless Controller",
+      "productPrice": 5500,
+      "productCompany": "Microsoft",
+      "productDescription": "Xbox controller",
+      "productWarranty": "1 Year",
+      "productSeller": "TechWorld",
+      "productImage": "https://images.unsplash.com/photo-1592840496694-26d035b52b48"
+    },
+    {
+      "productName": "Redgear Pro",
+      "productPrice": 1500,
+      "productCompany": "Redgear",
+      "productDescription": "PC gaming controller",
+      "productWarranty": "6 Months",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1592840496694-26d035b52b48"
+    },
+    {
+      "productName": "Logitech F310",
+      "productPrice": 2000,
+      "productCompany": "Logitech",
+      "productDescription": "USB controller",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1592840496694-26d035b52b48"
+    },
+    {
+      "productName": "Cosmic Byte Ares",
+      "productPrice": 1200,
+      "productCompany": "Cosmic Byte",
+      "productDescription": "Budget controller",
+      "productWarranty": "6 Months",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
+    },
+    {
+      "productName": "Razer Wolverine",
+      "productPrice": 9000,
+      "productCompany": "Razer",
+      "productDescription": "Pro gaming controller",
+      "productWarranty": "2 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
+    },
+    {
+      "productName": "PowerA Enhanced",
+      "productPrice": 3000,
+      "productCompany": "PowerA",
+      "productDescription": "Wired controller",
+      "productWarranty": "1 Year",
+      "productSeller": "TechWorld",
+      "productImage": "https://images.unsplash.com/photo-1592840496694-26d035b52b48"
+    },
+    {
+      "productName": "Ant Esports GP100",
+      "productPrice": 1000,
+      "productCompany": "Ant Esports",
+      "productDescription": "Basic controller",
+      "productWarranty": "6 Months",
+      "productSeller": "VijaySells",
+      "productImage": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
+    },
+    {
+      "productName": "Nintendo Switch Pro",
+      "productPrice": 7000,
+      "productCompany": "Nintendo",
+      "productDescription": "Switch controller",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://images.unsplash.com/photo-1592840496694-26d035b52b48"
+    },
+    {
+      "productName": "HyperX Clutch",
+      "productPrice": 4000,
+      "productCompany": "HyperX",
+      "productDescription": "Wireless gaming controller",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
+    }
+  ]
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {
+    "category": "Cables",
+    "items": [
+      {
+        "productName": "USB Type-C Cable",
+        "productPrice": 300,
+        "productCompany": "Boat",
+        "productDescription": "Fast charging cable",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1583394838336-acd977736f90"
+      },
+      {
+        "productName": "Lightning Cable",
+        "productPrice": 1200,
+        "productCompany": "Apple",
+        "productDescription": "iPhone cable",
+        "productWarranty": "1 Year",
+        "productSeller": "iStore",
+        "productImage": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb"
+      },
+      {
+        "productName": "HDMI Cable",
+        "productPrice": 500,
+        "productCompany": "AmazonBasics",
+        "productDescription": "4K support",
+        "productWarranty": "1 Year",
+        "productSeller": "TechWorld",
+        "productImage": "https://images.unsplash.com/photo-1587202372775-9895b9e2c1f3"
+      },
+      {
+        "productName": "Ethernet Cable",
+        "productPrice": 400,
+        "productCompany": "D-Link",
+        "productDescription": "High speed LAN",
+        "productWarranty": "1 Year",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1587202372616-b43abea06c2a"
+      },
+      {
+        "productName": "Micro USB Cable",
+        "productPrice": 200,
+        "productCompany": "Samsung",
+        "productDescription": "Basic charging cable",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1583394838336-acd977736f90"
+      },
+      {
+        "productName": "DisplayPort Cable",
+        "productPrice": 700,
+        "productCompany": "Belkin",
+        "productDescription": "High resolution",
+        "productWarranty": "1 Year",
+        "productSeller": "GadgetHub",
+        "productImage": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb"
+      },
+      {
+        "productName": "VGA Cable",
+        "productPrice": 350,
+        "productCompany": "HP",
+        "productDescription": "Old monitor cable",
+        "productWarranty": "6 Months",
+        "productSeller": "TechWorld",
+        "productImage": "https://images.unsplash.com/photo-1587202372775-9895b9e2c1f3"
+      },
+      {
+        "productName": "Aux Cable",
+        "productPrice": 150,
+        "productCompany": "Boat",
+        "productDescription": "Audio cable",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd"
+      },
+      {
+        "productName": "Thunderbolt Cable",
+        "productPrice": 2500,
+        "productCompany": "Apple",
+        "productDescription": "High speed data",
+        "productWarranty": "1 Year",
+        "productSeller": "iStore",
+        "productImage": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb"
+      },
+      {
+        "productName": "SATA Cable",
+        "productPrice": 200,
+        "productCompany": "Seagate",
+        "productDescription": "Internal connection",
+        "productWarranty": "1 Year",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1587202372616-b43abea06c2a"
+      }
+    ]
+  },
+
+  {
+    "category": "Chargers",
+    "items": [
+      {
+        "productName": "Mi 33W Fast Charger",
+        "productPrice": 999,
+        "productCompany": "Xiaomi",
+        "productDescription": "Fast charging adapter",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Apple 20W Adapter",
+        "productPrice": 1900,
+        "productCompany": "Apple",
+        "productDescription": "iPhone fast charger",
+        "productWarranty": "1 Year",
+        "productSeller": "iStore",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Samsung 25W Charger",
+        "productPrice": 1500,
+        "productCompany": "Samsung",
+        "productDescription": "Super fast charger",
+        "productWarranty": "1 Year",
+        "productSeller": "TechWorld",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Boat Dual Port Charger",
+        "productPrice": 700,
+        "productCompany": "Boat",
+        "productDescription": "Dual USB ports",
+        "productWarranty": "6 Months",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Anker Nano Charger",
+        "productPrice": 2500,
+        "productCompany": "Anker",
+        "productDescription": "Compact fast charger",
+        "productWarranty": "1 Year",
+        "productSeller": "GadgetHub",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Realme Dart Charger",
+        "productPrice": 1200,
+        "productCompany": "Realme",
+        "productDescription": "30W fast charging",
+        "productWarranty": "1 Year",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "OnePlus Warp Charger",
+        "productPrice": 2200,
+        "productCompany": "OnePlus",
+        "productDescription": "Warp fast charging",
+        "productWarranty": "1 Year",
+        "productSeller": "TechWorld",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Ambrane Charger",
+        "productPrice": 500,
+        "productCompany": "Ambrane",
+        "productDescription": "Budget charger",
+        "productWarranty": "6 Months",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Belkin Charger",
+        "productPrice": 1800,
+        "productCompany": "Belkin",
+        "productDescription": "Premium charger",
+        "productWarranty": "1 Year",
+        "productSeller": "GadgetHub",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      },
+      {
+        "productName": "Portronics Adapter",
+        "productPrice": 800,
+        "productCompany": "Portronics",
+        "productDescription": "Multi device charger",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0"
+      }
+    ]
+  },
+
+  {
+    "category": "Batteries",
+    "items": [
+      {
+        "productName": "Duracell AA Pack",
+        "productPrice": 300,
+        "productCompany": "Duracell",
+        "productDescription": "Long lasting battery",
+        "productWarranty": "1 Year",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Eveready AAA",
+        "productPrice": 200,
+        "productCompany": "Eveready",
+        "productDescription": "Basic battery pack",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Panasonic Cells",
+        "productPrice": 350,
+        "productCompany": "Panasonic",
+        "productDescription": "High performance",
+        "productWarranty": "1 Year",
+        "productSeller": "TechWorld",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Sony Rechargeable",
+        "productPrice": 800,
+        "productCompany": "Sony",
+        "productDescription": "Rechargeable cells",
+        "productWarranty": "2 Years",
+        "productSeller": "GadgetHub",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Ambrane Power Cell",
+        "productPrice": 600,
+        "productCompany": "Ambrane",
+        "productDescription": "Rechargeable battery",
+        "productWarranty": "1 Year",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Boat Battery Pack",
+        "productPrice": 500,
+        "productCompany": "Boat",
+        "productDescription": "Portable cells",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Philips Battery",
+        "productPrice": 400,
+        "productCompany": "Philips",
+        "productDescription": "Durable battery",
+        "productWarranty": "1 Year",
+        "productSeller": "TechWorld",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "Energizer Max",
+        "productPrice": 350,
+        "productCompany": "Energizer",
+        "productDescription": "High capacity",
+        "productWarranty": "1 Year",
+        "productSeller": "MegaStore",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "AmazonBasics Cells",
+        "productPrice": 250,
+        "productCompany": "AmazonBasics",
+        "productDescription": "Affordable battery",
+        "productWarranty": "6 Months",
+        "productSeller": "VijaySells",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      },
+      {
+        "productName": "GP Batteries",
+        "productPrice": 300,
+        "productCompany": "GP",
+        "productDescription": "Standard batteries",
+        "productWarranty": "1 Year",
+        "productSeller": "GadgetHub",
+        "productImage": "https://images.unsplash.com/photo-1609592424827-ecb9f3d5b6c1"
+      }
+    ]
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+
+{
+  "category": "HardDrives",
+  "items": [
+    {
+      "productName": "Seagate 1TB HDD",
+      "productPrice": 3500,
+      "productCompany": "Seagate",
+      "productDescription": "1TB internal HDD",
+      "productWarranty": "2 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=101"
+    },
+    {
+      "productName": "WD Blue 1TB",
+      "productPrice": 3600,
+      "productCompany": "Western Digital",
+      "productDescription": "Reliable storage",
+      "productWarranty": "2 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=102"
+    },
+    {
+      "productName": "Samsung T7 SSD",
+      "productPrice": 9000,
+      "productCompany": "Samsung",
+      "productDescription": "Portable SSD 1TB",
+      "productWarranty": "3 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=103"
+    },
+    {
+      "productName": "SanDisk Extreme SSD",
+      "productPrice": 8500,
+      "productCompany": "SanDisk",
+      "productDescription": "High speed SSD",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=104"
+    },
+    {
+      "productName": "Crucial BX500 SSD",
+      "productPrice": 4500,
+      "productCompany": "Crucial",
+      "productDescription": "500GB SSD",
+      "productWarranty": "3 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=105"
+    },
+    {
+      "productName": "WD Black HDD",
+      "productPrice": 7000,
+      "productCompany": "Western Digital",
+      "productDescription": "Performance HDD",
+      "productWarranty": "5 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=106"
+    },
+    {
+      "productName": "Seagate Expansion",
+      "productPrice": 5000,
+      "productCompany": "Seagate",
+      "productDescription": "External 2TB HDD",
+      "productWarranty": "2 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=107"
+    },
+    {
+      "productName": "Kingston SSD A400",
+      "productPrice": 4000,
+      "productCompany": "Kingston",
+      "productDescription": "480GB SSD",
+      "productWarranty": "3 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=108"
+    },
+    {
+      "productName": "Toshiba HDD",
+      "productPrice": 3200,
+      "productCompany": "Toshiba",
+      "productDescription": "1TB storage",
+      "productWarranty": "2 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=109"
+    },
+    {
+      "productName": "ADATA SSD",
+      "productPrice": 4800,
+      "productCompany": "ADATA",
+      "productDescription": "512GB SSD",
+      "productWarranty": "3 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=110"
+    }
+  ]
+},
+{
+  "category": "Processors",
+  "items": [
+    {
+      "productName": "Intel i3 12100",
+      "productPrice": 12000,
+      "productCompany": "Intel",
+      "productDescription": "12th Gen i3",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=111"
+    },
+    {
+      "productName": "Intel i5 12400",
+      "productPrice": 18000,
+      "productCompany": "Intel",
+      "productDescription": "12th Gen i5",
+      "productWarranty": "3 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=112"
+    },
+    {
+      "productName": "Intel i7 12700",
+      "productPrice": 30000,
+      "productCompany": "Intel",
+      "productDescription": "High performance CPU",
+      "productWarranty": "3 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=113"
+    },
+    {
+      "productName": "Ryzen 3 4100",
+      "productPrice": 9000,
+      "productCompany": "AMD",
+      "productDescription": "Budget CPU",
+      "productWarranty": "3 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=114"
+    },
+    {
+      "productName": "Ryzen 5 5600X",
+      "productPrice": 20000,
+      "productCompany": "AMD",
+      "productDescription": "Mid range CPU",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=115"
+    },
+    {
+      "productName": "Ryzen 7 5800X",
+      "productPrice": 28000,
+      "productCompany": "AMD",
+      "productDescription": "High end CPU",
+      "productWarranty": "3 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=116"
+    },
+    {
+      "productName": "Intel i9 12900K",
+      "productPrice": 50000,
+      "productCompany": "Intel",
+      "productDescription": "Flagship CPU",
+      "productWarranty": "3 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=117"
+    },
+    {
+      "productName": "Ryzen 9 5900X",
+      "productPrice": 45000,
+      "productCompany": "AMD",
+      "productDescription": "Top tier CPU",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=118"
+    },
+    {
+      "productName": "Intel Pentium Gold",
+      "productPrice": 6000,
+      "productCompany": "Intel",
+      "productDescription": "Basic CPU",
+      "productWarranty": "2 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=119"
+    },
+    {
+      "productName": "Athlon 3000G",
+      "productPrice": 5000,
+      "productCompany": "AMD",
+      "productDescription": "Entry level CPU",
+      "productWarranty": "2 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=120"
+    }
+  ]
+},
+{
+  "category": "RAM",
+  "items": [
+    {
+      "productName": "Corsair 8GB DDR4",
+      "productPrice": 2500,
+      "productCompany": "Corsair",
+      "productDescription": "8GB RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=121"
+    },
+    {
+      "productName": "Kingston 16GB DDR4",
+      "productPrice": 4500,
+      "productCompany": "Kingston",
+      "productDescription": "16GB RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=122"
+    },
+    {
+      "productName": "Crucial 8GB DDR4",
+      "productPrice": 2300,
+      "productCompany": "Crucial",
+      "productDescription": "Budget RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=123"
+    },
+    {
+      "productName": "G.Skill 16GB DDR4",
+      "productPrice": 5000,
+      "productCompany": "G.Skill",
+      "productDescription": "Gaming RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=124"
+    },
+    {
+      "productName": "ADATA 8GB DDR4",
+      "productPrice": 2200,
+      "productCompany": "ADATA",
+      "productDescription": "Standard RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=125"
+    },
+    {
+      "productName": "HyperX 16GB DDR4",
+      "productPrice": 5500,
+      "productCompany": "HyperX",
+      "productDescription": "High speed RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=126"
+    },
+    {
+      "productName": "Patriot 8GB DDR4",
+      "productPrice": 2100,
+      "productCompany": "Patriot",
+      "productDescription": "Budget RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=127"
+    },
+    {
+      "productName": "Samsung 16GB DDR4",
+      "productPrice": 4800,
+      "productCompany": "Samsung",
+      "productDescription": "Reliable RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=128"
+    },
+    {
+      "productName": "TeamGroup 8GB",
+      "productPrice": 2000,
+      "productCompany": "TeamGroup",
+      "productDescription": "Affordable RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=129"
+    },
+    {
+      "productName": "PNY 16GB DDR4",
+      "productPrice": 4700,
+      "productCompany": "PNY",
+      "productDescription": "High capacity RAM",
+      "productWarranty": "3 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=130"
+    }
+  ]
+},
+{
+  "category": "Accessories",
+  "items": [
+    {
+      "productName": "Logitech Mouse",
+      "productPrice": 800,
+      "productCompany": "Logitech",
+      "productDescription": "Wireless mouse",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=131"
+    },
+    {
+      "productName": "HP Keyboard",
+      "productPrice": 1200,
+      "productCompany": "HP",
+      "productDescription": "USB keyboard",
+      "productWarranty": "1 Year",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=132"
+    },
+    {
+      "productName": "Laptop Stand",
+      "productPrice": 700,
+      "productCompany": "Portronics",
+      "productDescription": "Adjustable stand",
+      "productWarranty": "6 Months",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=133"
+    },
+    {
+      "productName": "Cooling Pad",
+      "productPrice": 1500,
+      "productCompany": "Zebronics",
+      "productDescription": "Laptop cooler",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=134"
+    },
+    {
+      "productName": "USB Hub",
+      "productPrice": 900,
+      "productCompany": "Anker",
+      "productDescription": "Multi port hub",
+      "productWarranty": "1 Year",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=135"
+    },
+    {
+      "productName": "Webcam HD",
+      "productPrice": 2000,
+      "productCompany": "Logitech",
+      "productDescription": "1080p webcam",
+      "productWarranty": "2 Years",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=136"
+    },
+    {
+      "productName": "Mouse Pad",
+      "productPrice": 300,
+      "productCompany": "Redgear",
+      "productDescription": "Gaming mouse pad",
+      "productWarranty": "6 Months",
+      "productSeller": "VijaySells",
+      "productImage": "https://picsum.photos/400?random=137"
+    },
+    {
+      "productName": "Laptop Bag",
+      "productPrice": 1200,
+      "productCompany": "American Tourister",
+      "productDescription": "Stylish bag",
+      "productWarranty": "1 Year",
+      "productSeller": "GadgetHub",
+      "productImage": "https://picsum.photos/400?random=138"
+    },
+    {
+      "productName": "Screen Cleaner",
+      "productPrice": 400,
+      "productCompany": "3M",
+      "productDescription": "Cleaning kit",
+      "productWarranty": "6 Months",
+      "productSeller": "MegaStore",
+      "productImage": "https://picsum.photos/400?random=139"
+    },
+    {
+      "productName": "Bluetooth Adapter",
+      "productPrice": 600,
+      "productCompany": "TP-Link",
+      "productDescription": "Wireless adapter",
+      "productWarranty": "1 Year",
+      "productSeller": "TechWorld",
+      "productImage": "https://picsum.photos/400?random=140"
+    }
+  ]
+}] }
