@@ -56,7 +56,6 @@ function defaultLoad___() {
         <div class="optBtn" id="endBtnCover"></div>
         `;
 
-    
   // Load all Products on Page
   async function loadProducts() {
     const res = await fetch("./js/data.json"); // load JSON file
@@ -64,7 +63,7 @@ function defaultLoad___() {
 
     const productCards = document.getElementById("productCards");
 
-    productCards.style.padding = "15px 0px"
+    productCards.style.padding = "15px 0px";
 
     // clear existing
     productCards.innerHTML = "";
@@ -113,16 +112,105 @@ function defaultLoad___() {
         `;
 }
 
-function defaultLoad() {
+function openProductPopup(p) {
+  console.log(p);
 
-    const token = getCookie("customer_token");
+  const div = document.createElement("div");
+  div.style =
+    "position:fixed;top:0;left:0;width:100%;height:100%;background:#0008;display:flex;justify-content:center;align-items:center;z-index:999;";
 
-    if (!token) {
-        Login();
-        return;
+  div.innerHTML = `
+    <div style="color:#4c6381;background:#fff;padding:20px;border-radius:8px;width:400px;font-family: 'Montserrat Alternates', sans-serif;">
+      
+      <img src="./script/${
+        p.image || "noimage.png"
+      }" style="width:100%;height:300px;object-fit:cover;">
+      
+      <div style="width:max-content;padding:3px 5px;border-radius:5px;background-color:#4c6381;color:white;font-size:0.8rem;margin:10px 0 0 0 ;">${
+        p.category
+      }</div>
+      
+      <h3 style="margin:5px 0;">${p.title}</h3>
+      <p style="margin:0;">${p.description || ""}</p>
+      <p style="margin:7px 0 0 0;font-size:0.8rem;font-weight:700;">Warranty: ${
+        p.warranty || ""
+      } Months</p>
+      <span id="productSeller" style="font-size:0.9rem;display: flex;align-items: center;"><span class="material-symbols-outlined" style="font-size:1rem;padding:5px 5px 5px 0;">store</span>${
+        p.shop_name
+      }</span>
+      
+      <p style="font-size:1.4rem;margin:5px 0;"><b>₹ ${p.price}</b></p>
+
+      <label>Quantity: </label>
+      <input type="button" value="+" onclick="qty.value<qty.max && qty.value++">
+      <input type="number" id="qty" value="1" min="1" max="${p.stock}">
+      <input type="button" value="-" onclick="qty.value>qty.min && qty.value--">
+      
+      <br>
+
+      <button style="margin:4px 3px 0 0;" id="cartBtn">Add to Cart</button>
+      <button style="margin:0 3px 0 0;" id="buyBtn">Buy Now</button>
+      <button style="margin:0 3px 0 0;" onclick="this.closest('div').parentElement.remove()">Close</button>
+
+    </div>
+  `;
+
+  document.body.appendChild(div);
+
+  // 👉 Add to cart
+  div.querySelector("#cartBtn").onclick = async () => {
+    const qty = document.getElementById("qty").value;
+
+    // console.log("STEP 2: Add to Cart Click", qty);
+
+    sendOrder(p, qty, "cart");
+  };
+
+  // 👉 Buy now
+  div.querySelector("#buyBtn").onclick = () => {
+    const qty = document.getElementById("qty").value;
+
+    // console.log("STEP 2: Buy Click", qty);
+
+    const confirmBox = confirm("Proceed to place order?");
+
+    // console.log("STEP 3: Confirm result", confirmBox);
+
+    if (confirmBox) {
+      sendOrder(p, qty, "buy");
     }
+  };
+}
 
-    ShopkeeperOptionsBtns.addEventListener("mouseenter", () => {
+async function sendOrder(p, qty, type) {
+  // console.log("STEP 4: Sending Data", { id: p.id || p.product_id, qty, type });
+
+  const data = new FormData();
+  data.append("product_id", p.id || p.product_id);
+  data.append("qty", qty);
+  data.append("type", type);
+
+  const res = await fetch("./script/order.php", {
+    method: "POST",
+    body: data,
+  });
+
+  const text = await res.text();
+
+  // console.log("STEP 5: Server Response", text);
+
+  alert(text);
+}
+
+function defaultLoad() {
+  const token = getCookie("customer_token");
+
+  if (!token) {
+    Login();
+    return;
+  }
+
+  ShopkeeperOptionsBtns.addEventListener("mouseenter", () => {
     const scrollHandler = (e) => {
       // scroll 100px horizontally on wheel
       if (e.deltaY > 0) {
@@ -197,12 +285,12 @@ function defaultLoad() {
     const res = await fetch("./script/get_all_products.php");
     allProducts = await res.json();
     renderProducts(allProducts);
-    console.log(allProducts)
+    console.log(allProducts);
   }
 
   function renderProducts(list) {
     const container = document.getElementById("productCards");
-    productCards.style.padding = "15px 0px"
+    productCards.style.padding = "15px 0px";
 
     container.innerHTML = "";
 
@@ -211,24 +299,40 @@ function defaultLoad() {
       return;
     }
 
-    list.forEach(p => {
+    list.forEach((p) => {
       const card = document.createElement("div");
       card.className = "product";
       card.style.justifyContent = "unset";
 
       card.innerHTML = `
-        <img id="productImage" src="./script/${p.image || 'noimage.png'}">
-        <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${p.category}</span>
+        <img id="productImage" src="./script/${p.image || "noimage.png"}">
+        <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${
+          p.category
+        }</span>
 
         <div style="display:flex;flex-direction:column;">
-          <span id="productName" style="margin-bottom:5px;"><b>${p.title}</b></span>
-          <span id="productDescription" style="font-size:0.8rem;height: 60px;overflow-y: scroll;">${p.description || ""}</span>
+          <span id="productName" style="margin-bottom:5px;"><b>${
+            p.title
+          }</b></span>
+          <span id="productDescription" style="font-size:0.8rem;height: 60px;overflow-y: scroll;">${
+            p.description || ""
+          }</span>
         </div>
         
         <div style="display:flex;flex-direction:column;margin-top:auto;">
-          <span id="productSeller"><span class="material-symbols-outlined" style="font-size:1rem;padding:5px 5px 5px 0;">store</span>${p.shop_name}</span>
-          <span id="productWarranty" style="font-size:0.85rem;font-weight:700;">${p.warranty} <b style="font-size:0.65rem;font-weight:400;"> Warranty</b></span>
+          <span id="productSeller"><span class="material-symbols-outlined" style="font-size:1rem;padding:5px 5px 5px 0;">store</span>${
+            p.shop_name
+          }</span>
+          <span id="productWarranty" style="font-size:0.85rem;font-weight:700;">${
+            p.warranty
+          } <b style="font-size:0.65rem;font-weight:400;"> Warranty</b></span>
           <span id="productPrice">₹${p.price}</span>
+        </div>
+
+        <div style="margin-top:10px;">
+          <button style="margin:0;" onclick='openProductPopup(${JSON.stringify(
+            p
+          )})'>View Product</button>
         </div>
       `;
 
@@ -242,21 +346,23 @@ function defaultLoad() {
 
     const val = e.target.value.toLowerCase();
 
-    const filtered = allProducts.filter(p =>
-      p.title.toLowerCase().includes(val) ||
-      p.category.toLowerCase().includes(val) ||
-      (p.description || "").toLowerCase().includes(val)
+    const filtered = allProducts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(val) ||
+        p.category.toLowerCase().includes(val) ||
+        (p.description || "").toLowerCase().includes(val)
     );
 
     renderProducts(filtered);
   });
 
   // 📦 CATEGORY FILTER
-  document.querySelectorAll("#ShopkeeperOptionsBtns .optBtn").forEach(btn => {
+  document.querySelectorAll("#ShopkeeperOptionsBtns .optBtn").forEach((btn) => {
     btn.addEventListener("click", () => {
-
       // UI active
-      document.querySelectorAll(".optBtn").forEach(b => b.classList.remove("active"));
+      document
+        .querySelectorAll(".optBtn")
+        .forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
       const cat = btn.dataset.cat;
@@ -264,7 +370,7 @@ function defaultLoad() {
       if (cat === "All") {
         renderProducts(allProducts);
       } else {
-        const filtered = allProducts.filter(p => p.category === cat);
+        const filtered = allProducts.filter((p) => p.category === cat);
         renderProducts(filtered);
       }
     });
@@ -276,9 +382,7 @@ function defaultLoad() {
 defaultLoad();
 // defaultLoad___();
 
-
 async function manageCustomerInfo() {
-
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()"><span class="material-symbols-outlined" style="font-size:1rem;">arrow_back_ios</span>Back</div>
     <div class="optBtn hover">My Account</div>
@@ -349,21 +453,21 @@ async function manageCustomerInfo() {
   mobile.value = d.mobile || "";
   email.value = d.email || "";
 
-let map = L.map('map').setView([latVal, lngVal], 15);
-let marker;
+  let map = L.map("map").setView([latVal, lngVal], 15);
+  let marker;
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-document.getElementById("lat").value = latVal;
-document.getElementById("lng").value = lngVal;
+  document.getElementById("lat").value = latVal;
+  document.getElementById("lng").value = lngVal;
 
-// if already saved → show marker
-if (d.latitude && d.longitude) {
+  // if already saved → show marker
+  if (d.latitude && d.longitude) {
     marker = L.marker([latVal, lngVal]).addTo(map);
-}
+  }
 
-// fix render if container dynamic
-setTimeout(() => map.invalidateSize(), 200);
+  // fix render if container dynamic
+  setTimeout(() => map.invalidateSize(), 200);
 
   // split pincode from address
   if (d.address) {
@@ -376,7 +480,7 @@ setTimeout(() => map.invalidateSize(), 200);
     }
   }
 
-map.on('click', async function (e) {
+  map.on("click", async function (e) {
     const { lat, lng } = e.latlng;
 
     if (marker) map.removeLayer(marker);
@@ -385,11 +489,13 @@ map.on('click', async function (e) {
     document.getElementById("lat").value = lat;
     document.getElementById("lng").value = lng;
 
-    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+    );
     const data = await res.json();
 
     address.value = data.display_name;
-});
+  });
 
   // pincode → map
   let lastPin = "";
@@ -397,7 +503,9 @@ map.on('click', async function (e) {
     if (pincode.value.length !== 6 || pincode.value === lastPin) return;
     lastPin = pincode.value;
 
-    const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`);
+    const r = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+    );
     const data = await r.json();
 
     if (data.length) {
@@ -408,31 +516,33 @@ map.on('click', async function (e) {
   });
 
   // submit update
-  document.getElementById("AddingTaskForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  document
+    .getElementById("AddingTaskForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("title", title.value);
-    formData.append("mobile", mobile.value);
-    formData.append("email", email.value);
-    formData.append("pincode", pincode.value);
-    formData.append("addresss", address.value);
-    formData.append("lat", document.getElementById("lat").value);
-    formData.append("lng", document.getElementById("lng").value);
+      const formData = new FormData();
+      formData.append("title", title.value);
+      formData.append("mobile", mobile.value);
+      formData.append("email", email.value);
+      formData.append("pincode", pincode.value);
+      formData.append("addresss", address.value);
+      formData.append("lat", document.getElementById("lat").value);
+      formData.append("lng", document.getElementById("lng").value);
 
-    const r = await fetch("./script/update_customer.php", {
-      method: "POST",
-      body: formData
+      const r = await fetch("./script/update_customer.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      const msg = await r.text();
+
+      if (msg === "success") {
+        err.innerHTML = "<span style='color:green'>Updated</span>";
+      } else {
+        err.innerText = msg;
+      }
     });
-
-    const msg = await r.text();
-
-    if (msg === "success") {
-      err.innerHTML = "<span style='color:green'>Updated</span>";
-    } else {
-      err.innerText = msg;
-    }
-  });
 }
 
 function manageCustomerInfo__() {
