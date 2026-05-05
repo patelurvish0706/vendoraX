@@ -1009,7 +1009,6 @@ async function buyCartItem(cart_id) {
   manageCart();
 }
 
-
 async function manageOrders() {
 
   ShopkeeperOptionsBtns.innerHTML = `
@@ -1028,8 +1027,6 @@ async function manageOrders() {
   const res = await fetch("./script/get_orders.php");
   const result = await res.json();
 
-  console.log("ORDERS:", result);
-
   if (result.status !== "ok") {
     showLogin();
     return;
@@ -1041,6 +1038,18 @@ async function manageOrders() {
   }
 
   result.data.forEach(p => {
+
+    // ✅ condition
+    let actionBtn = "";
+    let paymentText = "";
+
+    if (p.status === "delivered") {
+      actionBtn = `<button type="button" onclick="raiseIssue(${p.id})">Raise Issue</button>`;
+      paymentText = `<label style="color:green;"><b>Paid</b></label>`;
+    } else {
+      actionBtn = `<button type="button" onclick="cancelOrder(${p.id})">Cancel Order</button>`;
+      paymentText = `<label style="color:orange;"><b>Pay After Delivery</b></label>`;
+    }
 
     const div = document.createElement("div");
 
@@ -1058,21 +1067,16 @@ async function manageOrders() {
 
       <div id="ProductEditInfo">
 
-        <form>
+        <form style="margin-bottom:0;">
           <label style="font-size:1rem;"><b>${p.title}</b></label>
           <label style="font-size:0.8rem;"><i>${p.category}</i></label>
 
           <label style="font-size:0.8rem;">${p.description || ""}</label>
 
-          <label style="font-size:0.7rem;">
-            <span>Warranty</span> <b>${p.warranty} months</b>
-          </label>
+          <label style="font-size0.9rem;font-weight:600;margin:4px 0;">₹${p.price} x ${p.qty}</label>
+          <label style="font-size:0.9rem;margin:3px 0;"><b style="font-size:1.4rem;">₹${p.total}</b> Total</label>
 
-          <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
-
-          <div>
-            <label>Cash On Delivery</label>
-          </div>
+          <label style="font-size:0.9rem;">${paymentText}</label>
         </form>
 
         <form>
@@ -1086,7 +1090,7 @@ async function manageOrders() {
           </label>
 
           <label style="font-size:0.8rem;color:green;">
-            <b>${p.status || "Processing"}</b>
+            <b>${p.status}</b>
           </label>
 
           <label style="font-size:0.9rem;">
@@ -1095,9 +1099,7 @@ async function manageOrders() {
         </form>
 
         <form style="display:flex;align-items:flex-end;margin:0;">
-          <div>
-            <button type="button" onclick="raiseIssue(${p.id})">Raise Issue</button>
-          </div>
+          <div>${actionBtn}</div>
         </form>
 
       </div>
@@ -1126,4 +1128,25 @@ async function raiseIssue(order_id) {
   });
 
   alert(await res.text());
+}
+
+async function cancelOrder(order_id) {
+
+  if (!confirm("Cancel this order?")) return;
+
+  console.log("Cancel:", order_id);
+
+  const data = new FormData();
+  data.append("order_id", order_id);
+
+  const res = await fetch("./script/cancel_order.php", {
+    method: "POST",
+    body: data
+  });
+
+  const r = await res.text();
+  console.log(r);
+
+  alert(r);
+  manageOrders();
 }

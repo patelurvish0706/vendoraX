@@ -78,10 +78,10 @@ function defaultLoad() {
             </span> 
         `;
 
-    ShopkeeperOptionsBtns.innerHTML = ` <div class="optBtn" onclick="loadAllProds()">Products</div> 
-                <div class="optBtn" onclick="manageOrders()">Orders</div> 
-                <div class="optBtn">Sell</div>
-                <div class="optBtn">Complains</div>
+    ShopkeeperOptionsBtns.innerHTML = ` <div class="optBtn hover" onclick="loadAllProds()">Products</div> 
+                <div class="optBtn" onclick="manageOrders()" >Orders</div> 
+                <div class="optBtn" onclick="manageSales()" >Sell</div>
+                <div class="optBtn" onclick="manageComplains()" >Complains</div>
             `;
 
     loadAllProds();
@@ -598,9 +598,9 @@ function manageShop() {
 
 function manageOrders() {
   ShopkeeperOptionsBtns.innerHTML = `<div class="optBtn" onclick="loadAllProds()">Products</div> 
-        <div class="optBtn  hover">Orders</div> 
-        <div class="optBtn">Sell</div>
-        <div class="optBtn">Complains</div>
+                <div class="optBtn hover" onclick="manageOrders()" >Orders</div> 
+                <div class="optBtn" onclick="manageSales()" >Sell</div>
+                <div class="optBtn" onclick="manageComplains()" >Complains</div>
     `;
 
   function pendingOrders() {

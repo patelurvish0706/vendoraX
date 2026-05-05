@@ -10,7 +10,7 @@ $cid = base64_decode($_COOKIE['customer_token']);
 
 $q = "
 SELECT o.id, o.qty, o.total,
-p.title, p.price, p.image, p.description, p.warranty, p.category,
+p.title, p.price, p.image, p.description, p.warranty, p.category, o.status,
 c.name, c.mobile, c.address
 FROM orders o
 JOIN products p ON o.product_id = p.id
