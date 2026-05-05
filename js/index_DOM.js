@@ -588,7 +588,7 @@ function manageCustomerInfo__() {
 }
 // manageCustomerInfo()
 
-function manageCart() {
+function manageCart______() {
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()"><span class="material-symbols-outlined" style="font-size:1rem;">arrow_back_ios</span>Back</div>
     <div class="optBtn hover">My Cart</div>
@@ -797,3 +797,333 @@ function manageCart() {
   closeOptMenus(false, false);
 }
 // manageCart();
+
+async function manageCart______() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Back</div>
+    <div class="optBtn hover">My Cart</div>
+  `;
+
+  ProductPage.innerHTML = `<div id="ListingOrderItems"></div>`;
+  closeOptMenus(false, false);
+
+  const container = document.getElementById("ListingOrderItems");
+
+  const res = await fetch("./script/get_cart.php");
+  const result = await res.json();
+
+  console.log("CART DATA:", result);
+
+  if (result.status !== "ok") {
+    showLogin();
+    return;
+  }
+
+  if (!result.data.length) {
+    container.innerHTML = "<p>Cart empty</p>";
+    return;
+  }
+
+  result.data.forEach(p => {
+
+    const div = document.createElement("div");
+    div.className = "cartItem";
+
+    div.innerHTML = `
+      <img src="./script/${p.image || 'noimage.png'}" height="120">
+
+      <div>
+        <b>${p.title}</b>
+        <p>₹${p.price}</p>
+        <p>${p.shop_name}</p>
+
+        <div>
+          <button onclick="changeQty(${p.cart_id}, -1)">-</button>
+          <input value="${p.qty}" id="qty_${p.cart_id}" style="width:40px;">
+          <button onclick="changeQty(${p.cart_id}, 1)">+</button>
+        </div>
+
+        <button onclick="buyCartItem(${p.cart_id})">Buy Now</button>
+        <button onclick="removeCart(${p.cart_id})">Remove</button>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+// Manage Cart
+
+async function manageCart() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Back</div>
+    <div class="optBtn hover">My Cart</div>
+  `;
+
+  ProductPage.innerHTML = `
+    <fieldset>
+      <div id="ListingOrderItems"></div>
+    </fieldset>
+  `;
+
+  closeOptMenus(false, false);
+
+  const container = document.getElementById("ListingOrderItems");
+
+  const res = await fetch("./script/get_cart.php");
+  const result = await res.json();
+
+  console.log("CART:", result);
+
+  if (result.status !== "ok") {
+    showLogin();
+    return;
+  }
+
+  if (!result.data.length) {
+    container.innerHTML = "<p>Cart empty</p>";
+    return;
+  }
+
+  result.data.forEach(p => {
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <div id="orderdetailContainer">
+
+      <div id="editImage"
+        style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
+        ${p.category}
+      </div>
+
+      <div id="productImage">
+        <img src="./script/${p.image || 'noimage.png'}" height="200px">
+      </div>
+
+      <div id="ProductEditInfo">
+
+        <form>
+          <label style="font-size: 1rem;"><b>${p.title}</b></label>
+          <label style="font-size: 0.8rem;"><i>${p.brand || ""}</i></label>
+
+          <label style="font-size: 0.8rem;font-weight: 400;">
+            ${p.description || ""}
+          </label>
+
+          <label style="font-size: 0.7rem;">
+            <span>Warranty</span> <b>${p.warranty} months</b>
+          </label>
+
+          <label style="font-size: 1.2rem;"><b>₹ ${p.price}</b></label>
+
+          <div style="margin-top:5px;">
+            <input type="radio" disabled> 
+            <label style="color:#797e84;">Pay Online - UPI</label>
+          </div>
+
+          <div style="margin-bottom:5px;">
+            <input type="radio" checked> 
+            <label>Cash On Delivery</label>
+          </div>
+        </form>
+
+        <div id="contentNbtn">
+
+          <form>
+            <label style="display:flex;align-items:center;font-size:0.9rem;">
+              <span class="material-symbols-outlined" style="font-size:1rem;">store</span>
+              ${p.shop_name}
+            </label>
+
+            <label style="display:flex;align-items:center;font-size:0.9rem;">
+              <span class="material-symbols-outlined" style="font-size:1rem;">call</span>
+              ${p.vendor_phone}
+            </label>
+
+            <label style="font-size:0.9rem;"><u>Check More Products</u></label>
+
+            <div style="font-size:2rem;">
+              <button type="button" onclick="changeQty(${p.cart_id}, -1)">-</button>
+              <input id="qty_${p.cart_id}" value="${p.qty}" style="width:35px;text-align:end;">
+              <button type="button" onclick="changeQty(${p.cart_id}, 1)">+</button>
+            </div>
+
+          </form>
+
+          <form id="CartDelBuy">
+            <button type="button" onclick="buyCartItem(${p.cart_id})">Buy Now</button>
+            <button type="button" onclick="removeCart(${p.cart_id})">Remove</button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+    `;
+
+    container.appendChild(div.firstElementChild);
+  });
+}
+
+async function changeQty(cart_id, change) {
+
+  let input = document.getElementById("qty_" + cart_id);
+  let newQty = parseInt(input.value) + change;
+
+  if (newQty < 1) return;
+
+  input.value = newQty;
+
+  console.log("Update Qty:", cart_id, newQty);
+
+  const data = new FormData();
+  data.append("cart_id", cart_id);
+  data.append("qty", newQty);
+
+  await fetch("./script/update_cart.php", {
+    method: "POST",
+    body: data
+  });
+}
+
+async function buyCartItem(cart_id) {
+
+  console.log("Buy cart item:", cart_id);
+
+  if (!confirm("Place order?")) return;
+
+  const data = new FormData();
+  data.append("cart_id", cart_id);
+
+  const res = await fetch("./script/buy_from_cart.php", {
+    method: "POST",
+    body: data
+  });
+
+  const r = await res.text();
+
+  alert(r);
+  manageCart();
+}
+
+
+async function manageOrders() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Back</div>
+    <div class="optBtn hover">My Orders</div>
+  `;
+
+  ProductPage.innerHTML = `
+  <fieldset>
+      <div id="ListingOrderItems"></div>
+  </fieldset>
+  `;
+
+  const container = document.getElementById("ListingOrderItems");
+
+  const res = await fetch("./script/get_orders.php");
+  const result = await res.json();
+
+  console.log("ORDERS:", result);
+
+  if (result.status !== "ok") {
+    showLogin();
+    return;
+  }
+
+  if (!result.data.length) {
+    container.innerHTML = "<p>No Orders</p>";
+    return;
+  }
+
+  result.data.forEach(p => {
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <div id="orderdetailContainer" style="margin:10px 0;border-radius:5px;">
+
+      <div id="editImage"
+        style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+        ${p.category}
+      </div>
+
+      <div id="productImage">
+        <img src="./script/${p.image || 'noimage.png'}">
+      </div>
+
+      <div id="ProductEditInfo">
+
+        <form>
+          <label style="font-size:1rem;"><b>${p.title}</b></label>
+          <label style="font-size:0.8rem;"><i>${p.category}</i></label>
+
+          <label style="font-size:0.8rem;">${p.description || ""}</label>
+
+          <label style="font-size:0.7rem;">
+            <span>Warranty</span> <b>${p.warranty} months</b>
+          </label>
+
+          <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
+
+          <div>
+            <label>Cash On Delivery</label>
+          </div>
+        </form>
+
+        <form>
+          <label style="font-size:1rem;"><b>${p.name}</b></label>
+          <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
+
+          <label style="font-size:0.8rem;">${p.address}</label>
+
+          <label style="font-size:0.7rem;">
+            <span>Quantity</span> <b>${p.qty}</b>
+          </label>
+
+          <label style="font-size:0.8rem;color:green;">
+            <b>${p.status || "Processing"}</b>
+          </label>
+
+          <label style="font-size:0.9rem;">
+            <span>Valid Warranty</span> <b><i>${p.warranty} Months</i></b>
+          </label>
+        </form>
+
+        <form style="display:flex;align-items:flex-end;margin:0;">
+          <div>
+            <button type="button" onclick="raiseIssue(${p.id})">Raise Issue</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    `;
+
+    container.appendChild(div.firstElementChild);
+  });
+}
+
+async function raiseIssue(order_id) {
+
+  console.log("Raise Issue:", order_id);
+
+  const msg = prompt("Enter issue:");
+
+  if (!msg) return;
+
+  const data = new FormData();
+  data.append("order_id", order_id);
+  data.append("msg", msg);
+
+  const res = await fetch("./script/raise_issue.php", {
+    method: "POST",
+    body: data
+  });
+
+  alert(await res.text());
+}
