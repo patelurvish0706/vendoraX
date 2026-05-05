@@ -71,8 +71,8 @@ function defaultLoad() {
     }, 1000);
 
     welcomeVendor.innerHTML = ` 
-            <span id="ShopDets">Welcome, <b><i id="NameOfTheVendor">Ankit Verma</i></b> <br />
-                <span id="NameOfTheShop">Tech Solution Pro</span>
+            <span id="ShopDets">Welcome, <b><i id="NameOfTheVendor">Vendor</i></b> <br />
+                <span id="NameOfTheShop">Best Tech Shop</span>
             </span>
             <span id="theTime" style="display: flex;flex-direction: column;">            
             </span> 
@@ -90,8 +90,57 @@ function defaultLoad() {
 }
 defaultLoad();
 
-function loadAllProds() {
+async function updateProduct(id, btn) {
+  const box = btn.closest("div"); // adjust if needed
 
+  const data = new FormData();
+
+  data.append("id", id);
+  data.append("title", box.querySelector("#ptitle").value);
+  data.append("price", box.querySelector("#pprice").value);
+  data.append("stock", box.querySelector("#pstock").value);
+  data.append("warranty", box.querySelector("#pwarranty").value);
+  data.append("category", box.querySelector("#pcategory").value);
+  data.append("description", box.querySelector("#pdesc").value);
+
+  const res = await fetch("./script/update_product.php", {
+    method: "POST",
+    body: data,
+  });
+
+  const r = await res.text();
+
+  alert(r);
+
+  loadAllProds();
+}
+
+async function deleteProduct(id) {
+  if (!confirm("Delete product?")) return;
+
+  const data = new FormData();
+  data.append("id", id);
+
+  console.log(data);
+
+  const res = await fetch("./script/delete_product.php", {
+    method: "POST",
+    body: data,
+  });
+
+  const r = await res.text();
+
+  if (r === "success") {
+    alert("Deleted");
+    loadAllProds();
+
+    // location.reload();
+  } else {
+    alert(r);
+  }
+}
+
+function loadAllProds() {
   ProductPage.innerHTML = `
     <fieldset>
       <div id="ProductOptionsBtns">
@@ -100,39 +149,96 @@ function loadAllProds() {
       </div>
     </fieldset>
 
-    <fieldset style="padding:0 10px;">
+    <fieldset style="padding:0 10px 10px;">
       <div id="productCards"></div>
     </fieldset>
   `;
 
   async function loadProducts() {
+    function openEditPopup(p) {
+      const popup = document.createElement("div");
+      popup.style = `
+        position:fixed;top:0;left:0;width:100%;height:100%;
+        background:#0005;display:flex;align-items:center;justify-content:center;z-index:999;
+    `;
+
+      popup.innerHTML = `
+        <div style="display:flex;flex-direction:column;color:#4c6381;background:#fff;padding:20px 25px;border-radius:8px;width:400px;font-family: 'Montserrat Alternates', sans-serif;">
+            <h3 style="margin:0 0 10px 0;">Edit Product</h3>
+                       
+            <label for="title">Product Name</label>
+            <input id="ptitle" value="${p.title}" placeholder="Title">
+            
+            <label for="title">Price</label>
+            <input id="pprice" value="${p.price}" placeholder="Price">
+
+            <label for="title">Total Available Stock</label>
+            <input id="pstock" value="${p.stock}" placeholder="Stock">
+            
+            <label for="title">Warranty (In Months)</label>
+            <input id="pwarranty" value="${p.warranty}" placeholder="Warranty">
+
+            <label for="title">Product Category</label>
+            <select name="status" id="pcategory" style="width: 300px;color:#4c6381;">
+                <option value="Laptop" >Laptop</option>
+                <option value="Mobile" >Mobile</option>
+                <option value="HeadPhone" >HeadPhone</option>
+                <option value="Smart Watches" >Smart Watches</option> 
+                <option value="Controllers" >Controllers</option>
+                <option value="Cables" >Cables</option>
+                <option value="Chargers" >Chargers</option>
+                <option value="Batteries" >Batteries</option>
+                <option value="Hard Drives" >Hard Drives</option>
+                <option value="Processors" >Processors</option>
+                <option value="RAM" >RAM</option>
+                <option value="Accessories" >Accessories</option>
+            </select>
+
+            <label for="title">Description</label>
+            <textarea id="pdesc" rows="4">${p.description || ""}</textarea>
+
+            <span style="margin:5px 0 0 0;">
+            <button style="margin:0 5px 0 0;" onclick="updateProduct(${
+              p.id
+            }, this)">Save</button>
+            <button style="margin:0 5px 0 0;" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+            </span>
+        </div>
+    `;
+
+      document.body.appendChild(popup);
+
+      document.getElementById("pcategory").value = p.category;
+    }
 
     const res = await fetch("./script/get_products.php");
     const data = await res.json();
 
     const productCards = document.getElementById("productCards");
-    productCards.innerHTML = "";
+    // productCards.innerHTML = "";
 
     if (!data.length) {
-      productCards.innerHTML = "<p>No products found</p>";
+      productCards.innerHTML =
+        "<p style='text-align: center;'>No products found</p>";
       return;
     }
 
     data.forEach((p) => {
-
-      console.log(p)
+      // console.log(p)
       const card = document.createElement("div");
       card.className = "product";
 
       card.innerHTML = `
-        <img src="./script/${p.image || 'noimage.png'}" alt="">
-        <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${p.category}</span>
+        <img src="./script/${p.image || "noimage.png"}" alt="">
+        <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${
+          p.category
+        }</span>
         
         <div style="display:flex;flex-direction:column;">
           <span id="productName"><b>${p.title}</b></span>
-          <span>${p.description || ''}</span>
-          <span><small>${p.warranty} Months Warranty</small></span>
-          <span>₹${p.price}</span>
+          <span style="font-size:0.8rem;font-weight:400;margin:3px 0;">${p.description || ""}</span>
+          <span style="font-size:1rem;font-weight:600;margin:3px 0;"><small>${p.warranty} Months Warranty</small></span>
+          <span style="font-size:1.2rem;font-weight:700;margin:3px 0;">₹ ${p.price}</span>
         </div>
 
         <span style="margin:10px 0;">
@@ -144,6 +250,9 @@ function loadAllProds() {
           <div class="optBtn" style="border: 1px solid #4c6381;">Remove</div>
         </div>
       `;
+
+      card.querySelectorAll(".optBtn")[0].onclick = () => openEditPopup(p);
+      card.querySelectorAll(".optBtn")[1].onclick = () => deleteProduct(p.id);
 
       productCards.appendChild(card);
     });
@@ -216,61 +325,62 @@ function addProduct() {
                     </div>
         `;
 
-  document.getElementById("AddingTaskForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  document
+    .getElementById("AddingTaskForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    const form = e.target;
-    const err = document.getElementById("addFormErr");
+      const form = e.target;
+      const err = document.getElementById("addFormErr");
 
-    const title = form.title.value.trim();
-    const category = form.status.value;
-    const stock = form.stock.value;
-    const price = form.price.value;
-    const warranty = form.warranty.value;
-    const file = form.proImage.files[0];
+      const title = form.title.value.trim();
+      const category = form.status.value;
+      const stock = form.stock.value;
+      const price = form.price.value;
+      const warranty = form.warranty.value;
+      const file = form.proImage.files[0];
 
-    if (!title || !category || !stock || !price) {
+      if (!title || !category || !stock || !price) {
         err.innerText = "All required fields missing";
         return;
-    }
+      }
 
-    if (stock < 0 || price <= 0) {
+      if (stock < 0 || price <= 0) {
         err.innerText = "Invalid stock or price";
         return;
-    }
+      }
 
-    if (warranty < 0) {
+      if (warranty < 0) {
         err.innerText = "Invalid warranty";
         return;
-    }
+      }
 
-    if (file && !file.type.startsWith("image/")) {
+      if (file && !file.type.startsWith("image/")) {
         err.innerText = "Only image allowed";
         return;
-    }
+      }
 
-    const data = new FormData(form);
+      const data = new FormData(form);
 
-    const res = await fetch("./script/add_product.php", {
+      const res = await fetch("./script/add_product.php", {
         method: "POST",
-        body: data
-    });
+        body: data,
+      });
 
-    const result = await res.text();
+      const result = await res.text();
 
-    if (result.trim() === "success") {
+      if (result.trim() === "success") {
         err.innerHTML = "<span style='color:green'>Product Added</span>";
         form.reset();
-    } else {
+      } else {
         err.innerText = result;
-    }
-  });
+      }
+    });
 }
 
 let map, marker;
 
 function manageShop() {
-
   ProductPage.innerHTML = `
   <fieldset style="padding-bottom:0;">
             <div id="ProductOptionsBtns" >
@@ -349,8 +459,8 @@ function manageShop() {
     setMapLocation(e.latlng.lat, e.latlng.lng);
   });
 
-//   console.log("map div:", document.getElementById("map"));
-// console.log("Leaflet:", typeof L);
+  //   console.log("map div:", document.getElementById("map"));
+  // console.log("Leaflet:", typeof L);
   // ===== LOAD DATA =====
   async function loadVendorData() {
     const res = await fetch("./script/get_vendor.php");
@@ -369,15 +479,15 @@ function manageShop() {
     form.address.value = d.address || "";
     let addr = d.address || "";
 
-    document.getElementById('NameOfTheVendor').innerText = d.vendor_name || "";
-    document.getElementById('NameOfTheShop').innerText = d.shop_name || "";
+    document.getElementById("NameOfTheVendor").innerText = d.vendor_name || "";
+    document.getElementById("NameOfTheShop").innerText = d.shop_name || "";
 
     // extract pincode from end
     let match = addr.match(/(.*)\s-\s(\d{6})$/);
 
     if (match) {
-      form.address.value = match[1];   // clean address
-      form.pincode.value = match[2];   // set pincode input
+      form.address.value = match[1]; // clean address
+      form.pincode.value = match[2]; // set pincode input
     } else {
       form.address.value = addr;
     }
@@ -396,99 +506,95 @@ function manageShop() {
   loadVendorData();
 
   // ===== PINCODE → LOCATION =====
-const pincodeInput = document.getElementById("pincode");
+  const pincodeInput = document.getElementById("pincode");
 
-let lastPin = "";
+  let lastPin = "";
 
-document.getElementById("pincode").addEventListener("input", async () => {
+  document.getElementById("pincode").addEventListener("input", async () => {
+    const pin = form.pincode.value.trim();
 
-  const pin = form.pincode.value.trim();
+    if (!/^[0-9]{6}$/.test(pin)) return;
 
-  if (!/^[0-9]{6}$/.test(pin)) return;
+    if (pin === lastPin) return; // prevent repeat call
+    lastPin = pin;
 
-  if (pin === lastPin) return; // prevent repeat call
-  lastPin = pin;
+    err.innerText = "Fetching location...";
 
-  err.innerText = "Fetching location...";
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?postalcode=${pin}&country=India&format=json`
+      );
 
-  try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?postalcode=${pin}&country=India&format=json`
-    );
+      const data = await res.json();
 
-    const data = await res.json();
+      if (!data.length) {
+        err.innerText = "Pincode not found";
+        // window.location.href('#addFormErr');
+        return;
+      }
 
-    if (!data.length) {
-      err.innerText = "Pincode not found";
-      // window.location.href('#addFormErr');
-      return;
+      const loc = data[0];
+
+      baseAddress = loc.display_name; // ✅ store clean address
+
+      form.address.value = baseAddress; // ❌ no pincode here
+
+      setMapLocation(parseFloat(loc.lat), parseFloat(loc.lon));
+
+      err.innerText = "";
+    } catch {
+      err.innerText = "Location fetch failed";
     }
-
-    const loc = data[0];
-
-    baseAddress = loc.display_name; // ✅ store clean address
-
-    form.address.value = baseAddress; // ❌ no pincode here
-
-    setMapLocation(parseFloat(loc.lat), parseFloat(loc.lon));
-
-    err.innerText = "";
-
-  } catch {
-    err.innerText = "Location fetch failed";
-  }
-});
+  });
 
   // ===== SUBMIT =====
   form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  err.innerText = "";
+    err.innerText = "";
 
-  const pin = form.pincode.value.trim();
+    const pin = form.pincode.value.trim();
 
-  if (!/^[0-9]{6}$/.test(pin)) {
-    err.innerText = "Invalid pincode";
-    return;
-  }
-
-  // 🔥 remove old pincode if already appended
-  let addr = form.address.value.trim();
-
-  addr = addr.replace(/\s*-\s*\d{6}$/, ""); // remove " - 380001" from end if exists
-
-  // append new pincode
-  const finalAddress = addr + " - " + pin;
-
-  // create formdata manually to control address
-  const data = new FormData(form);
-  data.set("address", finalAddress);
-
-  try {
-    const res = await fetch("./script/add_shop.php", {
-      method: "POST",
-      body: data
-    });
-
-    const result = await res.text();
-
-    if (result.trim() === "success") {
-      err.innerHTML = "<span style='color:green'>Saved</span>";
-      window.location.href = '#ProductPage';
-    } else {
-      err.innerText = result;
-      window.location.href = '#ProductPage';
+    if (!/^[0-9]{6}$/.test(pin)) {
+      err.innerText = "Invalid pincode";
+      return;
     }
 
-  } catch {
-    err.innerText = "Network error";
-    window.location.href = '#ProductPage';
-  }
-});
+    // 🔥 remove old pincode if already appended
+    let addr = form.address.value.trim();
+
+    addr = addr.replace(/\s*-\s*\d{6}$/, ""); // remove " - 380001" from end if exists
+
+    // append new pincode
+    const finalAddress = addr + " - " + pin;
+
+    // create formdata manually to control address
+    const data = new FormData(form);
+    data.set("address", finalAddress);
+
+    try {
+      const res = await fetch("./script/add_shop.php", {
+        method: "POST",
+        body: data,
+      });
+
+      const result = await res.text();
+
+      if (result.trim() === "success") {
+        err.innerHTML = "<span style='color:green'>Saved</span>";
+        window.location.href = "#ProductPage";
+      } else {
+        err.innerText = result;
+        window.location.href = "#ProductPage";
+      }
+    } catch {
+      err.innerText = "Network error";
+      window.location.href = "#ProductPage";
+    }
+  });
 
   closeOptMenus(false, false);
 }
-
 
 function manageOrders() {
   ShopkeeperOptionsBtns.innerHTML = `<div class="optBtn" onclick="loadAllProds()">Products</div> 

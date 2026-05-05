@@ -99,13 +99,10 @@ function defaultLoad___() {
 
   ProductPage.innerHTML = `
             <fieldset>
-                <div id="ProductOptionsBtns" style="width:100%;justify-content: flex-end ;align-items: center;">
-        
-                <div id="NavlinkContainer" style="display: flex;justify-content: flex-end;width:100%;">
-                    <input type="search" style="font-size: 1rem;margin-right: 5px;" name="search" id="navSearch" class="deactive" placeholder="Search">
-                        <div class="NavLink" id="searchBtn" style="color:#fff;background-color: #4c6381;">
-                        <span class="material-symbols-outlined">search</span>
-                    </div>
+                <div id="ProductOptionsBtns" style="width:100%;justify-content: flex-end ;align-items: center;">        
+                  <div id="NavlinkContainer" style="display: flex;justify-content: flex-end;width:100%;">
+                      <input type="search" style="font-size: 1rem;margin-right: 5px;" name="search" id="navSearch" class="deactive" placeholder="Search">
+                  </div>
                 </div>
 
                 </div>
@@ -149,13 +146,29 @@ function defaultLoad() {
 
   ProductPage.innerHTML = `
     <fieldset>
-      <div id="NavlinkContainer" style="display:flex;">
+      <div id="NavlinkContainer" style="display:flex;justify-content: flex-end;">
         <input type="search" id="navSearch" placeholder="Search">
       </div>
 
       <div id="productCards"></div>
     </fieldset>
   `;
+
+  ProductPage.innerHTML = `
+            <fieldset>
+                <div id="ProductOptionsBtns" style="width:100%;justify-content: flex-end ;align-items: center;">
+        
+                  <div id="NavlinkContainer" style="display: flex;justify-content: flex-end;width:100%;">
+                    <input type="search" style="font-size: 1rem;margin-right: 5px;" name="search" id="navSearch" class="deactive" placeholder="Search">
+                        
+                  </div>
+                </div>
+
+
+                <div id="productCards" style="padding: 5px 0;">
+                </div>
+            </fieldset>
+        `;
 
   ShopkeeperOptionsBtns.innerHTML = `
     
@@ -194,23 +207,27 @@ function defaultLoad() {
     container.innerHTML = "";
 
     if (!list.length) {
-      container.innerHTML = "<p>No products</p>";
+      container.innerHTML = "<p style='text-align: center;'>No products</p>";
       return;
     }
 
     list.forEach(p => {
       const card = document.createElement("div");
       card.className = "product";
+      card.style.justifyContent = "unset";
 
       card.innerHTML = `
         <img id="productImage" src="./script/${p.image || 'noimage.png'}">
         <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${p.category}</span>
 
         <div style="display:flex;flex-direction:column;">
-          <span id="productName"><b>${p.title}</b></span>
-          <span id="productDescription">${p.description || ""}</span>
-          <span id="productSeller">🏪 ${p.shop_name}</span>
-          <span id="productWarranty">${p.warranty} <b style="font-size:0.55rem;"> Warranty</b></span>
+          <span id="productName" style="margin-bottom:5px;"><b>${p.title}</b></span>
+          <span id="productDescription" style="font-size:0.8rem;height: 60px;overflow-y: scroll;">${p.description || ""}</span>
+        </div>
+        
+        <div style="display:flex;flex-direction:column;margin-top:auto;">
+          <span id="productSeller"><span class="material-symbols-outlined" style="font-size:1rem;padding:5px 5px 5px 0;">store</span>${p.shop_name}</span>
+          <span id="productWarranty" style="font-size:0.85rem;font-weight:700;">${p.warranty} <b style="font-size:0.65rem;font-weight:400;"> Warranty</b></span>
           <span id="productPrice">₹${p.price}</span>
         </div>
       `;
