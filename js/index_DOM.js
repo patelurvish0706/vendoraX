@@ -1039,95 +1039,158 @@ async function manageOrders() {
 
   result.data.forEach(p => {
 
-    // ✅ condition
-    let actionBtn = "";
-    let paymentText = "";
+  let actionBtn = "";
+  let paymentText = "";
+  let dateInfo = "";
 
-    if (p.status === "delivered") {
-      actionBtn = `<button type="button" onclick="raiseIssue(${p.id})">Raise Issue</button>`;
-      paymentText = `<label style="color:green;"><b>Paid</b></label>`;
-    } else {
-      actionBtn = `<button type="button" onclick="cancelOrder(${p.id})">Cancel Order</button>`;
-      paymentText = `<label style="color:orange;"><b>Pay After Delivery</b></label>`;
-    }
+  if (p.status === "delivered") {
+    actionBtn = `<button type="button" onclick="raiseIssue(${p.id})">Raise Issue</button>`;
+    paymentText = `<label style="color:green;"><b>Paid</b></label>`;
 
-    const div = document.createElement("div");
-
-    div.innerHTML = `
-    <div id="orderdetailContainer" style="margin:10px 0;border-radius:5px;">
-
-      <div id="editImage"
-        style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
-        ${p.category}
-      </div>
-
-      <div id="productImage">
-        <img src="./script/${p.image || 'noimage.png'}">
-      </div>
-
-      <div id="ProductEditInfo">
-
-        <form style="margin-bottom:0;">
-          <label style="font-size:1rem;"><b>${p.title}</b></label>
-          <label style="font-size:0.8rem;"><i>${p.category}</i></label>
-
-          <label style="font-size:0.8rem;">${p.description || ""}</label>
-
-          <label style="font-size0.9rem;font-weight:600;margin:4px 0;">₹${p.price} x ${p.qty}</label>
-          <label style="font-size:0.9rem;margin:3px 0;"><b style="font-size:1.4rem;">₹${p.total}</b> Total</label>
-
-          <label style="font-size:0.9rem;">${paymentText}</label>
-        </form>
-
-        <form>
-          <label style="font-size:1rem;"><b>${p.name}</b></label>
-          <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
-
-          <label style="font-size:0.8rem;">${p.address}</label>
-
-          <label style="font-size:0.7rem;">
-            <span>Quantity</span> <b>${p.qty}</b>
-          </label>
-
-          <label style="font-size:0.8rem;color:green;">
-            <b>${p.status}</b>
-          </label>
-
-          <label style="font-size:0.9rem;">
-            <span>Valid Warranty</span> <b><i>${p.warranty} Months</i></b>
-          </label>
-        </form>
-
-        <form style="display:flex;align-items:flex-end;margin:0;">
-          <div>${actionBtn}</div>
-        </form>
-
-      </div>
-    </div>
+    // ✅ show both dates
+    dateInfo = `
+      <label style="font-size:0.75rem;">
+        Ordered: <b>${p.ordered_at || "-"}</b>
+      </label>
+      <label style="font-size:0.75rem;">
+        Delivered: <b>${p.delivered_at || "-"}</b>
+      </label>
     `;
 
-    container.appendChild(div.firstElementChild);
-  });
+  } else {
+    actionBtn = `<button type="button" onclick="cancelOrder(${p.id})">Cancel Order</button>`;
+    paymentText = `<label style="color:orange;"><b>Pay After Delivery</b></label>`;
+
+    // only ordered date
+    dateInfo = `
+      <label style="font-size:0.75rem;">
+        Ordered: <b>${p.ordered_at || "-"}</b>
+      </label>
+    `;
+  }
+
+  const div = document.createElement("div");
+
+  div.innerHTML = `
+  <div id="orderdetailContainer" style="margin:10px 0;border-radius:5px;">
+
+    <div id="editImage"
+      style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+      ${p.category}
+    </div>
+
+    <div id="productImage">
+      <img src="./script/${p.image || 'noimage.png'}">
+    </div>
+
+    <div id="ProductEditInfo">
+
+      <form style="margin-bottom:0;">
+        <label style="font-size:1rem;"><b>${p.title}</b></label>
+        <label style="font-size:0.8rem;"><i>${p.category}</i></label>
+
+        <label style="font-size:0.8rem;">${p.description || ""}</label>
+
+        <label style="font-size:0.9rem;font-weight:600;margin:4px 0;">
+          ₹${p.price} x ${p.qty}
+        </label>
+
+        <label style="font-size:0.9rem;margin:3px 0;">
+          <b style="font-size:1.4rem;">₹${p.total}</b> Total
+        </label>
+
+        <label style="font-size:0.9rem;">${paymentText}</label>
+
+      </form>
+
+      <form>
+        <label style="font-size:1rem;"><b>${p.name}</b></label>
+        <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
+
+        <label style="font-size:0.8rem;">${p.address}</label>
+
+        <label style="font-size:0.7rem;">
+          <span>Quantity</span> <b>${p.qty}</b>
+        </label>
+
+        <label style="font-size:0.8rem;color:green;">
+          <b>${p.status}</b>
+        </label>
+
+        <label style="font-size:0.9rem;">
+          <span>Valid Warranty</span> <b><i>${p.warranty} Months</i></b>
+        </label>
+
+        </form>
+        
+        <form style="display:flex;align-items:flex-end;margin:0;">
+        <div>${actionBtn}</div>
+        ${dateInfo}
+      </form>
+
+    </div>
+  </div>
+  `;
+
+  container.appendChild(div.firstElementChild);
+});
 }
 
-async function raiseIssue(order_id) {
+function raiseIssue(order_id) {
 
-  console.log("Raise Issue:", order_id);
+  const popup = document.createElement("div");
+  popup.style = `
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:#0005;display:flex;align-items:center;justify-content:center;z-index:999;
+  `;
 
-  const msg = prompt("Enter issue:");
+  popup.innerHTML = `
+    <div style="color: #4c6381;background:#fff;padding:20px;border-radius:8px;width:400px;font-family: 'Montserrat Alternates', sans-serif;">
+      <h3 style="margin:2px 0 10px 0;">Raise Issue</h3>
 
-  if (!msg) return;
+      <label>Issue Title</label><br>
+      <input style="width:stretch"  id="issueTitle" placeholder="Short issue"><br>
 
-  const data = new FormData();
-  data.append("order_id", order_id);
-  data.append("msg", msg);
+      <label>Description</label><br>
+      <textarea style="width:stretch" id="issueDesc" rows="5" placeholder="Explain issue"></textarea>
 
-  const res = await fetch("./script/raise_issue.php", {
-    method: "POST",
-    body: data
-  });
+      <span style="margin-top:10px;">
+        <button style="margin:0;" id="submitIssue">Submit</button>
+        <button style="margin:0;" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </span>
+    </div>
+  `;
 
-  alert(await res.text());
+  document.body.appendChild(popup);
+
+  document.getElementById("submitIssue").onclick = async () => {
+
+    const title = document.getElementById("issueTitle").value.trim();
+    const desc = document.getElementById("issueDesc").value.trim();
+
+    if (!title) {
+      alert("Issue required");
+      return;
+    }
+
+    const data = new FormData();
+    data.append("order_id", order_id);
+    data.append("issue", title);
+    data.append("description", desc);
+
+    console.log("Sending issue:", [...data]);
+
+    const res = await fetch("./script/raise_issue.php", {
+      method: "POST",
+      body: data
+    });
+
+    const r = await res.text();
+    console.log("Response:", r);
+
+    alert(r);
+    popup.remove();
+  };
 }
 
 async function cancelOrder(order_id) {

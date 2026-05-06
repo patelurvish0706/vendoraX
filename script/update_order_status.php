@@ -10,13 +10,13 @@ $vendor_id = base64_decode($_COOKIE['vendor_token']);
 $order_id = $_POST['order_id'];
 $status = $_POST['status'];
 
-// validate status
+// validate
 $allowed = ['pending','shipped','delivered'];
 if (!in_array($status, $allowed)) {
     echo "Invalid status"; exit;
 }
 
-// check vendor owns product
+// check ownership
 $q = "
 SELECT o.id 
 FROM orders o
@@ -33,9 +33,22 @@ if (!$res->num_rows) {
     echo "Not allowed"; exit;
 }
 
-// update
-$stmt = $conn->prepare("UPDATE orders SET status=? WHERE id=?");
-$stmt->bind_param("si", $status, $order_id);
+// ✅ update properly
+if ($status == "delivered") {
+    $stmt = $conn->prepare("
+        UPDATE orders 
+        SET status=?, delivered_at=NOW() 
+        WHERE id=?
+    ");
+    $stmt->bind_param("si", $status, $order_id);
+} else {
+    $stmt = $conn->prepare("
+        UPDATE orders 
+        SET status=? 
+        WHERE id=?
+    ");
+    $stmt->bind_param("si", $status, $order_id);
+}
 
 echo $stmt->execute() ? "Updated" : "Error";
 ?>

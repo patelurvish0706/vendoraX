@@ -19,7 +19,7 @@ if (!is_numeric($vid)) {
 
 // ✅ prepare query (safe)
 $q = "
-SELECT o.id, o.qty, o.status,
+SELECT o.id, o.qty, o.status,o.ordered_at, o.delivered_at,
 p.id as 'product_id', p.title, p.description, p.price, p.stock, p.image, p.category, p.warranty,
 c.name, c.mobile, c.address
 FROM orders o

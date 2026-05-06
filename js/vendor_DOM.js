@@ -917,7 +917,7 @@ async function loadVendorOrders(type) {
       selectBlock = `
         <select onchange="updateOrderStatus(ORDER_ID, this)">
   <option value="pending">Pending</option>
-  <option value="shipped">Shipped</option>
+  <option value="shipped" selected>Shipped</option>
   <option value="delivered">Delivered</option>
 </select>`;
 
@@ -929,8 +929,11 @@ async function loadVendorOrders(type) {
       actionBtns = `
         <label style="color:green;"><b>Delivery Successful</b></label>
         <div>
-          <span>Ordered On: <b>${p.created_at || "-"}</b></span><br>
-        </div>`;
+          <label>Ordered On: <b>${p.ordered_at || "-"}</b></label>
+
+          <label>Delivered On: <b>${p.delivered_at ? p.delivered_at : "Not Delivered"}</b></label>
+        </div>     
+        `;
     }
 
     const div = document.createElement("div");
@@ -949,13 +952,14 @@ async function loadVendorOrders(type) {
 
       <div id="ProductEditInfo">
 
-        <form>
-          <label style="font-size:1rem;"><b>${p.title}</b></label>
-          <label style="font-size:0.8rem;"><i>${p.category}</i></label>
-          <label style="font-size:0.8rem;">${p.description}</label>
-          <label style="font-size:0.7rem;"><span>Warranty</span> <b>${p.warranty} months</b></label>
-          <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
-          <div><label>Cash On Delivery</label></div>
+        <form style="margin-bottom:0;">
+          <label style="font-size:1rem;margin:2px 0;"><b>${p.title}</b></label>
+          <label style="font-size:0.8rem; margin:2px 0;"><i>${p.category}</i></label>
+          <label style="font-size:0.8rem; margin:4px 0;">${p.description}</label>
+          <label style="font-size:0.7rem; margin:2px 0;"><span>Warranty</span> <b>${p.warranty} months</b></label>
+          <label style="font-size:0.95rem; margin:5px 0 2px 0;"><b>₹ ${p.price}</b> x <b>${p.qty}</b></label>
+          <label style="font-size:1.2rem;margin:2px 0;"><b>₹ ${p.price * p.qty}</b> Total</label>
+          <div><label style="font-size:0.95rem;">Cash On Delivery</label></div>
         </form>
 
         <form>
@@ -983,7 +987,7 @@ function manageOrders() {
 
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="loadAllProds()">Products</div> 
-    <div class="optBtn hover">Orders</div> 
+    <div class="optBtn hover" onclick="manageOrders()">Orders</div> 
     <div class="optBtn" onclick="manageSales()">Sell</div>
     <div class="optBtn" onclick="manageComplains()">Complains</div>
   `;
@@ -997,7 +1001,7 @@ function manageOrders() {
       </div>
     </fieldset>
 
-    <div id="addingTask" style="margin:10px;background:#fff;border-radius:5px;box-shadow:0px 7px 10px #0000000f;"></div>
+    <div id="addingTask" style="margin:10px;background: transparent;border-radius:5px;"></div>
   `;
 
   // default
