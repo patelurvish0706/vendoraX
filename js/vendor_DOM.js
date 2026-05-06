@@ -886,7 +886,7 @@ async function loadVendorOrders(type) {
   const list = resultdata.data.filter(o => o.status === type);
 
   if (!list.length) {
-    container.innerHTML = "<p style='padding:10px'>No Orders</p>";
+    container.innerHTML = "<p style='text-align:center;'>No Orders</p>";
     return;
   }
 
@@ -946,7 +946,7 @@ async function loadVendorOrders(type) {
         ${p.category}
       </div>
 
-      <div id="productImage">
+      <div id="productImage" style="padding:0;">
         <img src="./script/${p.image || 'noimage.png'}">
       </div>
 
@@ -1028,4 +1028,150 @@ function setActive(id) {
     document.getElementById(i).classList = "optBtn";
   });
   document.getElementById(id).classList = "optBtn hover";
+}
+
+
+
+// complains
+
+async function manageComplains() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="loadAllProds()">Products</div> 
+    <div class="optBtn" onclick="manageOrders()">Orders</div> 
+    <div class="optBtn" onclick="manageSales()">Sell</div>
+    <div class="optBtn hover" onclick="manageComplains()">Complains</div>
+  `;
+
+  ProductPage.innerHTML = `
+    <fieldset style="padding-bottom:0;">
+      <div id="ProductOptionsBtns">
+        <div class="optBtn " id="allC">All</div>
+        <div class="optBtn" id="procC">Processing</div>
+        <div class="optBtn" id="resC">Resolved</div>
+      </div>
+    </fieldset>
+
+    <div id="addingTask" style="margin:10px;background:transparent;border-radius:5px;box-shadow:none;"></div>
+  `;
+
+  const container = document.getElementById("addingTask");
+
+  const res = await fetch("./script/get_issues_vendor.php");
+  const result = await res.json();
+
+  console.log("ISSUES:", result);
+
+  if (result.status !== "ok") {
+    alert("Error loading");
+    return;
+  }
+
+  function render(type = "all") {
+
+    container.innerHTML = "";
+
+    const data = result.data.filter(i => {
+      if (type === "processing") return i.status === "processing";
+      if (type === "resolved") return i.status === "resolved";
+      return true;
+    });
+
+    if (!data.length) {
+      container.innerHTML = "<p style='text-align:center;'>No Complains</p>";
+      return;
+    }
+
+    data.forEach(p => {
+
+     const div = document.createElement("div");
+      div.classList.add("ListingOrderItems");
+
+      div.innerHTML = `
+      <div id="orderdetailContainer" style="background: #fff;margin-bottom:10px;display:flex;border-radius:5px;">
+      
+      <div id="productImage">
+        <div id="editImage"
+          style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+          ${p.category}
+        </div>
+
+          <img src="./script/${p.image || 'noimage.png'}">
+        </div>
+
+        <div id="ProductEditInfo" style="display:flex;padding: 0 10px 0 0;width:stretch;">
+
+          <form style="margin:0;padding: 10px 0 0 10px;">
+            <label style="font-size:1rem;"><b>${p.title}</b></label>
+            <label style="font-size:0.8rem;"><i>${p.category}</i></label>
+            <label style="font-size:0.8rem;">${p.description || ""}</label>
+            <label style="font-size:0.7rem;">Warranty <b>${p.warranty} months</b></label>
+            <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
+          </form>
+
+          <form style="margin:0;padding: 10px 0 0 10px;">
+            <label style="font-size:1rem;"><b>${p.name}</b></label>
+            <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
+            <label style="font-size:0.8rem;">${p.address}</label>
+            <label style="font-size:0.7rem;">Qty <b>${p.qty}</b></label>
+            <label style="font-size:0.7rem;">Raised: <b>${p.created_at}</b></label>
+          </form>
+
+          <form style="margin:0;padding: 10px 0 0 10px;">
+            <label style="font-size:0.8rem;margin:3px 0;"><b>Problem</b></label>
+            <input value="${p.issue}" readonly>
+
+            <label style="font-size:0.8rem;margin:3px 0;"><b>Explain Issue</b></label>
+            <textarea rows="3" readonly>${p.description || ""}</textarea>
+
+          </form>
+
+          <form style="display:flex;align-items:flex-end;margin:0;padding: 10px 0 0 10px;">
+            <div>
+              <select onchange="updateIssueStatus(${p.id}, this.value)">
+                <option value="pending" ${p.status=="pending"?"selected":""}>Pending</option>
+                <option value="processing" ${p.status=="processing"?"selected":""}>Processing</option>
+                <option value="approved" ${p.status=="approved"?"selected":""}>Approved</option>
+                <option value="resolved" ${p.status=="resolved"?"selected":""}>Resolved</option>
+              </select>
+            </div>
+
+            <div>
+              <button type="button" style="margin:0;" onclick="updateIssueStatus(${p.id}, 'resolved')">Resolve</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+      `;
+
+      container.appendChild(div.firstElementChild);
+    });
+  }
+
+  // default
+  render("all");
+
+  document.getElementById("allC").onclick = () => render("all");
+  document.getElementById("procC").onclick = () => render("processing");
+  document.getElementById("resC").onclick = () => render("resolved");
+}
+
+async function updateIssueStatus(id, status) {
+
+  console.log("Update Issue:", id, status);
+
+  const fd = new FormData();
+  fd.append("id", id);
+  fd.append("status", status);
+
+  const res = await fetch("./script/update_issue.php", {
+    method: "POST",
+    body: fd
+  });
+
+  const r = await res.text();
+  console.log("Response:", r);
+
+  alert(r);
 }

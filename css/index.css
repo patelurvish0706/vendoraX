@@ -175,6 +175,7 @@ body {
     width: stretch;
     padding: 15px 40px;
     font-family: "Montserrat Alternates", sans-serif;
+    min-height: 60vh;
 }
 
 #pageContent #welcomeVendor {
@@ -275,6 +276,7 @@ body {
     border-radius: 10px;
     /* padding: 10px; */
     background: linear-gradient(135deg, #DFECFF 55%, #edf5ff);
+    min-height: 500px;
 }
 
 #ShopkeeperProcessArea #ProductPage fieldset {
@@ -375,7 +377,7 @@ body {
     border-radius: 10px;
 }
 
-#ProductProfiler #detailContainer #productImage {
+#ProductProfiler #detailContainer #productImage,#productImage {
     padding: 10px;
     width: 450px;
     height: 100%;
@@ -394,7 +396,7 @@ body {
     width: 80%;
 }
 
-#ProductProfiler #detailContainer #productImage img {
+#ProductProfiler #detailContainer #productImage img , #productImage img {
     width: 450px;
     height: 95%;
     border-radius: 10px;
@@ -414,13 +416,13 @@ body {
 
 }
 
-#ListingOrderItems #orderdetailContainer #productImage {
+#ListingOrderItems #orderdetailContainer #productImage , #productImage {
     width: 230px;
     height: 180px;
     background-size: cover;
 }
 
-#ListingOrderItems #orderdetailContainer #productImage img {
+#ListingOrderItems #orderdetailContainer #productImage img, #productImage img {
     border-radius: 5px;
     width: inherit;
     height: inherit;

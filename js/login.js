@@ -24,6 +24,8 @@ let Register = () => {
     Login()
     showReg()
 
+    map.invalidateSize();
+
     closeOptMenus(false,false);
 
 }
@@ -98,6 +100,9 @@ function showReg() {
     RegForm.style.display = "flex"
     LoginForm.style.display = "none"
     document.getElementById('Errlogin').innerHTML = ``;
+
+    setTimeout(() => map.invalidateSize(), 200);
+
 }
 
 function logout() {

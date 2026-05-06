@@ -11,8 +11,8 @@ $desc = trim($_POST['description'] ?? "");
 
 // safe insert
 $stmt = $conn->prepare("
-INSERT INTO issues (order_id, issue, description)
-VALUES (?, ?, ?)
+INSERT INTO issues (order_id, issue, description, status)
+VALUES (?, ?, ?, 'pending')
 ");
 
 $stmt->bind_param("iss", $order_id, $issue, $desc);

@@ -205,10 +205,10 @@ async function sendOrder(p, qty, type) {
 function defaultLoad() {
   const token = getCookie("customer_token");
 
-  if (!token) {
-    Login();
-    return;
-  }
+  // if (!token) {
+  //   Login();
+  //   return;
+  // }
 
   ShopkeeperOptionsBtns.addEventListener("mouseenter", () => {
     const scrollHandler = (e) => {
@@ -231,16 +231,6 @@ function defaultLoad() {
       { once: true }
     );
   });
-
-  ProductPage.innerHTML = `
-    <fieldset>
-      <div id="NavlinkContainer" style="display:flex;justify-content: flex-end;">
-        <input type="search" id="navSearch" placeholder="Search">
-      </div>
-
-      <div id="productCards"></div>
-    </fieldset>
-  `;
 
   ProductPage.innerHTML = `
             <fieldset>
@@ -305,7 +295,7 @@ function defaultLoad() {
       card.style.justifyContent = "unset";
 
       card.innerHTML = `
-        <img id="productImage" src="./script/${p.image || "noimage.png"}">
+        <img id="productImage" style="padding: 0;" src="./script/${p.image || "noimage.png"}">
         <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${
           p.category
         }</span>
@@ -377,6 +367,11 @@ function defaultLoad() {
   });
 
   loadProducts();
+
+  if (!token) {
+    Login();
+    return;
+  }
 }
 
 defaultLoad();
@@ -452,6 +447,8 @@ async function manageCustomerInfo() {
   title.value = d.name || "";
   mobile.value = d.mobile || "";
   email.value = d.email || "";
+
+  document.getElementById("map").innerHTML = "";
 
   let map = L.map("map").setView([latVal, lngVal], 15);
   let marker;
@@ -588,271 +585,6 @@ function manageCustomerInfo__() {
 }
 // manageCustomerInfo()
 
-function manageCart______() {
-  ShopkeeperOptionsBtns.innerHTML = `
-    <div class="optBtn" onclick="defaultLoad()"><span class="material-symbols-outlined" style="font-size:1rem;">arrow_back_ios</span>Back</div>
-    <div class="optBtn hover">My Cart</div>
-    `;
-
-  ProductPage.innerHTML = `
-    <fieldset>
-
-
-        <div id="ListingOrderItems">
-            <div id="orderdetailContainer" >
-                <div id="editImage"
-                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                    Laptop
-                </div>
-                <div id="productImage">
-                    <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2" alt="" height="200px">
-                </div>
-
-                <div id="ProductEditInfo" >
-                    <form id="AddingTaskForm">
-                        <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                        <label style="font-size: 0.8rem;"><i>HP</i></label>
-
-                        <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
-                            SSD</label>
-
-                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-
-                        <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-
-                        <div style="margin-top:5px ;">
-                            <input type="radio" id="onlinePay" name="PayMode" disabled> <label for="onlinePay"
-                                style="color: #797e84;">Pay Online - UPI</label>
-                        </div>
-
-                        <div style="margin-bottom:5px ;">
-                            <input type="radio" id="cashOnDel" name="PayMode" checked> <label for="cashOnDel">Cash On
-                                Delivery</label>
-                        </div>
-                    </form>
-
-                    <div id="contentNbtn">
-                    
-                    <form id="AddingTaskForm">
-                        <label style="display: flex;align-items: center;padding: 0;margin: 0;font-size: 0.9rem;">
-                        <span class="material-symbols-outlined" style="padding:0px 5px 0px 0px;font-size: 1rem;">store</span>TechWorld</label>
-                        <label
-                        style="display: flex;align-items: center;padding: 0;margin: 5px 0 0 0;font-size: 0.9rem;">
-                        <span class="material-symbols-outlined"
-                        style="padding:0px 5px 0px 0px;font-size: 1rem;">call</span>9764645664
-                        <label
-                        style="font-size: 0.6rem;padding:5px 9px; background-color: #4c6381;border-radius: 5px; margin: 0 0 0 5px;color:#fff;">Ask
-                        for help</label></label>
-                        
-                        <label style="font-size: 0.9rem;"><u>Check More Products</u></label>
-
-                        <div style="font-size: 2rem;">
-                            - <input type="number" placeholder="1" style="width: 35px;text-align: end;"> +
-                        </div>
-                        
-                        </form>
-                        <form id="CartDelBuy">
-                        <button type="submit" id="BuyBtn" >Buy Now</button>
-                        <button type="reset" id="DelBtn" >Remove</button>
-                        </form>
-                        </div>
-                </div>
-            </div>
-
-
-            <div id="orderdetailContainer" >
-                <div id="editImage"
-                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                    Mobiles
-                </div>
-                <div id="productImage">
-                    <img src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=800&q=80"
-                        alt="" >
-                </div>
-
-                <div id="ProductEditInfo" >
-                    <form id="AddingTaskForm">
-                        <label style="font-size: 1rem;"><b>iPhone 13</b></label>
-                        <label style="font-size: 0.8rem;"><i>Apple</i></label>
-
-                        <label style="font-size: 0.8rem;font-weight: 400;">128GB, A15 chip</label>
-
-                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 1 years</b></label>
-
-                        <label style="font-size: 1.2rem;"><b>₹ 70000</b></label>
-
-                        <div style="margin-top:5px ;">
-                            <input type="radio" id="onlinePay" name="PayMode" disabled> <label for="onlinePay"
-                                style="color: #797e84;">Pay Online - UPI</label>
-                        </div>
-
-                        <div style="margin-bottom:5px ;">
-                            <input type="radio" id="cashOnDel" name="PayMode" checked> <label for="cashOnDel">Cash On
-                                Delivery</label>
-                        </div>
-                    </form>
-
-                    <div id="contentNbtn">
-
-
-                    <form id="AddingTaskForm">
-                        <label style="display: flex;align-items: center;padding: 0;margin: 0;font-size: 0.9rem;">
-                            <span class="material-symbols-outlined"
-                                style="padding:0px 5px 0px 0px;font-size: 1rem;">store</span>IStore</label>
-                        <label
-                            style="display: flex;align-items: center;padding: 0;margin: 5px 0 0 0;font-size: 0.9rem;">
-                            <span class="material-symbols-outlined"
-                                style="padding:0px 5px 0px 0px;font-size: 1rem;">call</span>9335445664
-                            <label
-                                style="font-size: 0.6rem;padding:5px 9px; background-color: #4c6381;border-radius: 5px; margin: 0 0 0 5px;color:#fff;">Ask
-                                for help</label></label>
-
-                        <label style="font-size: 0.9rem;"><u>Check More Products</u></label>
-
-                        <div style="font-size: 2rem;">
-                            - <input type="number" placeholder="1" style="width: 35px;text-align: end;"> + 
-                        </div>
-                        
-                        </form>
-                        <form id="CartDelBuy">
-                            <button type="submit" id="BuyBtn" >Buy Now</button>
-                            <button type="reset" id="DelBtn" >Remove</button>
-                        </form>
-                </div>
-                </div>
-            </div>
-
-            <div id="orderdetailContainer" >
-                <div id="editImage"
-                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                    Laptop
-                </div>
-                <div id="productImage">
-                    <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2" alt="" height="200px">
-                </div>
-
-                <div id="ProductEditInfo" >
-                    <form id="AddingTaskForm">
-                        <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                        <label style="font-size: 0.8rem;"><i>HP</i></label>
-
-                        <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
-                            SSD</label>
-
-                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-
-                        <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-
-                        <div style="margin-top:5px ;">
-                            <input type="radio" id="onlinePay" name="PayMode" disabled> <label for="onlinePay"
-                                style="color: #797e84;">Pay Online - UPI</label>
-                        </div>
-
-                        <div style="margin-bottom:5px ;">
-                            <input type="radio" id="cashOnDel" name="PayMode" checked> <label for="cashOnDel">Cash On
-                                Delivery</label>
-                        </div>
-                    </form>
-
-                    <div id="contentNbtn">
-                    
-                    <form id="AddingTaskForm">
-                        <label style="display: flex;align-items: center;padding: 0;margin: 0;font-size: 0.9rem;">
-                        <span class="material-symbols-outlined" style="padding:0px 5px 0px 0px;font-size: 1rem;">store</span>TechWorld</label>
-                        <label
-                        style="display: flex;align-items: center;padding: 0;margin: 5px 0 0 0;font-size: 0.9rem;">
-                        <span class="material-symbols-outlined"
-                        style="padding:0px 5px 0px 0px;font-size: 1rem;">call</span>9764645664
-                        <label
-                        style="font-size: 0.6rem;padding:5px 9px; background-color: #4c6381;border-radius: 5px; margin: 0 0 0 5px;color:#fff;">Ask
-                        for help</label></label>
-                        
-                        <label style="font-size: 0.9rem;"><u>Check More Products</u></label>
-
-                        <div style="font-size: 2rem;">
-                            - <input type="number" placeholder="1" style="width: 35px;text-align: end;"> +
-                        </div>
-                        
-                        </form>
-                        <form id="CartDelBuy">
-                        <button type="submit" id="BuyBtn" >Buy Now</button>
-                        <button type="reset" id="DelBtn" >Remove</button>
-                        </form>
-                        </div>
-                </div>
-            </div>
-
-
-
-        </div>
-
-
-
-        
-
-
-    </fieldset>
-    `;
-
-  closeOptMenus(false, false);
-}
-// manageCart();
-
-async function manageCart______() {
-
-  ShopkeeperOptionsBtns.innerHTML = `
-    <div class="optBtn" onclick="defaultLoad()">Back</div>
-    <div class="optBtn hover">My Cart</div>
-  `;
-
-  ProductPage.innerHTML = `<div id="ListingOrderItems"></div>`;
-  closeOptMenus(false, false);
-
-  const container = document.getElementById("ListingOrderItems");
-
-  const res = await fetch("./script/get_cart.php");
-  const result = await res.json();
-
-  console.log("CART DATA:", result);
-
-  if (result.status !== "ok") {
-    showLogin();
-    return;
-  }
-
-  if (!result.data.length) {
-    container.innerHTML = "<p>Cart empty</p>";
-    return;
-  }
-
-  result.data.forEach(p => {
-
-    const div = document.createElement("div");
-    div.className = "cartItem";
-
-    div.innerHTML = `
-      <img src="./script/${p.image || 'noimage.png'}" height="120">
-
-      <div>
-        <b>${p.title}</b>
-        <p>₹${p.price}</p>
-        <p>${p.shop_name}</p>
-
-        <div>
-          <button onclick="changeQty(${p.cart_id}, -1)">-</button>
-          <input value="${p.qty}" id="qty_${p.cart_id}" style="width:40px;">
-          <button onclick="changeQty(${p.cart_id}, 1)">+</button>
-        </div>
-
-        <button onclick="buyCartItem(${p.cart_id})">Buy Now</button>
-        <button onclick="removeCart(${p.cart_id})">Remove</button>
-      </div>
-    `;
-
-    container.appendChild(div);
-  });
-}
-
 // Manage Cart
 
 async function manageCart() {
@@ -899,7 +631,7 @@ async function manageCart() {
         ${p.category}
       </div>
 
-      <div id="productImage">
+      <div id="productImage" style="padding:0;">
         <img src="./script/${p.image || 'noimage.png'}" height="200px">
       </div>
 
@@ -1011,6 +743,8 @@ async function buyCartItem(cart_id) {
 
 async function manageOrders() {
 
+  closeOptMenus(false, false);
+
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()">Back</div>
     <div class="optBtn hover">My Orders</div>
@@ -1033,7 +767,7 @@ async function manageOrders() {
   }
 
   if (!result.data.length) {
-    container.innerHTML = "<p>No Orders</p>";
+    container.innerHTML = "<p style='text-align:center;'>No Orders</p>";
     return;
   }
 
@@ -1079,7 +813,7 @@ async function manageOrders() {
       ${p.category}
     </div>
 
-    <div id="productImage">
+    <div id="productImage" style="padding: 0;">
       <img src="./script/${p.image || 'noimage.png'}">
     </div>
 
@@ -1096,16 +830,17 @@ async function manageOrders() {
         </label>
 
         <label style="font-size:0.9rem;margin:3px 0;">
-          <b style="font-size:1.4rem;">₹${p.total}</b> Total
+          <b style="font-size:1.4rem;">₹${p.price * p.qty}</b> Total
         </label>
 
         <label style="font-size:0.9rem;">${paymentText}</label>
 
       </form>
 
-      <form>
-        <label style="font-size:1rem;"><b>${p.name}</b></label>
-        <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
+      <form style="margin-bottom:0;">
+        <label style="font-size:1rem;"><b>${p.shop_name}</b></label>
+        <label style="font-size:0.8rem;margin:2px 0;font-weight:400;">Seller: <b style="font-size:0.9rem;margin:2px 0;font-weight:500;">${p.vendor_name}</b></label>
+        <label style="font-size:0.8rem;">Phone: <b>${p.vendor_phone}</b></label>
 
         <label style="font-size:0.8rem;">${p.address}</label>
 
@@ -1212,4 +947,234 @@ async function cancelOrder(order_id) {
 
   alert(r);
   manageOrders();
+}
+
+
+
+// Manage Complains
+
+
+async function manageComplains() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Back</div>
+    <div class="optBtn hover">My Complains</div>
+  `;
+
+  ProductPage.innerHTML = `
+    <fieldset>
+      <div id="ListingOrderItems"></div>
+    </fieldset>
+  `;
+
+  const container = document.getElementById("ListingOrderItems");
+
+  const res = await fetch("./script/get_issues_customer.php");
+  const result = await res.json();
+
+  console.log("CUSTOMER ISSUES:", result);
+
+  if (result.status !== "ok") {
+    showLogin();
+    return;
+  }
+
+  if (!result.data.length) {
+    container.innerHTML = "<p>No Complains</p>";
+    return;
+  }
+
+  result.data.forEach(p => {
+
+    let statusText = "";
+    if (p.status === "pending") statusText = "Request Pending";
+    else if (p.status === "processing") statusText = "Request Under Process";
+    else if (p.status === "approved") statusText = "Approved";
+    else if (p.status === "resolved") statusText = "Resolved";
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <div id="orderdetailContainer" style="margin:10px 0;border-radius:5px;">
+
+      <div id="editImage"
+        style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+        ${p.category}
+      </div>
+
+      <div id="productImage" style="padding:0;">
+        <img src="./script/${p.image || 'noimage.png'}">
+      </div>
+
+      <div id="ProductEditInfo" style="display: flex;justify-content: space-between;width:stretch;">
+
+        <form style="margin-bottom: 0; max-width: 400px;">
+          <label style="font-size:1rem;"><b>${p.title}</b></label>
+          <label style="font-size:0.8rem;"><i>${p.category}</i></label>
+
+          <label style="font-size:0.8rem;">${p.pdesc || ""}</label>
+
+          <label style="font-size:0.7rem;">
+            <span>Warranty</span> <b>${p.warranty} months</b>
+          </label>
+
+          <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
+
+          <div style="margin-bottom:5px;">
+            <label>Cash On Delivery</label>
+          </div>
+        </form>
+
+        <form style="margin-bottom: 0; ">
+          <label style="font-size:1rem;"><b>Problem</b></label>
+          <input value="${p.issue}" readonly>
+
+          <label style="font-size:0.8rem;"><b>Explain Issue</b></label>
+          <textarea rows="3" readonly>${p.description || ""}</textarea>
+        </form>
+
+        <form style="display:flex;align-items:flex-end;margin:0;">
+        
+          <label style="font-size:0.8rem;color:orange;">
+            <b>${statusText}</b>
+          </label>
+
+          <label style="font-size:0.7rem;">
+            Raised: <b>${p.created_at}</b>
+          </label>
+        ${
+          p.status !== "resolved"
+          ? `<button style="margin:10px 0 0 0" type="button" onclick="cancelIssue(${p.id})">Cancel Complain</button>`
+          : `<span style="color:green;font-size:1.15rem;font-weight:500;">Resolved</span>`
+          }
+        </form>
+
+      </div>
+    </div>
+    `;
+
+    container.appendChild(div.firstElementChild);
+  });
+}
+
+async function cancelIssue(id) {
+
+  if (!confirm("Cancel this complain?")) return;
+
+  const fd = new FormData();
+  fd.append("id", id);
+
+  const res = await fetch("./script/cancel_issue.php", {
+    method: "POST",
+    body: fd
+  });
+
+  const r = await res.text();
+  alert(r);
+
+  manageComplains();
+}
+
+
+
+// nearest shop
+async function nearestShop() {
+
+  closeOptMenus(false, false);
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Back</div>
+    <div class="optBtn hover">Nearest Shops</div>
+  `;
+
+  ProductPage.innerHTML = `
+  <fieldset style="background:#fff;border: 1px solid #fff;padding: 10px;margin: 10px;border-radius: 5px;box-shadow: 0px 0px 5px 1px #0000000a;">
+      
+    <div id="detailContainer" style="width:stretch;padding:5px;display:flex;align-items:center;">
+        <span style="margin:0 5px 10px 0;">Select shops within: </span>
+        <span style="margin:0 0 10px 0; display:flex;gap:5px;">
+          <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(5)"> 5 km </div>
+          <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(10)"> 10 km </div>
+          <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(15)"> 15 km </div>
+        </span>
+    </div>
+
+        
+        <div id="map" style="height:500px;border-radius:5px;z-index:0;"></div>
+    </fieldset>
+  `;
+
+
+  console.log("Loading customer location...");
+
+  // get customer lat lng
+  const res = await fetch("./script/get_customer.php");
+  const r = await res.json();
+
+  if (r.status !== "valid") {
+    alert("Login required");
+    return;
+  }
+
+  let lat = parseFloat(r.data.latitude);
+  let lng = parseFloat(r.data.longitude);
+
+  // fallback (Ahmedabad)
+  if (!lat || !lng) {
+    console.log("No lat/lng found → using default");
+    lat = 23.0225;
+    lng = 72.5714;
+  }
+
+  console.log("Customer:", lat, lng);
+
+  let map = L.map('map').setView([lat, lng], 14);
+  // let map = L.map('map').setView([23.0225, 72.5714], 14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+  // customer marker
+  L.marker([lat, lng]).addTo(map).bindPopup("You");
+
+  // load shops function
+  let markers = [];
+
+window.loadShops = async function (km) {
+
+  console.log("Radius:", km);
+
+  // remove old markers
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  const fd = new FormData();
+  fd.append("km", km);
+
+  const res = await fetch("./script/get_nearest_shops.php", {
+    method: "POST",
+    body: fd
+  });
+
+  const data = await res.json();
+
+  console.log("Filtered Shops:", data);
+
+  if (data.status !== "ok") return;
+
+  data.vendors.forEach(s => {
+
+    let lat = parseFloat(s.shop_lati);
+    let lng = parseFloat(s.shop_long);
+
+    if (!lat || !lng) return;
+
+    let m = L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup(`<b>${s.shop_name}</b><br>${s.address}`);
+
+    markers.push(m);
+  });
+};
+
+  loadShops(5); // default
 }

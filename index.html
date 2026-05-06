@@ -50,15 +50,9 @@
                 <div id="MoreServicesBtns" class="NavMenu">
                     <div id="NavMenuBtn" onclick="manageCart()"><span class="material-symbols-outlined">shopping_cart</span>Cart</div>
                     <div id="NavMenuBtn" onclick="manageOrders()"><span class="material-symbols-outlined">orders</span>Orders</div>
-                    <div id="NavMenuBtn" onclick=""><span class="material-symbols-outlined">storefront</span>Nearest
-                        Shops</div>
-                    <div id="NavMenuBtn" onclick=""><span
-                            class="material-symbols-outlined">person_raised_hand</span>Complains
-                    </div>
-
-
-                    <div id="NavMenuBtn" onclick="gotoVendor()"><span id="btnSmallTag">For vendor - </span> Manage
-                        Business</div>
+                    <div id="NavMenuBtn" onclick="nearestShop(range = 5)"><span class="material-symbols-outlined">storefront</span>Nearest Shops</div>
+                    <div id="NavMenuBtn"  onclick="manageComplains()"><span class="material-symbols-outlined">person_raised_hand</span>Complains</div>
+                    <div id="NavMenuBtn" onclick="gotoVendor()"><span id="btnSmallTag">For vendor - </span> Manage Business</div>
                     <div id="NavMenuBtn" onclick="gotoVendorFaqs()">FAQ's</div>
                     <div id="NavMenuBtn" onclick="gotoAboutVendoraX()">About Vendora-X</div>
                 </div>
@@ -303,61 +297,17 @@
                             style="display: flex; justify-content: space-between;align-items: center;margin-bottom: 5px;">
                             <label><b>Nearest Shops</b></label>
                             <label
-                                style="background-color: #fff;color: #4c6381;font-size: 1.5rem; padding: 0 9px 2px 9px;border-radius: 5px;">x</label>
+                                style="background-color: #fff;color: #4c6381;font-size: 1.1rem; padding: 1px 9px 3px 9px;border-radius: 5px;">x</label>
                         </div>
 
+                        <div style="margin:0 0 10px 0;">
+                            <button style="margin: 0;">5km</button>
+                            <button style="margin: 0;">10km</button>
+                            <button style="margin: 0;">15km</button>
+                        </div>
 
-                        <!-- <div id="map" style="width: stretch;height: 500px;border-radius: 5px;"></div> -->
+                        <div id="map" style="border-radius: 5px;width: stretch;height: 500px;border-radius: 5px;"></div>
 
-                        <!-- Leaflet JS -->
-                        <!-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-                        <script>
-                            // SSIT Bhat location (fixed as current location)
-                            const ssitLat = 23.1150;
-                            const ssitLng = 72.6300;
-
-                            const ssitIcon = L.icon({
-                                iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // red marker
-                                iconSize: [40, 40],
-                                iconAnchor: [20, 40],
-                                popupAnchor: [0, -40]
-                            });
-
-                            // Create map
-                            const map2 = L.map('map').setView([ssitLat, ssitLng], 14);
-
-                            // OpenStreetMap tiles
-                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: '© OpenStreetMap'
-                            }).addTo(map2);
-
-                            // Marker for SSIT
-                            L.marker([ssitLat, ssitLng], { icon: ssitIcon })
-                                .addTo(map2)
-                                .bindPopup("SSIT Bhat (Current Location)")
-                                .openPopup();
-
-                            // Load JSON data
-                            fetch('./js/shopkeeper.json')
-                                .then(res => res.json())
-                                .then(data => {
-
-                                    data.shops.forEach(shop => {
-
-                                        L.marker([shop.lat, shop.lng])
-                                            .addTo(map2)
-                                            .bindPopup(`
-                                                <b>${shop.shopName}</b><br>
-                                                Owner: ${shop.ownerName}<br>
-                                                Phone: ${shop.ownerNumber}
-                                            `);
-                                    });
-
-                                })
-                                .catch(err => console.log(err));
-
-                        </script> -->
                     </div>
                 </div>
             </div>
@@ -454,10 +404,10 @@
                     <label for="repass">*Re-Enter Password</label>
                     <input type="password" id="repass" name="repass" placeholder="Burgers@50" />
 
-                    <label for="pincode">Pincode</label>
+                    <label for="pincode">*Pincode</label>
                     <input type="number" id="pincode" name="pincode" placeholder="380006" />
 
-
+                    <label for="selectLocation">*Select Location on Map</label>
                     <div id="map" style="width: 100% ;height:300px; "></div>
 
                     <label>*Address</label>

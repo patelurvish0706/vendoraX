@@ -10,11 +10,12 @@ $cid = base64_decode($_COOKIE['customer_token']);
 
 $q = "
 SELECT o.id, o.qty, o.total,
-p.title, p.price, p.image, p.description, p.warranty, p.category, o.status,o.ordered_at, o.delivered_at,
-c.name, c.mobile, c.address
+p.title, p.price, p.image, p.description, p.warranty, p.category,
+o.status, o.ordered_at, o.delivered_at,
+v.vendor_name, v.vendor_phone, v.address , v.shop_name
 FROM orders o
 JOIN products p ON o.product_id = p.id
-JOIN customers c ON o.customer_id = c.customer_id
+JOIN vendors v ON p.vendor_id = v.vendor_id
 WHERE o.customer_id = $cid
 ORDER BY o.id DESC;
 ";
