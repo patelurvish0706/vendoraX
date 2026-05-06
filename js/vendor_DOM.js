@@ -596,7 +596,7 @@ function manageShop() {
   closeOptMenus(false, false);
 }
 
-function manageOrders() {
+function manageOrders___() {
   ShopkeeperOptionsBtns.innerHTML = `<div class="optBtn" onclick="loadAllProds()">Products</div> 
                 <div class="optBtn hover" onclick="manageOrders()" >Orders</div> 
                 <div class="optBtn" onclick="manageSales()" >Sell</div>
@@ -646,10 +646,10 @@ function manageOrders() {
                                     <option value="Packed" >Completed</option>
                                 </select>
                             </div>
-                            <div>
+                            <span>
                                 <button type="submit" style="margin: 0;">Accept</button>
                                 <button type="reset" style="margin: 0;">Deny</button>
-                            </div>
+                            </span>
                         </form>
                     </div>
                     <div id="closeTable" style="display:none;border-radius:5px;background-color:#4c6381;color: #fff;height: max-content;cursor:pointer;">
@@ -806,4 +806,222 @@ function manageOrders() {
   document.getElementById("completedOrders").addEventListener("click", () => {
     completedOrders();
   });
+}
+
+
+
+
+async function changeStatus(order_id, el) {
+  console.log("STATUS:", order_id, el.value);
+
+  const fd = new FormData();
+  fd.append("order_id", order_id);
+  fd.append("status", el.value);
+
+  console.log(fd.order_id);
+
+
+  const r = await fetch("./script/update_order_status.php", {
+    method: "POST",
+    body: fd
+  });
+
+  console.log(await r.text());
+}
+
+async function acceptOrder(id) {
+  console.log("ACCEPT:", id);
+  changeStatus(id, {value:"shipped"});
+}
+
+async function denyOrder(id) {
+  console.log("DENY:", id);
+
+  if (!confirm("Deny order?")) return;
+
+  const fd = new FormData();
+  fd.append("order_id", id);
+
+  const r = await fetch("./script/deny_order.php", {
+    method: "POST",
+    body: fd
+  });
+
+  alert(await r.text());
+  manageVendorOrders();
+}
+
+function updateOrderStatus(order_id, select ) {
+
+  const status = select.value;
+
+  console.log("Update:", order_id, status);
+
+  const data = new FormData();
+  data.append("order_id", order_id);
+  data.append("status", status);
+
+  fetch("./script/update_order_status.php", {
+    method: "POST",
+    body: data
+  })
+  .then(r => r.text())
+  .then(res => {
+    console.log(res);
+    alert(res);
+  });
+}
+
+async function loadVendorOrders(type) {
+
+  const container = document.getElementById("addingTask");
+
+  const info = await fetch("./script/get_vendor_orders.php");
+  const resultdata = await info.json();
+
+  console.log("VENDOR:", resultdata);
+
+  if (resultdata.status !== "ok") return;
+
+  const list = resultdata.data.filter(o => o.status === type);
+
+  if (!list.length) {
+    container.innerHTML = "<p style='padding:10px'>No Orders</p>";
+    return;
+  }
+
+  container.innerHTML = `<div id="ListingOrderItems"></div>`;
+  const box = document.getElementById("ListingOrderItems");
+
+  list.forEach(p => {
+
+    let actionBtns = "";
+    let selectBlock = "";
+
+    // ✅ pending
+    if (type === "pending") {
+      selectBlock = `
+        <select onchange="changeStatus(${p.id}, this)">
+          <option value="pending" selected>Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Completed</option>
+        </select>`;
+
+      actionBtns = `
+        <button onclick="acceptOrder(${p.id})">Accept</button>
+        <button onclick="denyOrder(${p.id})">Deny</button>`;
+    }
+
+    // ✅ shipped
+    if (type === "shipped") {
+      selectBlock = `
+        <select onchange="updateOrderStatus(ORDER_ID, this)">
+  <option value="pending">Pending</option>
+  <option value="shipped">Shipped</option>
+  <option value="delivered">Delivered</option>
+</select>`;
+
+      actionBtns = `<button onclick="changeStatus(${p.id}, {value:'delivered'})">Mark Delivered</button>`;
+    }
+
+    // ✅ delivered
+    if (type === "delivered") {
+      actionBtns = `
+        <label style="color:green;"><b>Delivery Successful</b></label>
+        <div>
+          <span>Ordered On: <b>${p.created_at || "-"}</b></span><br>
+        </div>`;
+    }
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <div id="orderdetailContainer" style="margin-bottom:10px;">
+
+      <div id="editImage"
+        style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+        ${p.category}
+      </div>
+
+      <div id="productImage">
+        <img src="./script/${p.image || 'noimage.png'}">
+      </div>
+
+      <div id="ProductEditInfo">
+
+        <form>
+          <label style="font-size:1rem;"><b>${p.title}</b></label>
+          <label style="font-size:0.8rem;"><i>${p.category}</i></label>
+          <label style="font-size:0.8rem;">${p.description}</label>
+          <label style="font-size:0.7rem;"><span>Warranty</span> <b>${p.warranty} months</b></label>
+          <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
+          <div><label>Cash On Delivery</label></div>
+        </form>
+
+        <form>
+          <label style="font-size:1rem;"><b>${p.name}</b></label>
+          <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
+          <label style="font-size:0.8rem;">${p.address}</label>
+          <label style="font-size:0.7rem;"><span>Quantity</span> <b>${p.qty}</b></label>
+          <label style="font-size:0.8rem;color:green;"><b>${p.stock} Product Available</b></label>
+        </form>
+
+        <form style="display:flex;align-items:flex-end;margin:0;">
+          <div>${selectBlock}</div>
+          <div>${actionBtns}</div>
+        </form>
+
+      </div>
+    </div>
+    `;
+
+    box.appendChild(div.firstElementChild);
+  });
+}
+
+function manageOrders() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="loadAllProds()">Products</div> 
+    <div class="optBtn hover">Orders</div> 
+    <div class="optBtn" onclick="manageSales()">Sell</div>
+    <div class="optBtn" onclick="manageComplains()">Complains</div>
+  `;
+
+  ProductPage.innerHTML = `
+    <fieldset style="padding-bottom:0;">
+      <div id="ProductOptionsBtns">
+        <div class="optBtn hover" id="pendingOrders">Pending</div>
+        <div class="optBtn" id="shiftedOrders">Shipped</div>
+        <div class="optBtn" id="completedOrders">Completed</div>
+      </div>
+    </fieldset>
+
+    <div id="addingTask" style="margin:10px;background:#fff;border-radius:5px;box-shadow:0px 7px 10px #0000000f;"></div>
+  `;
+
+  // default
+  loadVendorOrders("pending");
+
+  document.getElementById("pendingOrders").onclick = () => {
+    setActive("pendingOrders");
+    loadVendorOrders("pending");
+  };
+
+  document.getElementById("shiftedOrders").onclick = () => {
+    setActive("shiftedOrders");
+    loadVendorOrders("shipped");
+  };
+
+  document.getElementById("completedOrders").onclick = () => {
+    setActive("completedOrders");
+    loadVendorOrders("delivered");
+  };
+}
+
+function setActive(id) {
+  ["pendingOrders","shiftedOrders","completedOrders"].forEach(i=>{
+    document.getElementById(i).classList = "optBtn";
+  });
+  document.getElementById(id).classList = "optBtn hover";
 }
