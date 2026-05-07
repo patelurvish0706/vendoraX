@@ -12,14 +12,14 @@ async function checkAuth() {
     const res = await fetch("./script/verify.php");
     const data = await res.json();
 
-    console.log(data);
+    // console.log(data);
 
     if (data.status === "valid") {
 
       // ✅ global vendor id
       VendorShopToken = data.vendor_id;
 
-      console.log("Vendor ID:", VendorShopToken);
+      // console.log("Vendor ID:", VendorShopToken);
 
       manageShop();
 
@@ -318,7 +318,8 @@ function addProduct() {
 
                                 <label for="status" >Product Category</label>
                                       <select name="status" id="status" style="width: 300px;color:#4c6381;">
-                                          <option value="Laptop" selected>Laptop</option>
+                                          <option value="">Select Category</option>
+                                          <option value="Laptop" >Laptop</option>
                                           <option value="Mobile" >Mobile</option>
                                           <option value="HeadPhone" >HeadPhone</option>
                                           <option value="Smart Watches" >Smart Watches</option> 
@@ -330,8 +331,10 @@ function addProduct() {
                                           <option value="Processors" >Processors</option>
                                           <option value="RAM" >RAM</option>
                                           <option value="Accessories" >Accessories</option>
+                                          <option value="other">Other</option>
                                       </select>
 
+                  
                                 <label for="description">Description</label>
                                 <textarea type="text" id="description" name="description" rows="5"
                                     style="resize: vertical" placeholder="Write Details about Product"></textarea>
@@ -440,7 +443,7 @@ function manageShop() {
     <input type="number" id="vmobile" name="vmobile">
 
     <label>Password</label>
-    <input type="password" id="pass" name="pass">
+    <input type="text" id="pass" name="pass">
 
     <label>About Shop</label>
     <textarea id="description" name="description"></textarea>
@@ -508,6 +511,7 @@ function manageShop() {
     form.vname.value = d.vendor_name || "";
     form.vemail.value = d.vendor_email || "";
     form.vmobile.value = d.vendor_phone || "";
+    form.pass.value = d.vendor_password || "";
     form.description.value = d.Shop_desc || "";
     form.address.value = d.address || "";
     let addr = d.address || "";
@@ -616,6 +620,9 @@ function manageShop() {
       if (result.trim() === "success") {
         err.innerHTML = "<span style='color:green'>Saved</span>";
         window.location.href = "#ProductPage";
+        
+        defaultLoad()
+
       } else {
         err.innerText = result;
         window.location.href = "#ProductPage";

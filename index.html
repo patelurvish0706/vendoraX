@@ -1,632 +1,451 @@
 <!-- <!DOCTYPE html> -->
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendoraX - Explore Local Tech Stores</title>
 
-    <title>VendoraX - Explore Local Tech Stores </title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/login.css" />
 
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> -->
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div id="container">
-        <div id="navbar">
-            <div id="Navlogo">
-                <div id="cornerStart">◣</div>
+      <div id="navbar">
+        <div id="Navlogo">
+          <div id="cornerStart">◣</div>
 
-                <div id="VX">V</div>
-                <div id="endora">endora</div>
-                <div id="VX">X</div>
-                <div id="tagline">Buy easy.<br>Service assured.</div>
+          <div id="VX">V</div>
+          <div id="endora">endora</div>
+          <div id="VX">X</div>
+          <div id="tagline">Buy easy.<br />Service assured.</div>
 
-                <div id="cornerEnd">◥</div>
-            </div>
-
-            <div id="NavlinkContainer">
-
-                <div class="NavLink" id="AccountServices"><span class="material-symbols-outlined">person</span>
-                </div>
-                <div id="AccountServicesBtns" class="NavMenu">
-                    <div id="NavMenuBtn" onclick="Login()"><span id="btnSmallTag">Already Customer? - </span> Sign-In
-                    </div>
-                    <div id="NavMenuBtn" onclick="Register()"><span id="btnSmallTag">New Customer? - </span> Register
-                    </div>
-                    <div id="NavMenuBtn" onclick="manageCustomerInfo()">Your Account</div>
-                </div>
-
-                <div class="NavLink" id="MoreServices"><span class="material-symbols-outlined">menu</span></div>
-
-                <div id="MoreServicesBtns" class="NavMenu">
-                    <div id="NavMenuBtn" onclick="manageCart()"><span class="material-symbols-outlined">shopping_cart</span>Cart</div>
-                    <div id="NavMenuBtn" onclick="manageOrders()"><span class="material-symbols-outlined">orders</span>Orders</div>
-                    <div id="NavMenuBtn" onclick="nearestShop(range = 5)"><span class="material-symbols-outlined">storefront</span>Nearest Shops</div>
-                    <div id="NavMenuBtn" onclick="manageComplains()"><span class="material-symbols-outlined">person_raised_hand</span>Complains</div>
-                    <div id="NavMenuBtn" onclick="closeOptMenus(false, false),gotoVendor()"><span id="btnSmallTag">For vendor - </span> Manage Business</div>
-                    <div id="NavMenuBtn" onclick="closeOptMenus(false, false),gotoVendorFaqs()">FAQ's</div>
-                    <div id="NavMenuBtn" onclick="closeOptMenus(false, false),gotoAboutVendoraX()">About Vendora-X</div>
-                </div>
-            </div>
+          <div id="cornerEnd">◥</div>
         </div>
 
-        <div id="pageContent">
+        <div id="NavlinkContainer">
+          <div class="NavLink" id="AccountServices">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+          <div id="AccountServicesBtns" class="NavMenu">
+            <div id="NavMenuBtn" onclick="Login()">
+              <span id="btnSmallTag">Already Customer? - </span> Sign-In
+            </div>
+            <div id="NavMenuBtn" onclick="Register()">
+              <span id="btnSmallTag">New Customer? - </span> Register
+            </div>
+            <div id="NavMenuBtn" onclick="manageCustomerInfo()">
+              Your Account
+            </div>
+          </div>
 
-            <div id="ShopkeeperProcessArea">
+          <div class="NavLink" id="MoreServices">
+            <span class="material-symbols-outlined">menu</span>
+          </div>
 
-                <div id="ShopkeeperOptionsBtns">
-                    <div class="optBtn" style="color:#fff;background-color: #4c6381;"><span
-                            class="material-symbols-outlined">arrow_back_ios</span>Back</div>
+          <div id="MoreServicesBtns" class="NavMenu">
+            <div id="NavMenuBtn" onclick="manageCart()">
+              <span class="material-symbols-outlined">shopping_cart</span>Cart
+            </div>
+            <div id="NavMenuBtn" onclick="manageOrders()">
+              <span class="material-symbols-outlined">orders</span>Orders
+            </div>
+            <div id="NavMenuBtn" onclick="nearestShop(range = 5)">
+              <span class="material-symbols-outlined">storefront</span>Nearest
+              Shops
+            </div>
+            <div id="NavMenuBtn" onclick="manageComplains()">
+              <span class="material-symbols-outlined">person_raised_hand</span
+              >Complains
+            </div>
+            <div id="NavMenuBtn" onclick="gotoVendor()">
+              <span id="btnSmallTag">For vendor - </span> Manage Business
+            </div>
+            <div id="NavMenuBtn" onclick="gotoVendorFaqs()">FAQ's</div>
+            <div id="NavMenuBtn" onclick="gotoAboutVendoraX()">
+              About Vendora-X
+            </div>
+          </div>
+        </div>
+      </div>
 
-                    <!-- Content -->
-
-                    <div class="optBtn" style="background-color: transparent;box-shadow: none;"></div>
-                    <div class="optBtn" id="endBtnCover"></div>
-                </div>
-
-
-                <!-- all products -->
-                <div id="ProductPage">
-
-                </div>
-
-                <!-- Ordered -->
-                <div id="ProductPage" style="display: none;">
-                    <fieldset>
-                        <div id="ProductOptionsBtns" style="justify-content: space-between ;align-items: center;">
-                            <div style="display: flex;gap: 10px;">
-                                <div class="optBtn">Orders</div>
-                            </div>
-                            <div id="NavlinkContainer" style="display: flex;justify-self: flex-end;">
-                                <input type="search" style="font-size: 1rem;width: 200px;margin-right: 5px;"
-                                    name="search" id="navSearch" class="deactive" placeholder="Search">
-                                <div class="NavLink" id="searchBtn" style="color:#fff;background-color: #4c6381;"><span
-                                        class="material-symbols-outlined">search</span></div>
-                            </div>
-                        </div>
-
-
-                        <div id="ListingOrderItems">
-                            <div id="orderdetailContainer" style="margin: 10px 0;border-radius: 5px;">
-                                <div id="editImage"
-                                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                                    Laptop
-                                </div>
-                                <div id="productImage">
-                                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
-                                </div>
-
-                                <div id="ProductEditInfo">
-                                    <form id="AddingTaskForm">
-                                        <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                                        <label style="font-size: 0.8rem;"><i>HP</i></label>
-
-                                        <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
-                                            SSD</label>
-
-                                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-
-                                        <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-
-                                        <div style="margin-bottom:5px ;">
-                                            <label for="cashOnDel">Cash On Delivery</label>
-                                        </div>
-                                    </form>
-
-
-                                    <form id="AddingTaskForm">
-                                        <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
-                                        <label style="font-size: 0.8rem;"><b>9864626362</b></label>
-
-                                        <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide
-                                            Hotel, Ahmedabad - 360028</label>
-
-                                        <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
-
-                                        <label style="font-size: 0.8rem;color:Green;"><b>Delivered
-                                                Succesfully.</b></label>
-
-                                        <label style="font-size: 0.9rem;"><span>Valid Warranty</span> <b><i>24
-                                                    Months</i></b></label>
-                                    </form>
-
-                                    <form style="display:flex;align-items: flex-end;margin: 0;">
-                                        <!-- <div>
-                                        <label for="status"></label>
-                                        <select name="status" id="status">
-                                            <option value="Packed" selected>Processing</option>
-                                            <option value="Packed" >Shipped</option>
-                                            <option value="Packed" >Out for Delivery</option>
-                                            <option value="Packed" >Completed</option>
-                                        </select>
-                                    </div> -->
-                                        <div>
-                                            <button type="submit" style="margin: 0;">Raise Issue</button>
-                                            <!-- <button type="reset" style="margin: 0;">Deny</button> -->
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-
-
-                    <!-- profiler Raise Complain  -->
-                    <div id="ProductProfiler" style="display:none ;position: absolute;left: 0;">
-                        <div id="detailContainer"
-                            style="height: max-content;width: 40%;padding: 10px;display: flex;flex-direction: column;">
-                            <label><b>HP Pavilion i5</b> - <i>HP</i></label>
-                            <label> <span style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
-                                    SSD</span> </label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">Warranty <b>24 Months</b> </label>
-
-                            <form id="AddingTaskForm" style="width: stretch;padding-bottom: 0;">
-                                <label style="margin-top: 5px;">Problem</label>
-                                <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
-
-                                <label style="margin-top: 5px;">Explain Issue</label>
-                                <textarea rows="5" placeholder="Facing lag while using more than 2 hour."
-                                    style="width: stretch;"></textarea>
-
-                                <div>
-                                    <button type="submit" style="margin: 0;border: none;">Raise Issue</button>
-                                    <button type="reset" style="margin: 0;border: none;">Cancle</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cart -->
-                <div id="ProductPage" style="display: none;">
-
-                </div>
-
-                <!-- Complains -->
-                <div id="ProductPage" style="display: none;">
-                    <fieldset>
-                        <div id="ProductOptionsBtns" style="justify-content: space-between ;align-items: center;">
-                            <div style="display: flex;gap: 10px;">
-                                <div class="optBtn"> Complains</div>
-                                <!-- <div class="optBtn">Popular</div> -->
-                            </div>
-                            <!-- <div id="NavlinkContainer" style="display: flex;justify-self: flex-end;">
-                                <input type="search" style="font-size: 1rem;width: 200px;margin-right: 5px;"
-                                    name="search" id="navSearch" class="deactive" placeholder="Search">
-                                <div class="NavLink" id="searchBtn" style="color:#fff;background-color: #4c6381;"><span
-                                        class="material-symbols-outlined">search</span></div>
-                            </div> -->
-                        </div>
-
-
-                        <div id="ListingOrderItems">
-                            <div id="orderdetailContainer" style="margin: 10px 0;border-radius: 5px;">
-                                <div id="editImage"
-                                    style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                                    Laptop
-                                </div>
-                                <div id="productImage">
-                                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
-                                </div>
-
-                                <div id="ProductEditInfo">
-                                    <form id="AddingTaskForm">
-                                        <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                                        <label style="font-size: 0.8rem;"><i>HP</i></label>
-
-                                        <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
-                                            SSD</label>
-
-                                        <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-
-                                        <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-
-                                        <div style="margin-bottom:5px ;">
-                                            <label for="cashOnDel">Cash On Delivery</label>
-                                        </div>
-                                        <label style="font-size: 0.8rem;color:orange;"><b>Request Under
-                                                Process.</b></label>
-
-                                    </form>
-
-
-                                    <form id="AddingTaskForm">
-                                        <label style="font-size: 1rem;"><b>Problem</b></label>
-                                        <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
-
-                                        <label style="font-size: 0.8rem;"><b>Explain Issue</b></label>
-                                        <textarea rows="4" placeholder="Facing lag while using more than 2 hour."
-                                            style="width: stretch;"></textarea>
-
-                                    </form>
-
-                                    <form style="display:flex;align-items: flex-end;margin: 0;">
-                                        <div>
-                                            <button type="submit" style="margin: 0;">Cancle Complain</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </fieldset>
-
-
-                    <!-- profiler Raise Complain  -->
-                    <div id="ProductProfiler" style="display:none ;position: absolute;left: 0;">
-                        <div id="detailContainer"
-                            style="height: max-content;width: 40%;padding: 10px;display: flex;flex-direction: column;">
-                            <label><b>HP Pavilion i5</b> - <i>HP</i></label>
-                            <label> <span style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB
-                                    SSD</span> </label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">Warranty <b>24 Months</b> </label>
-
-                            <form id="AddingTaskForm" style="width: stretch;padding-bottom: 0;">
-                                <label style="margin-top: 5px;">Problem</label>
-                                <input type="text" placeholder="Laptop Hang too much" style="width: stretch;">
-
-                                <label style="margin-top: 5px;">Explain Issue</label>
-                                <textarea rows="5" placeholder="Facing lag while using more than 2 hour."
-                                    style="width: stretch;"></textarea>
-
-                                <div>
-                                    <button type="submit" style="margin: 0;border: none;">Raise Issue</button>
-                                    <button type="reset" style="margin: 0;border: none;">Cancle</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Nearest Shops -->
-                <div id="ProductProfiler" style="display:none; position: absolute;left: 0;">
-                    <div id="detailContainer"
-                        style="height: max-content;width: 80%;padding: 10px;display: flex;flex-direction: column;">
-                        <div
-                            style="display: flex; justify-content: space-between;align-items: center;margin-bottom: 5px;">
-                            <label><b>Nearest Shops</b></label>
-                            <label
-                                style="background-color: #fff;color: #4c6381;font-size: 1.1rem; padding: 1px 9px 3px 9px;border-radius: 5px;">x</label>
-                        </div>
-
-                        <div style="margin:0 0 10px 0;">
-                            <button style="margin: 0;">5km</button>
-                            <button style="margin: 0;">10km</button>
-                            <button style="margin: 0;">15km</button>
-                        </div>
-
-                        <div id="map" style="border-radius: 5px;width: stretch;height: 500px;border-radius: 5px;"></div>
-
-                    </div>
-                </div>
+      <div id="pageContent">
+        <div id="ShopkeeperProcessArea">
+          <div id="ShopkeeperOptionsBtns">
+            <div class="optBtn" style="color: #fff; background-color: #4c6381">
+              <span class="material-symbols-outlined">arrow_back_ios</span>Back
             </div>
 
+            <!-- Content -->
+
+            <div
+              class="optBtn"
+              style="background-color: transparent; box-shadow: none"
+            ></div>
+            <div class="optBtn" id="endBtnCover"></div>
+          </div>
+
+          <!-- all products -->
+          <div id="ProductPage"></div>
         </div>
+      </div>
     </div>
 
-
-    <div id="ProductProfiler" style="display: none;">
-        <div id="detailContainer" style="height: 50vh;">
-            <div id="editImage"
-                style="position: absolute;margin: 25px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                Laptop
+    <div
+      class="LoginRegisterContainer"
+      style="display: none; width: 100%; height: 100%"
+    >
+      <div id="blurlayer" style="width: inherit; padding: 20px 0">
+        <div class="formContainer" id="registerForm" style="display: none">
+          <form id="theRegForm">
+            <p></p>
+            <div
+              style="
+                height: 50px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <h2>Register</h2>
+              <h2
+                id="close"
+                style="
+                  font-weight: 500;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  padding: 0 8px 3px 8px;
+                  background-color: #0001;
+                "
+                onclick="closeTab()"
+              >
+                x
+              </h2>
             </div>
-            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
 
+            <p style="color: red" class="errPlace" id="ErrRegister"></p>
 
-            <div id="ProductEditInfo" style="display: flex;justify-content: center;">
-                <form id="AddingTaskForm">
-                    <label style="font-size: 2rem;"><b>HP Pavilion i5</b></label>
-                    <label style="font-size: 1rem;"><i>HP</i></label>
+            <label for="uname">*Name</label>
+            <input
+              type="text"
+              id="uname"
+              name="uname"
+              placeholder="Alison Burgers"
+            />
 
-                    <label style="font-size: 1.2rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB SSD</label>
+            <label for="email">*Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="alison@gmail.com"
+            />
 
-                    <label style="display: flex;align-items: center;padding: 0;margin: 0;font-size: 0.9rem;"> <span
-                            class="material-symbols-outlined"
-                            style="padding:0px 5px 0px 0px;font-size: 1rem;">store</span>TechWorld</label>
-                    <label style="display: flex;align-items: center;padding: 0;margin: 5px 0 0 0;font-size: 0.9rem;">
-                        <span class="material-symbols-outlined"
-                            style="padding:0px 5px 0px 0px;font-size: 1rem;">call</span>9764645664 <label
-                            style="font-size: 0.6rem;padding:5px 9px; background-color: #4c6381;border-radius: 5px; margin: 0 0 0 5px;color:#fff;">Ask
-                            for help</label></label>
+            <label for="mobile">*Mobile No</label>
+            <input
+              type="number"
+              id="mobile"
+              name="mobile"
+              placeholder="9987456321"
+            />
 
-                    <label><span>Warranty</span> <b> 2 years</b></label>
+            <label for="pass">*Password</label>
+            <input
+              type="password"
+              id="pass"
+              name="pass"
+              placeholder="Burgers@50"
+            />
 
-                    <label style="font-size: 1.5rem;"><b>₹ 58000</b></label>
+            <label for="repass">*Re-Enter Password</label>
+            <input
+              type="password"
+              id="repass"
+              name="repass"
+              placeholder="Burgers@50"
+            />
 
-                    <div style="margin-top:5px ;">
-                        <input type="radio" id="onlinePay" name="PayMode" disabled> <label for="onlinePay"
-                            style="color: #797e84;">Pay Online - UPI</label>
-                    </div>
+            <label for="pincode">*Pincode</label>
+            <input
+              type="number"
+              id="pincode"
+              name="pincode"
+              placeholder="380006"
+            />
 
-                    <div style="margin-bottom:5px ;">
-                        <input type="radio" id="cashOnDel" name="PayMode" checked> <label for="cashOnDel">Cash On
-                            Delivery</label>
-                    </div>
-                    <div>
-                        <button type="submit">Add to Cart</button>
-                        <button type="reset">Buy Now</button>
-                    </div>
+            <label for="selectLocation">*Select Location on Map</label>
+            <div id="map" style="width: 100%; height: 300px"></div>
 
+            <label>*Address</label>
+            <textarea
+              id="address"
+              placeholder="Select from map or type"
+            ></textarea>
 
+            <input type="hidden" id="lat" name="lat" />
+            <input type="hidden" id="lng" name="lng" />
 
-                </form>
-
-                <div id="closeTable"
-                    style="margin-top:10px;border-radius:5px;padding: 0px;background-color: #fff;height: max-content;cursor: pointer;">
-                    <span class="material-symbols-outlined">close</span>
-                </div>
-
+            <div>
+              <button type="submit">Register</button>
+              <button type="reset">Cancel</button>
             </div>
+
+            <label
+              for="pass"
+              onclick="showLogin()"
+              style="text-decoration: 1px solid underline; cursor: pointer"
+              >Login Here</label
+            >
+            <p></p>
+          </form>
+
+          <script>
+            const form = document.getElementById("theRegForm");
+            const err = document.getElementById("ErrRegister");
+
+            const uname = document.getElementById("uname");
+            const email = document.getElementById("email");
+            const mobile = document.getElementById("mobile");
+            const pass = document.getElementById("pass");
+            const repass = document.getElementById("repass");
+            const pincode = document.getElementById("pincode");
+            const address = document.getElementById("address");
+
+            let map = L.map("map").setView([23.0225, 72.5714], 13);
+            let marker;
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              maxZoom: 19,
+              attribution: "© OpenStreetMap",
+            }).addTo(map);
+
+            // setTimeout(() => map.invalidateSize(), 200);
+            setTimeout(() => {
+              map.invalidateSize();
+            }, 2000);
+
+            // click to select location
+            map.on("click", async function (e) {
+              const { lat, lng } = e.latlng;
+
+              if (marker) map.removeLayer(marker);
+              marker = L.marker([lat, lng]).addTo(map);
+
+              document.getElementById("lat").value = lat;
+              document.getElementById("lng").value = lng;
+
+              const res = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+              );
+              const data = await res.json();
+
+              address.value = data.display_name;
+            });
+
+            // pincode → map location
+            // const pincode = document.getElementById("pincode");
+
+            pincode.addEventListener("input", async () => {
+              if (pincode.value.length !== 6) return;
+
+              const res = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+              );
+              const data = await res.json();
+
+              if (data.length > 0) {
+                const lat = data[0].lat;
+                const lon = data[0].lon;
+
+                map.setView([lat, lon], 15);
+
+                if (marker) map.removeLayer(marker);
+                marker = L.marker([lat, lon]).addTo(map);
+              }
+            });
+
+            let lastPin = "";
+
+            pincode.addEventListener("input", async () => {
+              if (pincode.value.length !== 6 || pincode.value === lastPin)
+                return;
+
+              lastPin = pincode.value;
+
+              const res = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+              );
+              const data = await res.json();
+
+              if (data.length > 0) {
+                const lat = data[0].lat;
+                const lon = data[0].lon;
+
+                map.setView([lat, lon], 15);
+
+                if (marker) map.removeLayer(marker);
+                marker = L.marker([lat, lon]).addTo(map);
+              }
+            });
+
+            // submit
+            form.addEventListener("submit", async (e) => {
+              e.preventDefault();
+
+              if (
+                !uname.value ||
+                !email.value ||
+                !mobile.value ||
+                !pass.value ||
+                !repass.value
+              ) {
+                err.innerText = "All * fields required";
+                return;
+              }
+
+              if (pass.value !== repass.value) {
+                err.innerText = "Passwords not match";
+                return;
+              }
+
+              const formData = new FormData(form);
+              formData.append("address", address.value);
+
+              const res = await fetch("./script/customer_register.php", {
+                method: "POST",
+                body: formData,
+              });
+
+              const result = await res.text();
+
+              if (result === "success") {
+                err.innerHTML = "<span style='color:green'>Registered</span>";
+                form.reset();
+              } else {
+                err.innerText = result;
+              }
+            });
+          </script>
         </div>
+
+        <div class="formContainer" id="loginForm">
+          <form id="theloginForm">
+            <p></p>
+            <div
+              style="
+                height: 50px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <h2>Login</h2>
+              <h2
+                id="close"
+                style="
+                  font-weight: 500;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  padding: 0 8px 3px 8px;
+                  background-color: #0001;
+                "
+                onclick="closeTab()"
+              >
+                x
+              </h2>
+            </div>
+
+            <p style="color: red" class="errPlace" id="Errlogin"></p>
+
+            <label for="logEmail">*Email / Mobile</label>
+            <input
+              type="email"
+              id="logEmail"
+              name="logEmail"
+              placeholder="alison@gmail.com"
+            />
+
+            <label for="logPass">*Password</label>
+            <input
+              type="password"
+              id="logPass"
+              name="logPass"
+              placeholder="Burgers@50"
+            />
+
+            <div>
+              <button type="submit">Login</button>
+              <button type="reset">Cancel</button>
+            </div>
+            <label
+              for="pass"
+              onclick="showReg()"
+              style="text-decoration: 1px solid underline; cursor: pointer"
+              >Register Here</label
+            >
+            <p></p>
+          </form>
+
+          <script>
+            const loginForm = document.querySelector("#theloginForm");
+            const Errlogin = document.getElementById("Errlogin");
+
+            loginForm.addEventListener("submit", async function (e) {
+              e.preventDefault();
+
+              const input = document.getElementById("logEmail").value.trim();
+              const pass = document.getElementById("logPass").value;
+
+              if (!input || !pass) {
+                Errlogin.innerText = "All * fields are required";
+                return;
+              }
+
+              const formData = new FormData();
+              formData.append("logEmail", input);
+              formData.append("logPass", pass);
+
+              const res = await fetch("./script/customer_login.php", {
+                method: "POST",
+                body: formData,
+              });
+
+              const result = await res.text();
+
+              if (result === "success") {
+                Errlogin.innerHTML = `<p style="color:green;">Login Success</p>`;
+                loginForm.reset();
+
+                setTimeout(() => {
+                  closeTab();
+                  Errlogin.innerHTML = ``;
+                  location.reload();
+                }, 800);
+              } else {
+                Errlogin.innerHTML = `<p style="color:orange;">${result}</p>`;
+              }
+            });
+          </script>
+        </div>
+      </div>
     </div>
 
-
-    <div class="LoginRegisterContainer" style="display: none;width: 100%;height: 100%;">
-        <div id="blurlayer" style="width: inherit;padding: 20px 0;">
-
-            <div class="formContainer" id="registerForm" style="display: none;">
-                <form id="theRegForm">
-                    <p></p>
-                    <div style="height:50px; display: flex;justify-content: space-between;align-items: center;">
-                        <h2>Register</h2>
-                        <h2 id="close"
-                            style="font-weight: 500; border-radius: 5px; cursor: pointer; padding:0 8px 3px 8px; background-color: #0001;"
-                            onclick="closeTab()">
-                            x</h2>
-                    </div>
-
-                    <p style="color: red;" class="errPlace" id="ErrRegister"></p>
-
-                    <label for="uname">*Name</label>
-                    <input type="text" id="uname" name="uname" placeholder="Alison Burgers" />
-
-                    <label for="email">*Email</label>
-                    <input type="email" id="email" name="email" placeholder="alison@gmail.com" />
-
-                    <label for="mobile">*Mobile No</label>
-                    <input type="number" id="mobile" name="mobile" placeholder="9987456321" />
-
-                    <label for="pass">*Password</label>
-                    <input type="password" id="pass" name="pass" placeholder="Burgers@50" />
-
-                    <label for="repass">*Re-Enter Password</label>
-                    <input type="password" id="repass" name="repass" placeholder="Burgers@50" />
-
-                    <label for="pincode">*Pincode</label>
-                    <input type="number" id="pincode" name="pincode" placeholder="380006" />
-
-                    <label for="selectLocation">*Select Location on Map</label>
-                    <div id="map" style="width: 100% ;height:300px; "></div>
-
-                    <label>*Address</label>
-                    <textarea id="address" placeholder="Select from map or type"></textarea>
-
-                    <input type="hidden" id="lat" name="lat">
-                    <input type="hidden" id="lng" name="lng">
-
-                    <div>
-                        <button type="submit">Register</button>
-                        <button type="reset">Cancel</button>
-                    </div>
-
-                    <label for="pass" onclick="showLogin()"
-                        style="text-decoration: 1px solid underline;cursor: pointer;">Login Here</label>
-                    <p></p>
-                </form>
-
-                <script>
-                    const form = document.getElementById("theRegForm");
-                    const err = document.getElementById("ErrRegister");
-
-                    const uname = document.getElementById("uname");
-                    const email = document.getElementById("email");
-                    const mobile = document.getElementById("mobile");
-                    const pass = document.getElementById("pass");
-                    const repass = document.getElementById("repass");
-                    const pincode = document.getElementById("pincode");
-                    const address = document.getElementById("address");
-
-                    let map = L.map('map').setView([23.0225, 72.5714], 13);
-                    let marker;
-
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19,
-                        attribution: '© OpenStreetMap'
-                    }).addTo(map);
-
-                    // setTimeout(() => map.invalidateSize(), 200);
-                    setTimeout(() => {
-                        map.invalidateSize();
-                    }, 2000);
-
-                    // click to select location
-                    map.on('click', async function (e) {
-                        const { lat, lng } = e.latlng;
-
-                        if (marker) map.removeLayer(marker);
-                        marker = L.marker([lat, lng]).addTo(map);
-
-                        document.getElementById("lat").value = lat;
-                        document.getElementById("lng").value = lng;
-
-                        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
-                        const data = await res.json();
-
-                        address.value = data.display_name;
-                    });
-
-                    // pincode → map location
-                    // const pincode = document.getElementById("pincode");
-
-                    pincode.addEventListener("input", async () => {
-
-                        if (pincode.value.length !== 6) return;
-
-                        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`);
-                        const data = await res.json();
-
-                        if (data.length > 0) {
-                            const lat = data[0].lat;
-                            const lon = data[0].lon;
-
-                            map.setView([lat, lon], 15);
-
-                            if (marker) map.removeLayer(marker);
-                            marker = L.marker([lat, lon]).addTo(map);
-                        }
-                    });
-
-                    let lastPin = "";
-
-                    pincode.addEventListener("input", async () => {
-
-                        if (pincode.value.length !== 6 || pincode.value === lastPin) return;
-
-                        lastPin = pincode.value;
-
-                        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`);
-                        const data = await res.json();
-
-                        if (data.length > 0) {
-                            const lat = data[0].lat;
-                            const lon = data[0].lon;
-
-                            map.setView([lat, lon], 15);
-
-                            if (marker) map.removeLayer(marker);
-                            marker = L.marker([lat, lon]).addTo(map);
-                        }
-                    });
-
-
-
-                    // submit
-                    form.addEventListener("submit", async (e) => {
-                        e.preventDefault();
-
-                        if (!uname.value || !email.value || !mobile.value || !pass.value || !repass.value) {
-                            err.innerText = "All * fields required";
-                            return;
-                        }
-
-                        if (pass.value !== repass.value) {
-                            err.innerText = "Passwords not match";
-                            return;
-                        }
-
-                        const formData = new FormData(form);
-                        formData.append("address", address.value);
-
-                        const res = await fetch("./script/customer_register.php", {
-                            method: "POST",
-                            body: formData
-                        });
-
-                        const result = await res.text();
-
-                        if (result === "success") {
-                            err.innerHTML = "<span style='color:green'>Registered</span>";
-                            form.reset();
-                        } else {
-                            err.innerText = result;
-                        }
-                    });
-                </script>
-
-            </div>
-
-            <div class="formContainer" id="loginForm">
-                <form id="theloginForm">
-                    <p></p>
-                    <div style="height:50px; display: flex;justify-content: space-between;align-items: center;">
-                        <h2>Login</h2>
-                        <h2 id="close"
-                            style="font-weight: 500; border-radius: 5px; cursor: pointer; padding:0 8px 3px 8px; background-color: #0001;"
-                            onclick="closeTab()">
-                            x</h2>
-                    </div>
-
-                    <p style="color: red;" class="errPlace" id="Errlogin"></p>
-
-                    <label for="logEmail">*Email / Mobile</label>
-                    <input type="email" id="logEmail" name="logEmail" placeholder="alison@gmail.com" />
-
-                    <label for="logPass">*Password</label>
-                    <input type="password" id="logPass" name="logPass" placeholder="Burgers@50" />
-
-                    <div>
-                        <button type="submit">Login</button>
-                        <button type="reset">Cancel</button>
-                    </div>
-                    <label for="pass" onclick="showReg()"
-                        style="text-decoration: 1px solid underline;cursor: pointer;">Register Here</label>
-                    <p></p>
-                </form>
-                
-                <script>
-const loginForm = document.querySelector("#theloginForm");
-const Errlogin = document.getElementById("Errlogin");
-
-loginForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const input = document.getElementById("logEmail").value.trim();
-    const pass = document.getElementById("logPass").value;
-
-    if (!input || !pass) {
-        Errlogin.innerText = "All * fields are required";
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("logEmail", input);
-    formData.append("logPass", pass);
-
-    const res = await fetch("./script/customer_login.php", {
-        method: "POST",
-        body: formData
-    });
-
-    const result = await res.text();
-
-    if (result === "success") {
-
-        Errlogin.innerHTML = `<p style="color:green;">Login Success</p>`;
-        loginForm.reset();
-
-        setTimeout(() => {
-            closeTab();
-            Errlogin.innerHTML = ``;
-            location.reload();
-        }, 800);
-
-    } else {
-        Errlogin.innerHTML = `<p style="color:orange;">${result}</p>`;
-    }
-});
-                </script>
-            </div>
-
-        </div>
-    </div>
-
-
-</body>
-
-<script src="js/login.js"></script>
-<script src="js/script.js"></script>
-<script src="js/index_DOM.js"></script>
-
+    <script src="js/login.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/index_DOM.js"></script>
+  </body>
 </html>

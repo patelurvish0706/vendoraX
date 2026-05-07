@@ -420,12 +420,12 @@ async function manageCustomerInfo() {
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="alisonb@gmail.com" />
 
-                <label for="pincode">Pincode</label>
-                <input type="number" id="pincode" name="pincode" placeholder="380026" />
+                <label for="pincode" style="visibility:hidden;">Search Area using Pincode</label>
+                <input type="text" id="pincode" name="pincode" placeholder="🔍 Enter Pincode here to find your place" />
 
                 <div id="map" style="height:400px;"></div>
 
-                <label for="addresss">Address</label>
+                <label for="addresss" style="margin-top:15px;">Address (Auto Generated): Please add Accurate Address 🗺️</label>
                 <textarea type="text" id="addresss" name="addresss" rows="5" style="resize: vertical;" placeholder="1, Alpha city, Near RiverSide Hotel, Ahmedabad , 300026"></textarea>
                 
                 <input type="hidden" id="lat" name="lat">
@@ -470,18 +470,23 @@ async function manageCustomerInfo() {
   email.value = d.email || "";
 
   document.getElementById("map").innerHTML = "";
-
+  
+  
   let map = L.map("map").setView([latVal, lngVal], 15);
-  let marker;
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+  
+  console.log(map);
+  
+  let marker;
+
 
   document.getElementById("lat").value = latVal;
   document.getElementById("lng").value = lngVal;
 
   // if already saved → show marker
   if (d.latitude && d.longitude) {
-    marker = L.marker([latVal, lngVal]).addTo(map);
+      marker = L.marker([latVal, lngVal]).addTo(map);
   }
 
   // fix render if container dynamic
@@ -517,7 +522,11 @@ async function manageCustomerInfo() {
 
   // pincode → map
   let lastPin = "";
-  pincode.addEventListener("input", async () => {
+
+  pincode.addEventListener("input", async () => {FindMapMark()});
+
+  async function FindMapMark() {
+    
     if (pincode.value.length !== 6 || pincode.value === lastPin) return;
     lastPin = pincode.value;
 
@@ -527,11 +536,16 @@ async function manageCustomerInfo() {
     const data = await r.json();
 
     if (data.length) {
-      map.setView([data[0].lat, data[0].lon], 15);
+      setTimeout(() => {
+        map.setView([data[0].lat, data[0].lon], 15);
+        
+      }, 100);
       if (marker) map.removeLayer(marker);
       marker = L.marker([data[0].lat, data[0].lon]).addTo(map);
     }
-  });
+  }
+
+  FindMapMark()
 
   // submit update
   document
@@ -563,7 +577,7 @@ async function manageCustomerInfo() {
     });
 }
 
-function manageCustomerInfo__() {
+function manageCustomerInfo_____() {
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()"><span class="material-symbols-outlined" style="font-size:1rem;">arrow_back_ios</span>Back</div>
     <div class="optBtn hover">My Account</div>
