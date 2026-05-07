@@ -297,7 +297,7 @@ function defaultLoad() {
     container.innerHTML = "";
 
     if (!list.length) {
-      container.innerHTML = "<p style='text-align: center;'>No products</p>";
+      container.innerHTML = "<p style='width:stretch;text-align: center;'>No Products</p>";
       return;
     }
 
@@ -636,7 +636,7 @@ async function manageCart() {
   }
 
   if (!result.data.length) {
-    container.innerHTML = "<p>Cart empty</p>";
+    container.innerHTML = "<p style='width:stretch;text-align:center;'>Cart empty</p>";
     return;
   }
 
@@ -1017,7 +1017,7 @@ async function manageComplains() {
   }
 
   if (!result.data.length) {
-    container.innerHTML = "<p>No Complains</p>";
+    container.innerHTML = "<p style='width:stretch;text-align:center;'>No Complains</p>";
     return;
   }
 
@@ -1266,7 +1266,6 @@ function recenterMap(lat, lng, zoom = 15) {
 
 }
 
-
 // example button
 document.getElementById("recenterBtn").onclick = () => {
   recenterMap(lat, lng);
@@ -1351,7 +1350,7 @@ async function openVendorShop(vendor_id) {
     container.innerHTML = "";
 
     if (!list.length) {
-      container.innerHTML = `<p style="    width: stretch;text-align:center;">No Products</p>`;
+      container.innerHTML = `<p style="width: stretch;text-align:center;">No Products</p>`;
       return;
     }
 

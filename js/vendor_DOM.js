@@ -51,6 +51,12 @@ function closeOptMenus(more, acc) {
 
 function defaultLoad() {
   let isLoggedin = true;
+  
+  const token = getCookie("vendor_token");
+  if (!token) {
+      showLogin();
+      return;
+  }
 
   if (!isLoggedin) {
     // Show login Register
@@ -245,7 +251,7 @@ function loadAllProds() {
 
     if (!data.length) {
       productCards.innerHTML =
-        "<p style='text-align: center;'>No products found</p>";
+        "<p style='width:stretch;text-align: center;'>No products found</p>";
       return;
     }
 
@@ -253,6 +259,7 @@ function loadAllProds() {
       // console.log(p)
       const card = document.createElement("div");
       card.className = "product";
+      card.style.height ="500px"
 
       card.innerHTML = `
         <img src="./script/${p.image || "noimage.png"}" alt="">
@@ -262,7 +269,7 @@ function loadAllProds() {
         
         <div style="display:flex;flex-direction:column;">
           <span id="productName"><b>${p.title}</b></span>
-          <span style="font-size:0.8rem;font-weight:400;margin:3px 0;">${p.description || ""}</span>
+          <span style="font-size:0.8rem;font-weight:400;margin:3px 0;word-break: break-word; overflow: scroll; height: 100px;">${p.description || ""}</span>
           <span style="font-size:1rem;font-weight:600;margin:3px 0;"><small>${p.warranty} Months Warranty</small></span>
           <span style="font-size:1.2rem;font-weight:700;margin:3px 0;">₹ ${p.price}</span>
         </div>
@@ -853,6 +860,8 @@ async function changeStatus(order_id, el) {
   });
 
   console.log(await r.text());
+
+
 }
 
 async function acceptOrder(id) {
@@ -874,7 +883,7 @@ async function denyOrder(id) {
   });
 
   alert(await r.text());
-  manageVendorOrders();
+  manageOrders();
 }
 
 function updateOrderStatus(order_id, select ) {
@@ -896,6 +905,9 @@ function updateOrderStatus(order_id, select ) {
     console.log(res);
     alert(res);
   });
+
+  loadVendorOrders()
+
 }
 
 async function loadVendorOrders(type) {

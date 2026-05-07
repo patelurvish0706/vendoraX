@@ -58,7 +58,7 @@ function getCookie(name) {
     return decodeURI(dc.substring(begin + prefix.length, end));
 } 
 
-function closeTab() {
+function closeTab(user) {
     page.style.filter = ' blur(0px)'
     page.style.height = 'max-content'
     page.style.overflow = 'scroll'
@@ -69,16 +69,20 @@ function closeTab() {
 
     // var myCookie = getCookie("customer_token");
     // var myCookie = getCookie("vendor_token");
+    if(!user){
 
-    if (getCookie("customer_token") == null) {
-        // do cookie doesn't exist stuff;
-        Login()
-    }
+        if (getCookie("customer_token") == null) {
+            // do cookie doesn't exist stuff;
+            Login()
+        }
+        
+    }else{
 
-
-    if (getCookie("vendor_token") == null) {
-        // do cookie doesn't exist stuff;
-        Login()
+        
+        if (getCookie("vendor_token") == null) {
+            // do cookie doesn't exist stuff;
+            Login()
+        }
     }
     
     // if (!document.cookies) {
