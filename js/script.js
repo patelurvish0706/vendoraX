@@ -80,15 +80,17 @@ document.getElementById('MoreServices').addEventListener("click", (e) => {
 // -------------------Redirects------------------------------
 
 let gotoVendor = () => {
-    // window.location.href='./Vendor.html'
-    // window.location.replace ('./Vendor.html')
     window.open('./Vendor.html', '_blank')
 }
 
 let gotoAboutVendoraX = () =>{
-    window.location.href='./About.html'
+    window.open('./About.html', '_blank')
 }
 
 let gotoVendorFaqs = () =>{
-    window.location.href='./About.html'
+    window.open('./About.html', '_blank')
+}
+
+let gotoVendoraGuide = () =>{
+    window.open('./About.html', '_blank')
 }

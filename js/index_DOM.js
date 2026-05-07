@@ -26,27 +26,27 @@ function closeOptMenus(more, acc) {
 function defaultLoad___() {
   // Scroll enable
 
-  ShopkeeperOptionsBtns.addEventListener("mouseenter", () => {
-    const scrollHandler = (e) => {
-      // scroll 100px horizontally on wheel
-      if (e.deltaY > 0) {
-        ShopkeeperOptionsBtns.scrollLeft += 100;
-      } else {
-        ShopkeeperOptionsBtns.scrollLeft -= 100;
-      }
-    };
+  // ShopkeeperOptionsBtns.addEventListener("mouseenter", () => {
+  //   const scrollHandler = (e) => {
+  //     // scroll 100px horizontally on wheel
+  //     if (e.deltaY > 0) {
+  //       ShopkeeperOptionsBtns.scrollLeft += 100;
+  //     } else {
+  //       ShopkeeperOptionsBtns.scrollLeft -= 100;
+  //     }
+  //   };
 
-    ShopkeeperOptionsBtns.addEventListener("wheel", scrollHandler);
+  //   ShopkeeperOptionsBtns.addEventListener("wheel", scrollHandler);
 
-    // remove when mouse leaves (important)
-    ShopkeeperOptionsBtns.addEventListener(
-      "mouseleave",
-      () => {
-        ShopkeeperOptionsBtns.removeEventListener("wheel", scrollHandler);
-      },
-      { once: true }
-    );
-  });
+  //   // remove when mouse leaves (important)
+  //   ShopkeeperOptionsBtns.addEventListener(
+  //     "mouseleave",
+  //     () => {
+  //       ShopkeeperOptionsBtns.removeEventListener("wheel", scrollHandler);
+  //     },
+  //     { once: true }
+  //   );
+  // });
 
   // Button Container
   ShopkeeperOptionsBtns.innerHTML = `           
