@@ -3,20 +3,37 @@ const ShopkeeperOptionsBtns = document.getElementById("ShopkeeperOptionsBtns");
 const ShopkeeperProcessArea = document.getElementById("ShopkeeperProcessArea");
 const ProductPage = document.getElementById("ProductPage");
 
-async function checkAuth() {
-  try {
-    const res = await fetch("./script/verify.php");
-    const data = await res.text();
+let VendorShopToken = null;
 
-    if (data === "valid") {
-      // document.getElementById("AddingTaskForm").style.display = "block";
+async function checkAuth() {
+
+  try {
+
+    const res = await fetch("./script/verify.php");
+    const data = await res.json();
+
+    console.log(data);
+
+    if (data.status === "valid") {
+
+      // ✅ global vendor id
+      VendorShopToken = data.vendor_id;
+
+      console.log("Vendor ID:", VendorShopToken);
+
       manageShop();
+
     } else {
-      // not logged → force login
+
       Login();
+
     }
+
   } catch (err) {
-    showLogin();
+
+    console.log(err);
+    Login();
+
   }
 }
 
@@ -78,7 +95,7 @@ function defaultLoad() {
             </span> 
         `;
 
-    ShopkeeperOptionsBtns.innerHTML = ` <div class="optBtn hover" onclick="loadAllProds()">Products</div> 
+    ShopkeeperOptionsBtns.innerHTML = ` <div class="optBtn hover" onclick="defaultLoad()">Products</div> 
                 <div class="optBtn" onclick="manageOrders()" >Orders</div> 
                 <div class="optBtn" onclick="manageSales()" >Sell</div>
                 <div class="optBtn" onclick="manageComplains()" >Complains</div>
@@ -89,6 +106,15 @@ function defaultLoad() {
   }
 }
 defaultLoad();
+
+function ShowMyShop() {
+
+  window.open(
+    `http://localhost/VendoraX/?shop=${VendorShopToken}`,
+    "_blank"
+  );
+
+}
 
 async function updateProduct(id, btn) {
   const box = btn.closest("div"); // adjust if needed
@@ -265,7 +291,7 @@ function addProduct() {
   ProductPage.innerHTML = `
             <fieldset style="padding-bottom:0;">
             <div id="ProductOptionsBtns" >
-                <div class="optBtn" onclick="loadAllProds()">All</div>
+                <div class="optBtn" onclick="defaultLoad()">All</div>
                 <div class="optBtn hover">Add Product</div>
             </div>
             </fieldset>
@@ -597,7 +623,7 @@ function manageShop() {
 }
 
 function manageOrders___() {
-  ShopkeeperOptionsBtns.innerHTML = `<div class="optBtn" onclick="loadAllProds()">Products</div> 
+  ShopkeeperOptionsBtns.innerHTML = `<div class="optBtn" onclick="defaultLoad()">Products</div> 
                 <div class="optBtn hover" onclick="manageOrders()" >Orders</div> 
                 <div class="optBtn" onclick="manageSales()" >Sell</div>
                 <div class="optBtn" onclick="manageComplains()" >Complains</div>
@@ -986,7 +1012,7 @@ async function loadVendorOrders(type) {
 function manageOrders() {
 
   ShopkeeperOptionsBtns.innerHTML = `
-    <div class="optBtn" onclick="loadAllProds()">Products</div> 
+    <div class="optBtn" onclick="defaultLoad()">Products</div> 
     <div class="optBtn hover" onclick="manageOrders()">Orders</div> 
     <div class="optBtn" onclick="manageSales()">Sell</div>
     <div class="optBtn" onclick="manageComplains()">Complains</div>
@@ -1031,13 +1057,205 @@ function setActive(id) {
 }
 
 
+// 
+
+async function manageSales() {
+
+  closeOptMenus(false, false);
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Products</div> 
+    <div class="optBtn" onclick="manageOrders()">Orders</div> 
+    <div class="optBtn hover" onclick="manageSales()">Sales</div>
+    <div class="optBtn" onclick="manageComplains()">Complains</div>
+  `;
+
+  ProductPage.innerHTML = `
+  <style>
+  .salesCard{
+    background:#fff;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0px 5px 10px #00000010;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    color:#4c6381;
+    font-family:"Montserrat Alternates",sans-serif;
+}
+
+.salesCard label{
+    font-size:0.85rem;
+}
+
+.salesCard h2,
+.salesCard h3{
+    margin:0;
+}
+  </style>
+  <fieldset>
+
+    <div id="salesCards" 
+      style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:10px;
+      margin-bottom:15px;
+      ">
+    </div>
+
+    <div id="topProducts"></div>
+
+  </fieldset>
+  `;
+
+  console.log("Loading Sales Analytics...");
+
+  const res = await fetch("./script/get_sales_analytics.php");
+  const data = await res.json();
+
+  console.log("SALES:", data);
+
+  if(data.status !== "ok"){
+    ProductPage.innerHTML = "<p>Failed Loading Sales</p>";
+    return;
+  }
+
+  const cards = document.getElementById("salesCards");
+
+  cards.innerHTML = `
+
+    <div class="salesCard">
+      <label>Total Revenue</label>
+      <h2>₹${data.total_revenue}</h2>
+    </div>
+
+    <div class="salesCard">
+      <label>Total Orders</label>
+      <h2>${data.total_orders}</h2>
+    </div>
+
+    <div class="salesCard">
+      <label>Total Complains</label>
+      <h2>${data.total_issues}</h2>
+    </div>
+
+    <div class="salesCard">
+      <label>Delivered Orders</label>
+      <h2>${data.delivered_orders}</h2>
+    </div>
+
+    <div class="salesCard">
+      <label>Pending Orders</label>
+      <h2>${data.pending_orders}</h2>
+    </div>
+
+    <div class="salesCard">
+      <label>Most Selling Product</label>
+      <h3>${data.top_product}</h3>
+    </div>
+
+    <div class="salesCard">
+      <label>Highest Revenue Product</label>
+      <h3>${data.high_revenue_product}</h3>
+    </div>
+
+    <div class="salesCard">
+      <label>Most Complained Product</label>
+      <h3>${data.most_complained}</h3>
+    </div>
+
+    <div class="salesCard">
+      <label>Low Stock Product</label>
+      <h3>${data.low_stock}</h3>
+    </div>
+
+  `;
+
+  const top = document.getElementById("topProducts");
+
+  top.innerHTML = `
+    <div style="
+      background:#fff;
+      border-radius:10px;
+      padding:15px;
+      box-shadow:0px 5px 10px #00000010;
+      ">
+
+      <h3 style="margin:0 0 10px 0;color:#4c6381;">
+        Product Performance
+      </h3>
+
+      <div id="productPerformance"></div>
+
+    </div>
+  `;
+
+  let html = "";
+
+  data.products.forEach(p => {
+
+    html += `
+    
+    <div style="
+      display:flex;
+      gap:10px;
+      padding:10px 0;
+      border-bottom:1px solid #eee;
+      align-items:center;
+    ">
+
+      <img 
+        src="./script/${p.image || 'noimage.png'}"
+        style="
+          width:70px;
+          height:70px;
+          object-fit:cover;
+          border-radius:8px;
+        "
+      >
+
+      <div style="width:100%;">
+
+        <label style="font-size:1rem;font-weight:600;">
+          ${p.title}
+        </label>
+
+        <div style="
+          display:flex;
+          flex-wrap:wrap;
+          gap:15px;
+          margin-top:5px;
+          font-size:0.85rem;
+          color:#4c6381;
+        ">
+
+          <span>Sold: <b>${p.total_qty}</b></span>
+
+          <span>Revenue: <b>₹${p.revenue}</b></span>
+
+          <span>Stock: <b>${p.stock}</b></span>
+
+          <span>Complains: <b>${p.complains}</b></span>
+
+        </div>
+
+      </div>
+
+    </div>
+    `;
+  });
+
+  document.getElementById("productPerformance").innerHTML = html;
+}
+
 
 // complains
 
 async function manageComplains() {
 
   ShopkeeperOptionsBtns.innerHTML = `
-    <div class="optBtn" onclick="loadAllProds()">Products</div> 
+    <div class="optBtn" onclick="defaultLoad()">Products</div> 
     <div class="optBtn" onclick="manageOrders()">Orders</div> 
     <div class="optBtn" onclick="manageSales()">Sell</div>
     <div class="optBtn hover" onclick="manageComplains()">Complains</div>
