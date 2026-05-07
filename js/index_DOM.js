@@ -2,6 +2,18 @@ const ShopkeeperOptionsBtns = document.getElementById("ShopkeeperOptionsBtns");
 const ShopkeeperProcessArea = document.getElementById("ShopkeeperProcessArea");
 const ProductPage = document.getElementById("ProductPage");
 
+
+    const params = new URLSearchParams(location.search);
+
+    if(params.get("shop")){
+      openVendorShop(params.get("shop"));
+      console.log(params.get("shop"))
+    }else{
+      console.log(params.get("shop"))
+      defaultLoad();
+    }
+
+
 function closeOptMenus(more, acc) {
   deactiveAll();
   AccountServicesBtns.style.display = "none";
@@ -369,12 +381,21 @@ function defaultLoad() {
   loadProducts();
 
   if (!token) {
+
+    // const params = new URLSearchParams(location.search);
+
+    // if(params.get("shop")){
+    //   openVendorShop(params.get("shop"));
+    // }else{
+    //   defaultLoad();
+    // }
+
     Login();
     return;
   }
 }
 
-defaultLoad();
+// defaultLoad();
 // defaultLoad___();
 
 async function manageCustomerInfo() {
@@ -741,6 +762,18 @@ async function buyCartItem(cart_id) {
   manageCart();
 }
 
+
+function downloadInvoice(order_id){
+
+  console.log("Downloading invoice:", order_id);
+
+  window.open(
+    "./script/download_invoice.php?order_id=" + order_id,
+    "_blank"
+  );
+
+}
+
 async function manageOrders() {
 
   closeOptMenus(false, false);
@@ -778,7 +811,8 @@ async function manageOrders() {
   let dateInfo = "";
 
   if (p.status === "delivered") {
-    actionBtn = `<button type="button" onclick="raiseIssue(${p.id})">Raise Issue</button>`;
+    actionBtn = `<button type="button" style="margin:0;" onclick="raiseIssue(${p.id})">Raise Issue</button>
+                <button type="button" style="margin:0 0 10px ;"  onclick="downloadInvoice(${p.id})">Invoice</button>`;
     paymentText = `<label style="color:green;"><b>Paid</b></label>`;
 
     // ✅ show both dates
@@ -817,9 +851,9 @@ async function manageOrders() {
       <img src="./script/${p.image || 'noimage.png'}">
     </div>
 
-    <div id="ProductEditInfo">
+    <div id="ProductEditInfo" style="display:flex;justify-content:space-between;">
 
-      <form style="margin-bottom:0;">
+      <form style="margin-bottom:0;width:33.33%">
         <label style="font-size:1rem;"><b>${p.title}</b></label>
         <label style="font-size:0.8rem;"><i>${p.category}</i></label>
 
@@ -837,7 +871,7 @@ async function manageOrders() {
 
       </form>
 
-      <form style="margin-bottom:0;">
+      <form style="margin-bottom:0;width:33.33%">
         <label style="font-size:1rem;"><b>${p.shop_name}</b></label>
         <label style="font-size:0.8rem;margin:2px 0;font-weight:400;">Seller: <b style="font-size:0.9rem;margin:2px 0;font-weight:500;">${p.vendor_name}</b></label>
         <label style="font-size:0.8rem;">Phone: <b>${p.vendor_phone}</b></label>
@@ -955,6 +989,9 @@ async function cancelOrder(order_id) {
 
 
 async function manageComplains() {
+
+    closeOptMenus(false, false);
+
 
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()">Back</div>
@@ -1089,18 +1126,24 @@ async function nearestShop() {
 
   ProductPage.innerHTML = `
   <fieldset style="background:#fff;border: 1px solid #fff;padding: 10px;margin: 10px;border-radius: 5px;box-shadow: 0px 0px 5px 1px #0000000a;">
+    
+  <div id="detailContainer" style="width:stretch;padding:5px;display:flex;align-items:center;">
+             
+      <span style="width:50%;margin:0 0 10px 0; display:flex; gap:5px; margin:auto;">
+        <span style="margin: auto 5px;">Select shops within: </span>
+        <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(5)"> 5 km </div>
+        <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(10)"> 10 km </div>
+        <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(15)"> 15 km </div>
+      </span>
       
-    <div id="detailContainer" style="width:stretch;padding:5px;display:flex;align-items:center;">
-        <span style="margin:0 5px 10px 0;">Select shops within: </span>
-        <span style="margin:0 0 10px 0; display:flex;gap:5px;">
-          <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(5)"> 5 km </div>
-          <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(10)"> 10 km </div>
-          <div class="optBtn" style="box-shadow:inset 0px 0px 20px 0px #00000014;" onclick="loadShops(15)"> 15 km </div>
-        </span>
+      <span style="width:50%;display:flex;justify-content: end;">
+        <div class="optBtn" id="totalCountOfShops" style="margin:0 5px; width:min-content;" id="recenterBtn"></div>
+        <div class="optBtn hover" style="margin:0; width:min-content;" id="recenterBtn">📍 Recenter</div>
+      </span>
     </div>
 
         
-        <div id="map" style="height:500px;border-radius:5px;z-index:0;"></div>
+        <div id="map" style="height:500px;border-radius:5px;z-index:0;margin:10px"></div>
     </fieldset>
   `;
 
@@ -1134,7 +1177,34 @@ async function nearestShop() {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
   // customer marker
-  L.marker([lat, lng]).addTo(map).bindPopup("You");
+  // L.marker([lat, lng]).addTo(map).bindPopup("You");
+
+  // current location icon
+const userIcon = L.divIcon({
+  html: `<div style="
+    width:18px;
+    height:18px;
+    background:#2196f3;
+    border:3px solid white;
+    border-radius:50%;
+    box-shadow:0 0 10px #2196f3;
+  "></div>`,
+  className: "",
+  iconSize: [18, 18]
+});
+
+L.marker([lat, lng], { icon: userIcon })
+  .addTo(map)
+  .bindPopup("📍 You");
+
+
+// shop icon
+const shopIcon = L.divIcon({
+  html: `<div style="font-size:40px;text-shadow:0px 6px 7px #000000a6">🏪</div>`,
+  className: "",
+  iconSize: [30, 30],
+  iconAnchor: [15, 30]
+});
 
   // load shops function
   let markers = [];
@@ -1159,6 +1229,8 @@ window.loadShops = async function (km) {
 
   console.log("Filtered Shops:", data);
 
+  document.getElementById("totalCountOfShops").innerHTML = `${data.vendors.length} 🏪 Found` 
+
   if (data.status !== "ok") return;
 
   data.vendors.forEach(s => {
@@ -1168,13 +1240,202 @@ window.loadShops = async function (km) {
 
     if (!lat || !lng) return;
 
-    let m = L.marker([lat, lng])
+    let m = L.marker([lat, lng], { icon: shopIcon })
       .addTo(map)
-      .bindPopup(`<b>${s.shop_name}</b><br>${s.address}`);
+      .bindPopup(`
+        <b style="color:orange;font-size:1rem;">🏪 ${s.shop_name}</b><br>
+        <b style="color:#4c6381;padding:3px 0;margin:5px 0;">${s.shop_desc}</b> <br>
+        <span>Vendor: ${s.vendor_name}<br></span>
+        <a href="tel:${s.vendor_phone}"><span>Phone: ${s.vendor_phone}<br></span></a>
+        <a href="http://localhost/VendoraX/?shop=${s.vendor_id}" style="text-decoration:none;" target="_blank"><button style="margin:5px 0;">View Shop</button></a>
+        `);
 
     markers.push(m);
   });
 };
 
   loadShops(5); // default
+
+
+  // reusable recenter function
+function recenterMap(lat, lng, zoom = 15) {
+
+  map.setView([lat, lng], zoom, {
+    animate: true
+  });
+
+}
+
+
+// example button
+document.getElementById("recenterBtn").onclick = () => {
+  recenterMap(lat, lng);
+};
+}
+
+
+
+
+async function openVendorShop(vendor_id) {
+
+  history.pushState({}, "", `?shop=${vendor_id}`);
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn hover" onclick="defaultLoad()">Explore More</div>
+  `;
+
+  ProductPage.innerHTML = `
+    <fieldset>
+
+      <div id="vendorInfo"></div>
+
+      <div id="ProductOptionsBtns" style="width:100%;justify-content:flex-end;align-items:center;">
+        <div id="NavlinkContainer" style="display:flex;justify-content:flex-start;width:100%;">
+          <input type="search" style="min-width:30%;font-size:1rem;margin-right:5px;border-radius:50px;border:none;"
+            id="shopSearch" placeholder="Search Product">
+        </div>
+      </div>
+
+      <div id="productCards" style="padding:5px 0;"></div>
+
+    </fieldset>
+  `;
+
+  // get vendor + products
+  const res = await fetch(`./script/get_vendor_shop.php?vendor_id=${vendor_id}`);
+  const data = await res.json();
+
+  console.log("SHOP:", data);
+
+  if (data.status !== "ok") {
+    ProductPage.innerHTML = `<p style="text-align:center;">Shop not found</p>`;
+    return;
+  }
+
+  // vendor details
+  document.getElementById("vendorInfo").innerHTML = `
+    <div style="
+      background:transparent;
+      border-radius:5px;
+      padding:5px;
+      margin-bottom:5px;
+      box-shadow:none;
+    ">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="width:40%;">
+          <h2 style="margin:0;">${data.vendor.shop_name}</h2>
+          <p style="margin:5px 0;">${data.vendor.shop_desc || ""}</p>
+          <p style="margin:5px 0;">Timming: ${data.vendor.shop_open_close || ""}</p>
+        </div>
+
+        <div style="width:60%;">
+          <p style="margin:5px 0;"><b style="font-size:0.85rem;">Vendor: &nbsp;</b>${data.vendor.vendor_name || ""}</p>
+          <p style="margin:5px 0;"><b style="font-size:0.85rem;">Contact: &nbsp;</b>${data.vendor.vendor_phone || ""}</p>
+          <p style="margin:5px 0;"><b style="font-size:0.85rem;">Address: &nbsp;</b>${data.vendor.address || ""}</p>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  let allProducts = data.products;
+
+  renderShopProducts(allProducts);
+
+  function renderShopProducts(list) {
+
+    const container = document.getElementById("productCards");
+
+    container.innerHTML = "";
+
+    if (!list.length) {
+      container.innerHTML = `<p style="    width: stretch;text-align:center;">No Products</p>`;
+      return;
+    }
+
+    list.forEach(p => {
+
+      const card = document.createElement("div");
+      card.className = "product";
+      card.style.justifyContent = "unset";
+
+      card.innerHTML = `
+        <img id="productImage" style="padding:0;"
+          src="./script/${p.image || 'noimage.png'}">
+
+        <span style="
+          position:absolute;
+          font-size:0.7rem;
+          background:white;
+          padding:5px 8px;
+          border-radius:5px;
+          margin:5px;
+          box-shadow:0 0 5px #e1e1e1;
+        ">
+          ${p.category}
+        </span>
+
+        <div style="display:flex;flex-direction:column;">
+          <span id="productName" style="margin-bottom:5px;">
+            <b>${p.title}</b>
+          </span>
+
+          <span id="productDescription"
+            style="font-size:0.8rem;height:60px;overflow-y:scroll;">
+            ${p.description || ""}
+          </span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;margin-top:auto;">
+          <span id="productWarranty"
+            style="font-size:0.85rem;font-weight:700;">
+            ${p.warranty} Warranty
+          </span>
+
+          <span id="productPrice">₹${p.price}</span>
+        </div>
+
+        <div style="margin-top:10px;">
+          <button style="margin:0;"
+            onclick='handleProductAccess(${JSON.stringify(p)})'>
+            View Product
+          </button>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  // search
+  document.getElementById("shopSearch")
+    .addEventListener("input", (e) => {
+
+      const val = e.target.value.toLowerCase();
+
+      const filtered = allProducts.filter(p =>
+        p.title.toLowerCase().includes(val) ||
+        p.category.toLowerCase().includes(val) ||
+        (p.description || "").toLowerCase().includes(val)
+      );
+
+      renderShopProducts(filtered);
+    });
+}
+
+// product access checker
+function handleProductAccess(product) {
+
+  const token = getCookie("customer_token");
+
+  // not logged in
+  if (!token) {
+    Login();
+    return;
+  }
+
+  // logged in
+  openProductPopup(product);
 }

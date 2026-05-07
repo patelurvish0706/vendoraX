@@ -25,7 +25,7 @@ $lng = $c['longitude'];
 
 // ✅ Haversine filter here
 $q = "
-SELECT vendor_id, shop_name, address, shop_lati, shop_long,
+SELECT vendor_id, shop_name, shop_desc,  vendor_name, vendor_phone, address, shop_lati, shop_long,
 (
   6371 * acos(
     cos(radians($lat)) *
