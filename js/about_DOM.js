@@ -1,30 +1,37 @@
 (() => {
-    const m = matchMedia('(prefers-color-scheme: dark)');
-    const link = document.head.appendChild(document.createElement('link'));
-    link.rel = 'shortcut icon';
+  const m = matchMedia("(prefers-color-scheme: dark)");
+  const link = document.head.appendChild(document.createElement("link"));
+  link.rel = "shortcut icon";
 
-    const set = () => link.href = m.matches ? 'css/logoDark.svg' : 'css/logo.svg';
-    set();
-    m.onchange = set;
+  const set = () =>
+    (link.href = m.matches ? "css/logoDark.svg" : "css/logo.svg");
+  set();
+  m.onchange = set;
 
-    showAbout()
-
+  showAbout();
 })();
-
 
 function showGuide() {
 
-    ShopkeeperOptionsBtns.innerHTML =
-        `   <div class="optBtn hover" onclick="showGuide()"><span class="material-symbols-outlined">book_ribbon</span>Guide</div>
-        <div class="optBtn" onclick="showFaqs()"><span class="material-symbols-outlined">support_agent</span>FAQ's</div>
-        <div class="optBtn" onclick="showAbout()"><span class="material-symbols-outlined">local_cafe</span>About VendoraX</div>
-    `
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn hover" onclick="showGuide()">
+      <span class="material-symbols-outlined">book_ribbon</span>Guide
+    </div>
 
-    ProductPage.innerHTML = `
+    <div class="optBtn" onclick="showFaqs()">
+      <span class="material-symbols-outlined">support_agent</span>FAQ's
+    </div>
+
+    <div class="optBtn" onclick="showAbout()">
+      <span class="material-symbols-outlined">local_cafe</span>About VendoraX
+    </div>
+  `;
+
+  ProductPage.innerHTML = `
   
-  <fieldset>
+  <fieldset style="border:none;padding:10px;">
 
-    <div id="ProductOptionsBtns" style="margin-bottom:10px;">
+    <div id="ProductOptionsBtns" style="margin-bottom:15px;">
       <div class="optBtn hover" id="customerGuideBtn">Customer Guide</div>
       <div class="optBtn" id="vendorGuideBtn">Vendor Guide</div>
     </div>
@@ -34,110 +41,223 @@ function showGuide() {
   </fieldset>
   `;
 
-    function customerGuide() {
+  function customerGuide() {
 
-        document.getElementById("customerGuideBtn").classList = "optBtn hover";
-        document.getElementById("vendorGuideBtn").classList = "optBtn";
+    document.getElementById("customerGuideBtn").classList = "optBtn hover";
+    document.getElementById("vendorGuideBtn").classList = "optBtn";
 
-        document.getElementById("guideContent").innerHTML = `
+    document.getElementById("guideContent").innerHTML = `
 
-    <div id="orderdetailContainer">
+      <div id="orderdetailContainer"
+        style="background:#fff;border-radius:10px;padding:15px;box-shadow:0px 5px 12px #00000010;">
 
-      <div id="ProductEditInfo">
+        <div id="ProductEditInfo"
+          style="display:flex;flex-direction:column;gap:15px;">
 
-        <form>
-          <label style="font-size:1.2rem;"><b>Customer Guide</b></label>
+          <label style="font-size:1.4rem;font-weight:700;color:#4c6381;">
+            Customer Guide
+          </label>
 
-          <label><b>1.</b> Open VendoraX and explore products.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 1
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Open VendoraX and explore products from nearby vendors.
+            </label>
+          </div>
 
-          <label><b>2.</b> Search products using categories or search bar.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 2
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Search products using categories or search bar.
+            </label>
+          </div>
 
-          <label><b>3.</b> Open product details and check warranty, seller and price.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 3
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Open product details and check warranty, seller and pricing.
+            </label>
+          </div>
 
-          <label><b>4.</b> Add products to cart or buy instantly.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 4
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Buy products instantly using Cash On Delivery.
+            </label>
+          </div>
 
-          <label><b>5.</b> Track orders from My Orders section.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 5
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Track Pending, Shipped and Delivered orders from My Orders section.
+            </label>
+          </div>
 
-          <label><b>6.</b> View nearby repair and electronics shops on map.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 6
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Find nearest electronics shops using live map system.
+            </label>
+          </div>
 
-          <label><b>7.</b> Raise complaint after delivery if issue found.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 7
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Raise complaints after delivery if any issue is found.
+            </label>
+          </div>
 
-          <label><b>8.</b> Download invoice after delivery.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 8
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Download printable invoice after successful delivery.
+            </label>
+          </div>
 
-          <label><b>9.</b> Share shops and products with others.</label>
-
-          <label><b>10.</b> Manage complaints and warranty records easily.</label>
-
-        </form>
+        </div>
 
       </div>
-
-    </div>
     `;
-    }
+  }
 
-    function vendorGuide() {
+  function vendorGuide() {
 
-        document.getElementById("customerGuideBtn").classList = "optBtn";
-        document.getElementById("vendorGuideBtn").classList = "optBtn hover";
+    document.getElementById("customerGuideBtn").classList = "optBtn";
+    document.getElementById("vendorGuideBtn").classList = "optBtn hover";
 
-        document.getElementById("guideContent").innerHTML = `
+    document.getElementById("guideContent").innerHTML = `
 
-    <div id="orderdetailContainer">
+      <div id="orderdetailContainer"
+        style="background:#fff;border-radius:10px;padding:15px;box-shadow:0px 5px 12px #00000010;">
 
-      <div id="ProductEditInfo">
+        <div id="ProductEditInfo"
+          style="display:flex;flex-direction:column;gap:15px;">
 
-        <form>
+          <label style="font-size:1.4rem;font-weight:700;color:#4c6381;">
+            Vendor Guide
+          </label>
 
-          <label style="font-size:1.2rem;"><b>Vendor Guide</b></label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 1
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Register your electronics shop on VendoraX.
+            </label>
+          </div>
 
-          <label><b>1.</b> Register your shop on VendoraX.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 2
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Add live shop location for nearby customer discovery.
+            </label>
+          </div>
 
-          <label><b>2.</b> Add shop location for nearby customer visibility.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 3
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Upload products with image, stock, price and warranty.
+            </label>
+          </div>
 
-          <label><b>3.</b> Upload products with image, stock and warranty.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 4
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Manage customer orders from dashboard.
+            </label>
+          </div>
 
-          <label><b>4.</b> Manage orders from Pending, Shifted and Delivered.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 5
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Update delivery tracking status for customers.
+            </label>
+          </div>
 
-          <label><b>5.</b> Update delivery status for live customer tracking.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 6
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Resolve complaints and customer warranty issues.
+            </label>
+          </div>
 
-          <label><b>6.</b> Receive complaints and resolve customer issues.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 7
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Analyze sales, revenue and low stock products.
+            </label>
+          </div>
 
-          <label><b>7.</b> Monitor sales analytics and revenue reports.</label>
+          <div style="padding:12px;background:#f7f9fc;border-radius:8px;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Step 8
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              Share your public shop link with customers.
+            </label>
+          </div>
 
-          <label><b>8.</b> Track low stock and most selling products.</label>
-
-          <label><b>9.</b> Share your shop publicly using share shop option.</label>
-
-          <label><b>10.</b> Build trust using invoice and warranty system.</label>
-
-        </form>
+        </div>
 
       </div>
-
-    </div>
     `;
-    }
+  }
 
-    customerGuide();
+  customerGuide();
 
-    document.getElementById("customerGuideBtn").onclick = customerGuide;
-    document.getElementById("vendorGuideBtn").onclick = vendorGuide;
+  document.getElementById("customerGuideBtn").onclick = customerGuide;
+  document.getElementById("vendorGuideBtn").onclick = vendorGuide;
 }
 
 function showFaqs() {
 
-    ShopkeeperOptionsBtns.innerHTML =
-        `   <div class="optBtn" onclick="showGuide()"><span class="material-symbols-outlined">book_ribbon</span>Guide</div>
-        <div class="optBtn hover" onclick="showFaqs()"><span class="material-symbols-outlined">support_agent</span>FAQ's</div>
-        <div class="optBtn" onclick="showAbout()"><span class="material-symbols-outlined">local_cafe</span>About VendoraX</div>
-    `
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="showGuide()">
+      <span class="material-symbols-outlined">book_ribbon</span>Guide
+    </div>
 
-    ProductPage.innerHTML = `
+    <div class="optBtn hover" onclick="showFaqs()">
+      <span class="material-symbols-outlined">support_agent</span>FAQ's
+    </div>
+
+    <div class="optBtn" onclick="showAbout()">
+      <span class="material-symbols-outlined">local_cafe</span>About VendoraX
+    </div>
+  `;
+
+  ProductPage.innerHTML = `
   
-  <fieldset>
+  <fieldset style="border:none;padding:10px;">
 
-    <div id="ProductOptionsBtns" style="margin-bottom:10px;">
+    <div id="ProductOptionsBtns" style="margin-bottom:15px;">
       <div class="optBtn hover" id="customerFaqBtn">Customer FAQ</div>
       <div class="optBtn" id="vendorFaqBtn">Vendor FAQ</div>
     </div>
@@ -147,110 +267,192 @@ function showFaqs() {
   </fieldset>
   `;
 
-    function customerFaqs() {
+  function customerFaqs() {
 
-        document.getElementById("customerFaqBtn").classList = "optBtn hover";
-        document.getElementById("vendorFaqBtn").classList = "optBtn";
+    document.getElementById("customerFaqBtn").classList = "optBtn hover";
+    document.getElementById("vendorFaqBtn").classList = "optBtn";
 
-        document.getElementById("faqContent").innerHTML = `
+    document.getElementById("faqContent").innerHTML = `
 
-    <div id="ProductEditInfo">
+      <div id="orderdetailContainer"
+        style="margin-bottom:10px;background:#fff;border-radius:10px;padding:15px;box-shadow:0px 5px 12px #00000010;">
 
-      <form>
+        <div id="ProductEditInfo"
+          style="display:flex;flex-direction:column;gap:15px;">
 
-        <label><b>Q.</b> How to buy product?</label>
-        <label>A. Open product and click Buy Now.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to buy product?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Open product and click Buy Now button.
+            </label>
+          </div>
 
-        <label><b>Q.</b> Can I cancel order?</label>
-        <label>A. Yes, before delivery.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. Can I cancel order?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Yes, before order delivery.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to track delivery?</label>
-        <label>A. Open My Orders section.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to track delivery?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Open My Orders section.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to raise issue?</label>
-        <label>A. After delivery click Raise Issue.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to raise issue?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. After delivery click Raise Issue button.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to download invoice?</label>
-        <label>A. Delivered orders contain invoice button.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to download invoice?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Delivered orders contain Download Invoice option.
+            </label>
+          </div>
 
-        <label><b>Q.</b> Can I find nearby shops?</label>
-        <label>A. Yes, from nearest shops map feature.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. Can I find nearby shops?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Yes, using nearest shops map feature.
+            </label>
+          </div>
 
-      </form>
+        </div>
 
-    </div>
+      </div>
     `;
-    }
+  }
 
-    function vendorFaqs() {
+  function vendorFaqs() {
 
-        document.getElementById("customerFaqBtn").classList = "optBtn";
-        document.getElementById("vendorFaqBtn").classList = "optBtn hover";
+    document.getElementById("customerFaqBtn").classList = "optBtn";
+    document.getElementById("vendorFaqBtn").classList = "optBtn hover";
 
-        document.getElementById("faqContent").innerHTML = `
+    document.getElementById("faqContent").innerHTML = `
 
-    <div id="ProductEditInfo">
+      <div id="orderdetailContainer"
+        style="margin-bottom:10px;background:#fff;border-radius:10px;padding:15px;box-shadow:0px 5px 12px #00000010;">
 
-      <form>
+        <div id="ProductEditInfo"
+          style="display:flex;flex-direction:column;gap:15px;">
 
-        <label><b>Q.</b> How to add products?</label>
-        <label>A. Open Products section and upload details.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to add products?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Open Products section and upload product details.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to update stock?</label>
-        <label>A. Edit product and update stock value.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to update stock?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Edit product and update stock quantity.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to manage orders?</label>
-        <label>A. Use Manage Orders section.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to manage orders?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Open Orders section from dashboard.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to update delivery status?</label>
-        <label>A. Change order status and save.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to update delivery status?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Change order status and click save.
+            </label>
+          </div>
 
-        <label><b>Q.</b> How to solve complaints?</label>
-        <label>A. Open Complaints section and update issue status.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. How to solve complaints?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Open Complaints section and update issue status.
+            </label>
+          </div>
 
-        <label><b>Q.</b> Can customers share my shop?</label>
-        <label>A. Yes, public shop links are available.</label>
+          <div style="padding:10px;border-radius:8px;background:#f7f9fc;">
+            <label style="font-size:1rem;font-weight:700;color:#4c6381;">
+              Q. Can customers share my shop?
+            </label>
+            <label style="display:block;margin-top:5px;font-size:0.88rem;">
+              A. Yes, every shop has public share link.
+            </label>
+          </div>
 
-      </form>
+        </div>
 
-    </div>
+      </div>
     `;
-    }
+  }
 
-    customerFaqs();
+  customerFaqs();
 
-    document.getElementById("customerFaqBtn").onclick = customerFaqs;
-    document.getElementById("vendorFaqBtn").onclick = vendorFaqs;
+  document.getElementById("customerFaqBtn").onclick = customerFaqs;
+  document.getElementById("vendorFaqBtn").onclick = vendorFaqs;
 }
 
 function showAbout() {
+  ProductPage.innerHTML = `
+  <style>
+  form{
+  width:unset;
+  min-width:unset;
+  padding:20px;
+  justify-self: start;
+  }
+  </style>
+  <fieldset style="border:none;padding:10px;display:flex;flex-direction:column;gap:15px;">
 
-    ShopkeeperOptionsBtns.innerHTML =
-        `   <div class="optBtn" onclick="showGuide()"><span class="material-symbols-outlined">book_ribbon</span>Guide</div>
-        <div class="optBtn" onclick="showFaqs()"><span class="material-symbols-outlined">support_agent</span>FAQ's</div>
-        <div class="optBtn hover" onclick="showAbout()"><span class="material-symbols-outlined">local_cafe</span>About VendoraX</div>
-    `
 
-    ProductPage.innerHTML = `
-
-  <fieldset style="width:100%;">
-
-    <div id="orderdetailContainer" style="margin-bottom:10px;">
+    <div id="orderdetailContainer"
+      style="margin-bottom:10px;border-radius:10px;background:#fff;box-shadow:0px 5px 12px #00000012;padding:10px;">
 
       <div id="ProductEditInfo">
 
-        <form >
+        <form style="display:flex;flex-direction:column;gap:8px;">
 
-          <label style="font-size:1.5rem;color:#4c6381;">
-            <b>About VendoraX</b>
+          <label style="font-size:1.7rem;color:#4c6381;font-weight:700;font-family:'Montserrat Alternates',sans-serif;">
+            VendoraX
           </label>
 
-          <label style="font-size:0.9rem;">
-            VendoraX is a smart electronics marketplace platform that connects customers with nearby electronics shops and vendors.
+          <label style="font-size:0.9rem;color:#555;line-height:1.7;">
+            VendoraX is a smart electronics marketplace platform that connects customers with nearby electronics vendors and repair shops.
           </label>
 
-          <label style="font-size:0.9rem;">
-            The platform helps local shops grow digitally while giving customers fast access to nearby products and repair services.
+          <label style="font-size:0.9rem;color:#555;line-height:1.7;">
+            Customers can discover nearby products, track orders, raise complaints, download invoices and explore public vendor shops.
+          </label>
+
+          <label style="font-size:0.9rem;color:#555;line-height:1.7;">
+            Vendors can digitally manage products, orders, customers, complaints, revenue and shop analytics from a single dashboard.
           </label>
 
         </form>
@@ -260,43 +462,39 @@ function showAbout() {
     </div>
 
 
-    <div id="orderdetailContainer" style="margin-bottom:10px;">
+
+    <div id="orderdetailContainer"
+      style="margin-bottom:10px;border-radius:10px;background:#fff;box-shadow:0px 5px 12px #00000012;padding:10px;">
 
       <div id="ProductEditInfo">
 
-        <form>
+        <form style="display:flex;flex-direction:column;gap:7px;">
 
-          <label style="font-size:1.2rem;">
-            <b>Customer Features</b>
+          <label style="font-size:1.3rem;color:#4c6381;font-weight:700;">
+            Customer Features
           </label>
 
-          <label>• Browse electronics products from multiple vendors.</label>
+          <label style="font-size:0.88rem;">🛒 Browse electronics products from multiple vendors.</label>
 
-          <label>• Search products using categories and keywords.</label>
+          <label style="font-size:0.88rem;">🔍 Search products using categories and keywords.</label>
 
-          <label>• View full product details with warranty info.</label>
+          <label style="font-size:0.88rem;">📦 View full product specifications and warranty details.</label>
 
-          <label>• Buy products using Cash On Delivery.</label>
+          <label style="font-size:0.88rem;">💵 Buy products using Cash On Delivery.</label>
 
-          <label>• Track order status live.</label>
+          <label style="font-size:0.88rem;">📍 Find nearest electronics shops using live map system.</label>
 
-          <label>• View Pending, Shifted and Delivered orders.</label>
+          <label style="font-size:0.88rem;">📌 Filter nearby shops within 5km, 10km and 15km.</label>
 
-          <label>• Download printable invoice after delivery.</label>
+          <label style="font-size:0.88rem;">📄 Download printable invoice after successful delivery.</label>
 
-          <label>• Raise product complaints and warranty issues.</label>
+          <label style="font-size:0.88rem;">🚚 Track order status like Pending, Shipped and Delivered.</label>
 
-          <label>• View complaint processing status.</label>
+          <label style="font-size:0.88rem;">⚠ Raise product complaints and warranty issues.</label>
 
-          <label>• Find nearest electronics shops using map.</label>
+          <label style="font-size:0.88rem;">📨 Receive automatic email notifications for delivery and issues.</label>
 
-          <label>• Filter nearby shops within 5km, 10km and 15km.</label>
-
-          <label>• Share shops publicly using direct links.</label>
-
-          <label>• Explore vendor public shop pages without login.</label>
-
-          <label>• Receive email updates for deliveries and complaints.</label>
+          <label style="font-size:0.88rem;">🔗 Open and share vendor public shop pages without login.</label>
 
         </form>
 
@@ -305,47 +503,41 @@ function showAbout() {
     </div>
 
 
-    <div id="orderdetailContainer" style="margin-bottom:10px;">
+
+    <div id="orderdetailContainer"
+      style="margin-bottom:10px;border-radius:10px;background:#fff;box-shadow:0px 5px 12px #00000012;padding:10px;">
 
       <div id="ProductEditInfo">
 
-        <form>
+        <form style="display:flex;flex-direction:column;gap:7px;">
 
-          <label style="font-size:1.2rem;">
-            <b>Vendor Features</b>
+          <label style="font-size:1.3rem;color:#4c6381;font-weight:700;">
+            Vendor Features
           </label>
 
-          <label>• Register electronics shop online.</label>
+          <label style="font-size:0.88rem;">🏪 Register electronics shop digitally.</label>
 
-          <label>• Add shop address and live map location.</label>
+          <label style="font-size:0.88rem;">📍 Add live shop location on map.</label>
 
-          <label>• Upload products with image and details.</label>
+          <label style="font-size:0.88rem;">📤 Upload products with image, warranty and specifications.</label>
 
-          <label>• Manage product stock and pricing.</label>
+          <label style="font-size:0.88rem;">📦 Manage product stock and pricing easily.</label>
 
-          <label>• Add warranty information.</label>
+          <label style="font-size:0.88rem;">📑 Manage customer orders in real-time.</label>
 
-          <label>• Manage customer orders easily.</label>
+          <label style="font-size:0.88rem;">🚚 Update delivery tracking status.</label>
 
-          <label>• Update order delivery status.</label>
+          <label style="font-size:0.88rem;">⚠ Handle complaints and customer issues.</label>
 
-          <label>• Handle customer complaints and issues.</label>
+          <label style="font-size:0.88rem;">📊 View smart sales analytics dashboard.</label>
 
-          <label>• Approve or resolve raised complaints.</label>
+          <label style="font-size:0.88rem;">💰 Analyze highest revenue generating products.</label>
 
-          <label>• Monitor sales analytics dashboard.</label>
+          <label style="font-size:0.88rem;">🔥 Detect most selling products.</label>
 
-          <label>• View total revenue and total orders.</label>
+          <label style="font-size:0.88rem;">📉 Detect low stock products quickly.</label>
 
-          <label>• Detect low stock products quickly.</label>
-
-          <label>• Find highest revenue products.</label>
-
-          <label>• Analyze most selling products.</label>
-
-          <label>• Analyze most complained products.</label>
-
-          <label>• Share shop publicly with customers.</label>
+          <label style="font-size:0.88rem;">📢 Share public shop links for marketing.</label>
 
         </form>
 
@@ -354,35 +546,74 @@ function showAbout() {
     </div>
 
 
-    <div id="orderdetailContainer" style="margin-bottom:10px;">
+
+    <div id="orderdetailContainer"
+      style="margin-bottom:10px;border-radius:10px;background:#fff;box-shadow:0px 5px 12px #00000012;padding:10px;">
 
       <div id="ProductEditInfo">
 
-        <form>
+        <form style="display:flex;flex-direction:column;gap:7px;">
 
-          <label style="font-size:1.2rem;">
-            <b>Why VendoraX?</b>
+          <label style="font-size:1.3rem;color:#4c6381;font-weight:700;">
+            Smart Systems Included
           </label>
 
-          <label>• Supports local electronics businesses.</label>
+          <label style="font-size:0.88rem;">✔ Nearby shop finder using customer location.</label>
 
-          <label>• Easy to use modern UI.</label>
+          <label style="font-size:0.88rem;">✔ Complaint management system.</label>
 
-          <label>• Live product and order management.</label>
+          <label style="font-size:0.88rem;">✔ Product warranty tracking.</label>
 
-          <label>• Digital invoice and warranty system.</label>
+          <label style="font-size:0.88rem;">✔ Automatic invoice generation.</label>
 
-          <label>• Faster communication between customer and vendor.</label>
+          <label style="font-size:0.88rem;">✔ Delivery date and warranty expiry tracking.</label>
 
-          <label>• Smart complaint handling process.</label>
+          <label style="font-size:0.88rem;">✔ Public vendor storefront sharing.</label>
 
-          <label>• Public shop sharing system for marketing.</label>
+          <label style="font-size:0.88rem;">✔ Customer and vendor dashboard separation.</label>
 
-          <label>• Nearby store discovery using maps.</label>
+          <label style="font-size:0.88rem;">✔ Real-time order tracking system.</label>
 
-          <label>• Better trust through tracking and invoices.</label>
+          <label style="font-size:0.88rem;">✔ Smart product analytics and reports.</label>
 
-          <label>• Complete electronics shopping ecosystem.</label>
+        </form>
+
+      </div>
+
+    </div>
+
+
+
+    <div id="orderdetailContainer"
+      style="margin-bottom:10px;border-radius:10px;background:#fff;color:#fff;box-shadow:0px 5px 12px #00000012;padding:15px;">
+
+      <div id="ProductEditInfo">
+
+        <form style="display:flex;flex-direction:column;gap:8px;">
+
+          <label style="font-size:1.3rem;font-weight:700;">
+            Why Choose VendoraX?
+          </label>
+
+          <label style="font-size:0.88rem;">
+            ✔ Supports local electronics businesses digitally.
+          </label>
+
+          <label style="font-size:0.88rem;">
+            ✔ Makes nearby electronics shopping easier and faster.
+          </label>
+
+          <label style="font-size:0.88rem;">
+            ✔ Provides trust using invoices, tracking and complaint system.
+          </label>
+
+          <label style="font-size:0.88rem;">
+            ✔ Helps vendors increase online visibility and sales.
+          </label>
+
+          <label style="font-size:0.88rem;">
+            ✔ Creates a complete electronics marketplace ecosystem.
+          </label>
 
         </form>
 

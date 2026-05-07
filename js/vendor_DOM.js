@@ -629,222 +629,10 @@ function manageShop() {
   closeOptMenus(false, false);
 }
 
-function manageOrders___() {
-  ShopkeeperOptionsBtns.innerHTML = `<div class="optBtn" onclick="defaultLoad()">Products</div> 
-                <div class="optBtn hover" onclick="manageOrders()" >Orders</div> 
-                <div class="optBtn" onclick="manageSales()" >Sell</div>
-                <div class="optBtn" onclick="manageComplains()" >Complains</div>
-    `;
+/*
 
-  function pendingOrders() {
-    document.getElementById("pendingOrders").classList = "optBtn hover";
-    document.getElementById("shiftedOrders").classList = "optBtn";
-    document.getElementById("completedOrders").classList = "optBtn";
+async function changeStatus(order_id, el ) {
 
-    document.getElementById("addingTask").innerHTML = `
-            <div id="ListingOrderItems" >
-                <div id="orderdetailContainer" style="margin-bottom: 10px;">
-                    <div id="editImage"
-                        style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                        Laptop
-                    </div>
-                    <div id="productImage">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
-                    </div>
-                    <div id="ProductEditInfo">
-                        <form id="AddingTaskForm">
-                            <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                            <label style="font-size: 0.8rem;"><i>HP</i></label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB SSD</label>
-                            <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-                            <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-                            <div style="margin-bottom:5px ;">
-                                <label for="cashOnDel">Cash On Delivery</label>
-                            </div>
-                        </form>
-                        <form id="AddingTaskForm">
-                            <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
-                            <label style="font-size: 0.8rem;"><b>9864626362</b></label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide Hotel, Ahmedabad - 360028</label>
-                            <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
-                            <label style="font-size: 0.8rem;color:green;"><b>8 Product Available</b></label>    
-                        </form>
-                        <form style="display:flex;align-items: flex-end;margin: 0;">
-                            <div>
-                                <label for="status"></label>
-                                <select name="status" id="status">
-                                    <option value="Packed" selected>Processing</option>
-                                    <option value="Packed" >Shipped</option>
-                                    <option value="Packed" >Out for Delivery</option>
-                                    <option value="Packed" >Completed</option>
-                                </select>
-                            </div>
-                            <span>
-                                <button type="submit" style="margin: 0;">Accept</button>
-                                <button type="reset" style="margin: 0;">Deny</button>
-                            </span>
-                        </form>
-                    </div>
-                    <div id="closeTable" style="display:none;border-radius:5px;background-color:#4c6381;color: #fff;height: max-content;cursor:pointer;">
-                        <span class="material-symbols-outlined" style="font-size: 1rem;padding: 5px;">close</span>
-                    </div>
-                </div>
-            </div>
-        `;
-  }
-
-  function shiftedOrders() {
-    document.getElementById("pendingOrders").classList = "optBtn";
-    document.getElementById("shiftedOrders").classList = "optBtn hover";
-    document.getElementById("completedOrders").classList = "optBtn";
-
-    document.getElementById("addingTask").innerHTML = `
-            <div id="ListingOrderItems" >
-                <div id="orderdetailContainer" style="margin-bottom: 10px;">
-                    <div id="editImage"
-                        style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                        Laptop
-                    </div>
-                    <div id="productImage">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
-                    </div>
-                    <div id="ProductEditInfo">
-                        <form id="AddingTaskForm">
-                            <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                            <label style="font-size: 0.8rem;"><i>HP</i></label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB SSD</label>
-                            <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-                            <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-                            <div style="margin-bottom:5px ;">
-                                <label for="cashOnDel">Cash On Delivery</label>
-                            </div>
-                        </form>
-                        <form id="AddingTaskForm">
-                            <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
-                            <label style="font-size: 0.8rem;"><b>9864626362</b></label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide Hotel, Ahmedabad - 360028</label>
-                            <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
-                            <label style="font-size: 0.8rem;color:green;"><b>8 Product Available</b></label>    
-                        </form>
-                        <form style="display:flex;align-items: flex-end;margin: 0;">
-                            <div>
-                                <label for="status"></label>
-                                <select name="status" id="status">
-                                    <option value="Packed" >Processing</option>
-                                    <option value="Packed" selected >Shipped</option>
-                                    <option value="Packed" >Out for Delivery</option>
-                                    <option value="Packed" >Completed</option>
-                                </select>
-                            </div>
-                            <div>
-                                <button type="submit" style="margin: 0;">Save</button>
-                                <button type="button" style="display:none;margin: 0;">Deny</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="closeTable" style="display:none;border-radius:5px;background-color:#4c6381;color: #fff;height: max-content;cursor:pointer;">
-                        <span class="material-symbols-outlined" style="font-size: 1rem;padding: 5px;">close</span>
-                    </div>
-                </div>
-            </div>
-        `;
-  }
-
-  function completedOrders() {
-    document.getElementById("pendingOrders").classList = "optBtn";
-    document.getElementById("shiftedOrders").classList = "optBtn";
-    document.getElementById("completedOrders").classList = "optBtn hover";
-
-    document.getElementById("addingTask").innerHTML = `
-            <div id="ListingOrderItems" >
-                <div id="orderdetailContainer" style="margin-bottom: 10px;">
-                    <div id="editImage"
-                        style="position: absolute;margin: 5px;background-color: #dfebff; border-radius: 5px;padding: 5px 10px;font-size: 0.6rem;">
-                        Laptop
-                    </div>
-                    <div id="productImage">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853" alt="">
-                    </div>
-                    <div id="ProductEditInfo">
-                        <form id="AddingTaskForm">
-                            <label style="font-size: 1rem;"><b>HP Pavilion i5</b></label>
-                            <label style="font-size: 0.8rem;"><i>HP</i></label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">Intel i5, 16GB RAM, 512GB SSD</label>
-                            <label style="font-size: 0.7rem;"><span>Warranty</span> <b> 2 years</b></label>
-                            <label style="font-size: 1.2rem;"><b>₹ 58000</b></label>
-                            <div style="margin-bottom:5px ;">
-                                <label for="cashOnDel">Cash On Delivery</label>
-                            </div>
-                        </form>
-                        <form id="AddingTaskForm">
-                            <label style="font-size: 1rem;"><b>Alison Jonson</b></label>
-                            <label style="font-size: 0.8rem;"><b>9864626362</b></label>
-                            <label style="font-size: 0.8rem;font-weight: 400;">1, Alpha city, Near RiverSide Hotel, Ahmedabad - 360028</label>
-                            <label style="font-size: 0.7rem;"><span>Quantity</span> <b> 1</b></label>
-                            <label style="font-size: 0.8rem;color:green;"><b>Delivery Successfull</b></label>    
-                        </form>
-                        <form style="display:none;align-items: flex-end;margin: 0;">
-                            <div>
-                                <label for="status"></label>
-                                <select name="status" id="status">
-                                    <option value="Packed" >Processing</option>
-                                    <option value="Packed" selected >Shipped</option>
-                                    <option value="Packed" >Out for Delivery</option>
-                                    <option value="Packed" >Completed</option>
-                                </select>
-                            </div>
-                            <div style="display:none">
-                                <button type="submit" style="margin: 0;">Save</button>
-                                <button type="button" style="margin: 0;">Deny</button>
-                            </div>
-
-                        </form>
-                            <div>
-                                <span>Ordered On: <b>30/02/2026</b></span> <br>
-                                <span>Delivered On: <b>04/03/2026</b></span>
-                            </div>
-                    </div>
-                    <div id="closeTable" style="display:none;border-radius:5px;background-color:#4c6381;color: #fff;height: max-content;cursor:pointer;">
-                        <span class="material-symbols-outlined" style="font-size: 1rem;padding: 5px;">close</span>
-                    </div>
-                </div>
-            </div>
-        `;
-  }
-
-  ProductPage.innerHTML = `
-            <fieldset style="padding-bottom:0;">
-            <div id="ProductOptionsBtns">
-                <div class="optBtn" id="pendingOrders">Pending</div>
-                <div class="optBtn" id="shiftedOrders">Shifted</div>
-                <div class="optBtn" id="completedOrders">Completed</div>
-            </div>
-            </fieldset>
-
-            <div id="addingTask" style="margin: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0px 7px 10px #0000000f; ">
-                    
-
-                </div>
-            </div>
-        `;
-
-  pendingOrders();
-
-  document.getElementById("pendingOrders").addEventListener("click", () => {
-    pendingOrders();
-  });
-  document.getElementById("shiftedOrders").addEventListener("click", () => {
-    shiftedOrders();
-  });
-  document.getElementById("completedOrders").addEventListener("click", () => {
-    completedOrders();
-  });
-}
-
-
-
-
-async function changeStatus(order_id, el) {
   console.log("STATUS:", order_id, el.value);
 
   const fd = new FormData();
@@ -860,6 +648,9 @@ async function changeStatus(order_id, el) {
   });
 
   console.log(await r.text());
+
+
+
 
 
 }
@@ -906,7 +697,7 @@ function updateOrderStatus(order_id, select ) {
     alert(res);
   });
 
-  loadVendorOrders()
+  loadVendorOrders("pending");
 
 }
 
@@ -938,12 +729,12 @@ async function loadVendorOrders(type) {
 
     // ✅ pending
     if (type === "pending") {
-      selectBlock = `
-        <select onchange="changeStatus(${p.id}, this)">
-          <option value="pending" selected>Processing</option>
-          <option value="shipped">Shipped</option>
-          <option value="delivered">Completed</option>
-        </select>`;
+      // selectBlock = `
+      //   <select onchange="changeStatus(${p.id}, this)">
+      //     <option value="pending" selected>Processing</option>
+      //     <option value="shipped">Shipped</option>
+      //     <option value="delivered">Completed</option>
+      //   </select>`;
 
       actionBtns = `
         <button onclick="acceptOrder(${p.id})">Accept</button>
@@ -952,14 +743,15 @@ async function loadVendorOrders(type) {
 
     // ✅ shipped
     if (type === "shipped") {
-      selectBlock = `
-        <select onchange="updateOrderStatus(ORDER_ID, this)">
-  <option value="pending">Pending</option>
-  <option value="shipped" selected>Shipped</option>
-  <option value="delivered">Delivered</option>
-</select>`;
+//       selectBlock = `
+//         <select onchange="updateOrderStatus(ORDER_ID, this)">
+//   <option value="pending">Pending</option>
+//   <option value="shipped" selected>Shipped</option>
+//   <option value="delivered">Delivered</option>
+// </select>`;
 
-      actionBtns = `<button onclick="changeStatus(${p.id}, {value:'delivered'})">Mark Delivered</button>`;
+      actionBtns = `<button style="margin:5px" onclick="changeStatus(${p.id}, {value:'pending'})">Mark Pending</button>
+                <button style="margin:5px" onclick="changeStatus(${p.id}, {value:'delivered'})">Mark Delivered</button>`;
     }
 
     // ✅ delivered
@@ -967,7 +759,7 @@ async function loadVendorOrders(type) {
       actionBtns = `
         <label style="color:green;"><b>Delivery Successful</b></label>
         <div>
-          <label>Ordered On: <b>${p.ordered_at || "-"}</b></label>
+          <label>Ordered On: <b>${p.ordered_at || "-"}</b></label> <br>
 
           <label>Delivered On: <b>${p.delivered_at ? p.delivered_at : "Not Delivered"}</b></label>
         </div>     
@@ -1018,6 +810,270 @@ async function loadVendorOrders(type) {
     `;
 
     box.appendChild(div.firstElementChild);
+  });
+}
+
+*/
+
+async function changeStatus(order_id, el) {
+
+  const status = el.value;
+
+  const fd = new FormData();
+  fd.append("order_id", order_id);
+  fd.append("status", status);
+
+  try {
+
+    const r = await fetch("./script/update_order_status.php", {
+      method: "POST",
+      body: fd
+    });
+
+    const res = await r.text();
+
+    console.log(res);
+
+    // ✅ reload same tab automatically
+    loadVendorOrders(
+      document.querySelector("#pendingOrders.hover") ? "pending" :
+      document.querySelector("#shiftedOrders.hover") ? "shipped" :
+      "delivered"
+    );
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function acceptOrder(id) {
+
+  await changeStatus(id, { value: "shipped" });
+
+}
+
+async function denyOrder(id) {
+
+  if (!confirm("Deny order?")) return;
+
+  const fd = new FormData();
+  fd.append("order_id", id);
+
+  try {
+
+    const r = await fetch("./script/deny_order.php", {
+      method: "POST",
+      body: fd
+    });
+
+    const res = await r.text();
+
+    console.log(res);
+
+    // ✅ stay in pending section
+    loadVendorOrders("pending");
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function updateOrderStatus(order_id, select) {
+
+  await changeStatus(order_id, select);
+
+}
+
+async function loadVendorOrders(type) {
+
+  const container = document.getElementById("addingTask");
+
+  const info = await fetch("./script/get_vendor_orders.php");
+  const resultdata = await info.json();
+
+  console.log("VENDOR:", resultdata);
+
+  if (resultdata.status !== "ok") return;
+
+  // ✅ active buttons
+  document.getElementById("pendingOrders").classList = "optBtn";
+  document.getElementById("shiftedOrders").classList = "optBtn";
+  document.getElementById("completedOrders").classList = "optBtn";
+
+  if (type === "pending") {
+    document.getElementById("pendingOrders").classList = "optBtn hover";
+  }
+
+  if (type === "shipped") {
+    document.getElementById("shiftedOrders").classList = "optBtn hover";
+  }
+
+  if (type === "delivered") {
+    document.getElementById("completedOrders").classList = "optBtn hover";
+  }
+
+  const list = resultdata.data.filter(o => o.status === type);
+
+  if (!list.length) {
+    container.innerHTML = `
+      <p style="text-align:center;padding:20px;">
+        No Orders
+      </p>
+    `;
+    return;
+  }
+
+  container.innerHTML = `<div id="ListingOrderItems"></div>`;
+
+  const box = document.getElementById("ListingOrderItems");
+
+  list.forEach(p => {
+
+    let actionBtns = "";
+
+    // ✅ pending
+    if (type === "pending") {
+
+      actionBtns = `
+        <button 
+          type="button"
+          onclick="acceptOrder(${p.id})"
+          style="margin:0 5px;">
+          Accept
+        </button>
+
+        <button 
+          type="button"
+          onclick="denyOrder(${p.id})"
+          style="margin:0 5px;">
+          Deny
+        </button>
+      `;
+    }
+
+    // ✅ shipped
+    if (type === "shipped") {
+
+      actionBtns = `
+        <button 
+          type="button"
+          style="margin:0 5px;"
+          onclick="changeStatus(${p.id}, {value:'pending'})">
+          Mark Pending
+        </button>
+
+        <button 
+          type="button"
+          style="margin:0 5px;"
+          onclick="changeStatus(${p.id}, {value:'delivered'})">
+          Mark Delivered
+        </button>
+      `;
+    }
+
+    // ✅ delivered
+    if (type === "delivered") {
+
+      actionBtns = `
+      <div style="margin-top:5px;">
+        <label style="color:green;font-size:0.9rem;">
+          <b>Delivery Successful</b>
+        </label> <br>
+
+          <label style="font-size:0.75rem;">
+            Ordered On:
+            <b>${p.ordered_at || "-"}</b>
+          </label><br>
+
+          <label style="font-size:0.75rem;">
+            Delivered On:
+            <b>${p.delivered_at || "-"}</b>
+          </label>
+        </div>
+      `;
+    }
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <div id="orderdetailContainer" style="margin-bottom:10px;">
+
+      <div id="editImage"
+        style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+        ${p.category}
+      </div>
+
+      <div id="productImage" style="padding:0;">
+        <img src="./script/${p.image || 'noimage.png'}">
+      </div>
+
+      <div id="ProductEditInfo" style="padding:10px 0 0 15px;display:flex;justify-content:space-between;">
+
+        <div style="display:flex;flex-direction:column;margin-bottom:10px;max-width:300px;">
+
+          <label style="font-size:1rem;margin:2px 0;">
+            <b>${p.title}</b>
+          </label>
+
+          <label style="font-size:0.8rem;margin:2px 0;">
+            <i>${p.category}</i>
+          </label>
+
+          <label style="font-size:0.8rem;margin:4px 0;">
+            ${p.description || ""}
+          </label>
+
+          <label style="font-size:0.7rem;margin:2px 0;">
+            Warranty:
+            <b>${p.warranty} months</b>
+          </label>
+
+          <label style="font-size:0.95rem;margin:5px 0 2px 0;">
+            <b>₹ ${p.price}</b> x <b>${p.qty}</b>
+          </label>
+
+          <label style="font-size:1.2rem;margin:2px 0;">
+            <b>₹ ${p.price * p.qty}</b> Total
+          </label>
+
+        </div>
+
+        <div style="display:flex;gap:5px;flex-direction:column;margin-bottom:10px;">
+
+          <label style="font-size:1rem;">
+            <b>${p.name}</b>
+          </label>
+
+          <label style="font-size:0.8rem;">
+            <b>${p.mobile}</b>
+          </label>
+
+          <label style="font-size:0.8rem;">
+            ${p.address}
+          </label>
+
+          <label style="font-size:0.7rem;">
+            Quantity:
+            <b>${p.qty}</b>
+          </label>
+
+          <label style="font-size:0.8rem;color:green;">
+            <b>${p.stock} Product Available</b>
+          </label>
+
+        </div>
+
+        <div style="display:flex;align-items: self-start;">
+          ${actionBtns}
+        </div>
+
+      </div>
+
+    </div>
+    `;
+
+    box.appendChild(div.firstElementChild);
+
   });
 }
 
@@ -1263,7 +1319,7 @@ async function manageSales() {
 
 
 // complains
-
+/*
 async function manageComplains() {
 
   ShopkeeperOptionsBtns.innerHTML = `
@@ -1404,4 +1460,316 @@ async function updateIssueStatus(id, status) {
   console.log("Response:", r);
 
   alert(r);
+}
+
+*/
+
+async function manageComplains() {
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Products</div> 
+    <div class="optBtn" onclick="manageOrders()">Orders</div> 
+    <div class="optBtn" onclick="manageSales()">Sell</div>
+    <div class="optBtn hover" onclick="manageComplains()">Complains</div>
+  `;
+
+  ProductPage.innerHTML = `
+    <fieldset style="padding-bottom:0;">
+
+      <div id="ProductOptionsBtns">
+        <div class="optBtn hover" id="allC">Pending</div>
+        <div class="optBtn" id="procC">Processing</div>
+        <div class="optBtn" id="apprC">Approved</div>
+        <div class="optBtn" id="resC">Resolved</div>
+      </div>
+
+    </fieldset>
+
+    <div id="addingTask"
+      style="margin:10px;background:transparent;border-radius:5px;box-shadow:none;">
+    </div>
+  `;
+
+  const container = document.getElementById("addingTask");
+
+  let currentTab = "all";
+
+  async function loadIssues() {
+
+    const res = await fetch("./script/get_issues_vendor.php");
+    const result = await res.json();
+
+    console.log("ISSUES:", result);
+
+    if (result.status !== "ok") {
+      container.innerHTML = `
+        <p style="text-align:center;">
+          Error loading complaints
+        </p>
+      `;
+      return;
+    }
+
+    render(result.data);
+  }
+
+  function setActive(tab) {
+
+    currentTab = tab;
+
+    document.getElementById("allC").classList = "optBtn";
+    document.getElementById("procC").classList = "optBtn";
+    document.getElementById("apprC").classList = "optBtn";
+    document.getElementById("resC").classList = "optBtn";
+
+    if (tab === "pending") {
+      document.getElementById("allC").classList = "optBtn hover";
+    }
+
+    if (tab === "processing") {
+      document.getElementById("procC").classList = "optBtn hover";
+    }
+
+    if (tab === "approved") {
+      document.getElementById("apprC").classList = "optBtn hover";
+    }
+
+    if (tab === "resolved") {
+      document.getElementById("resC").classList = "optBtn hover";
+    }
+  }
+
+  function render(allData) {
+
+    container.innerHTML = "";
+
+    let data = allData;
+
+    if (currentTab === "pending") {
+      data = allData.filter(i =>
+        i.status === "pending" 
+      );
+    }
+
+    if (currentTab === "processing") {
+      data = allData.filter(i =>
+        i.status === "processing"
+      );
+    }
+
+    if (currentTab === "approved") {
+      data = allData.filter(i =>
+        i.status === "approved" 
+      );
+    }
+
+    if (currentTab === "resolved") {
+      data = allData.filter(i => i.status === "resolved");
+    }
+
+    if (!data.length) {
+      container.innerHTML = `
+        <p style="text-align:center;padding:20px;">
+          No Complains
+        </p>
+      `;
+      return;
+    }
+
+    data.forEach(p => {
+
+      const div = document.createElement("div");
+
+      div.innerHTML = `
+      <div id="orderdetailContainer"
+        style="background:#fff;margin-bottom:10px;display:flex;border-radius:5px;">
+
+        <div id="productImage">
+
+          <div id="editImage"
+            style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
+            ${p.category}
+          </div>
+
+          <img src="./script/${p.image || 'noimage.png'}">
+
+        </div>
+
+        <div id="ProductEditInfo"
+          style="display:flex;justify-content:space-between;padding:0 10px 0 0;width:stretch;">
+
+          <div style="margin:0;padding:10px 0 0 10px;display:flex;flex-direction:column;width:30%;">
+
+            <label style="font-size:1rem;">
+              <b>${p.title}</b>
+            </label>
+
+            <label style="font-size:0.8rem;">
+              <i>${p.category}</i>
+            </label>
+
+            <label style="font-size:0.8rem;">
+              ${p.pdesc || ""}
+            </label>
+
+            <label style="font-size:0.7rem;">
+              Warranty <b>${p.warranty} months</b>
+            </label>
+
+            <label style="font-size:1.2rem;">
+              <b>₹ ${p.price}</b>
+            </label>
+
+          </div>
+
+          <div style="margin:0;padding:10px 0 0 10px;display:flex;flex-direction:column;">
+
+            <label style="font-size:0.8rem;margin:3px 0;">
+              <b>Problem</b>
+            </label>
+
+            <input value="${p.issue}" readonly>
+
+            <label style="font-size:0.8rem;margin:3px 0;">
+              <b>Explain Issue</b>
+            </label>
+
+            <textarea rows="3" readonly>${p.description || ""}</textarea>
+
+          </div>
+
+          <div style="margin:0;padding:10px 0 0 10px;display:flex;gap:5px;flex-direction:column;width:30%;">
+
+            <label style="font-size:1rem;">
+              <b>${p.name}</b>
+            </label>
+
+            <label style="font-size:0.8rem;">
+              <b>${p.mobile}</b>
+            </label>
+
+            <label style="font-size:0.8rem;">
+              ${p.address}
+            </label>
+
+            <label style="font-size:0.7rem;">
+              Qty <b>${p.qty}</b>
+            </label>
+
+            <label style="font-size:0.7rem;">
+              Raised: <b>${p.created_at}</b>
+            </label>
+
+          </div>
+
+          
+          <div style="display:flex;flex-direction: column;align-items:end;margin:0;padding:10px 0 10px 10px;">
+
+            <div>
+
+              <select id="issue_status_${p.id}">
+
+                <option value="pending"
+                  ${p.status=="pending"?"selected":""}>
+                  Pending
+                </option>
+
+                <option value="processing"
+                  ${p.status=="processing"?"selected":""}>
+                  Processing
+                </option>
+
+                <option value="approved"
+                  ${p.status=="approved"?"selected":""}>
+                  Approved
+                </option>
+
+                <option value="resolved"
+                  ${p.status=="resolved"?"selected":""}>
+                  Resolved
+                </option>
+
+              </select>
+
+            </div>
+
+            <div>
+
+              <button
+                type="button"
+                style="margin:0;"
+                onclick="updateIssueStatus(${p.id})">
+
+                Save
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      `;
+
+      container.appendChild(div.firstElementChild);
+    });
+  }
+
+  window.updateIssueStatus = async function(id) {
+
+    const status =
+      document.getElementById(`issue_status_${id}`).value;
+
+    console.log("Update:", id, status);
+
+    const fd = new FormData();
+    fd.append("id", id);
+    fd.append("status", status);
+
+    try {
+
+      const res = await fetch("./script/update_issue.php", {
+        method: "POST",
+        body: fd
+      });
+
+      const r = await res.text();
+
+      console.log(r);
+
+      // ✅ auto refresh current tab
+      loadIssues();
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+  }
+
+  document.getElementById("allC").onclick = () => {
+    setActive("pending");
+    loadIssues();
+  };
+
+  document.getElementById("procC").onclick = () => {
+    setActive("processing");
+    loadIssues();
+  };
+
+  document.getElementById("apprC").onclick = () => {
+    setActive("approved");
+    loadIssues();
+  };
+
+  document.getElementById("resC").onclick = () => {
+    setActive("resolved");
+    loadIssues();
+  };
+
+  setActive("pending");
+
+  loadIssues();
 }
