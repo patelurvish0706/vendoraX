@@ -420,6 +420,21 @@ function showFaqs() {
 }
 
 function showAbout() {
+
+    ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="showGuide()">
+      <span class="material-symbols-outlined">book_ribbon</span>Guide
+    </div>
+
+    <div class="optBtn" onclick="showFaqs()">
+      <span class="material-symbols-outlined">support_agent</span>FAQ's
+    </div>
+
+    <div class="optBtn hover" onclick="showAbout()">
+      <span class="material-symbols-outlined">local_cafe</span>About VendoraX
+    </div>
+  `;
+
   ProductPage.innerHTML = `
   <style>
   form{

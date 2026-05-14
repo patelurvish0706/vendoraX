@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vname = trim($_POST['vname']);
     $email = trim($_POST['vemail']);
     $mobile = trim($_POST['vmobile']);
-    $pass = $_POST['pass'];
-    $repass = $_POST['repass'];
+    $pass = trim($_POST['pass']);
+    $repass = trim($_POST['repass']);
     $address = trim($_POST['address']);
 
     // validation
@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    if ($pass !== $repass) {
-        echo "Passwords not match";
-        exit;
-    }
+    // if ($pass !== $repass) {
+    //     echo "Passwords not match";
+    //     exit;
+    // }
 
     // check email exists
     $check = $conn->prepare("SELECT vendor_id FROM vendors WHERE vendor_email=?");

@@ -622,6 +622,54 @@ function manageCustomerInfo_____() {
 
 // Manage Cart
 
+async function removeCart(cart_id) {
+
+  console.log("removeCart() called");
+  console.log("Cart ID:", cart_id);
+
+  try {
+
+    const formData = new FormData();
+    formData.append("cart_id", cart_id);
+
+    console.log("Sending Request To remove_cart.php");
+
+    const res = await fetch("./script/delete_cart.php", {
+      method: "POST",
+      body: formData
+    });
+
+    console.log("Response Received:", res);
+
+    const result = await res.text();
+
+    console.log("Server Response:", result);
+
+    if (result.trim() === "removed") {
+
+      console.log("Cart Item Removed Successfully");
+
+      alert("Item Removed From Cart");
+
+      // reload cart
+      manageCart()
+
+    } else {
+
+      console.log("Failed To Remove Cart Item");
+
+      alert(result);
+    }
+
+  } catch (error) {
+
+    console.log("Error While Removing Cart Item");
+    console.error(error);
+
+    alert("Something went wrong");
+  }
+}
+
 async function manageCart() {
 
   ShopkeeperOptionsBtns.innerHTML = `

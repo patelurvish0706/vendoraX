@@ -49,7 +49,7 @@ function closeOptMenus(more, acc) {
   isAccOpen = acc;
 }
 
-function defaultLoad() {
+async function defaultLoad() {
   let isLoggedin = true;
   
   const token = getCookie("vendor_token");
@@ -93,9 +93,18 @@ function defaultLoad() {
       theTime.innerHTML = `<p style="font-weight:600;">${dayName}</p><p>${todaysdate}</p><p>${time}</p>`;
     }, 1000);
 
+
+    const res = await fetch("./script/get_vendor.php");
+    const result = await res.json();
+
+    if (result.status !== "valid") return;
+
+    const d = result.data;
+
+
     welcomeVendor.innerHTML = ` 
-            <span id="ShopDets">Welcome, <b><i id="NameOfTheVendor">Vendor</i></b> <br />
-                <span id="NameOfTheShop">Best Tech Shop</span>
+            <span id="ShopDets">Welcome, <b><i id="NameOfTheVendor">${d.vendor_name || ""}</i></b> <br />
+                <span id="NameOfTheShop">${d.shop_name || ""}</span>
             </span>
             <span id="theTime" style="display: flex;flex-direction: column;">            
             </span> 

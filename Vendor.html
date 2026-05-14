@@ -170,11 +170,11 @@
                             return;
                         }
 
-                        if (pass !== repass) {
-                            ErrRegister.innerText = "Passwords do not match";
-                            goToId();
-                            return;
-                        }
+                        // if (pass !== repass) {
+                        //     ErrRegister.innerText = "Passwords do not match";
+                        //     goToId();
+                        //     return;
+                        // }
 
                         // send to PHP
                         const formData = new FormData();
@@ -186,12 +186,17 @@
                         formData.append("repass", repass);
                         formData.append("address", address);
 
+                        
                         const res = await fetch("./script/register.php", {
                             method: "POST",
                             body: formData
                         });
 
+                        console.log(res);
+                        
+
                         const data = await res.text();
+                        console.log(data);
 
                         if (data === "success") {
                             ErrRegister.innerHTML = `<p style="color:green;">Register Successful</p>`;
