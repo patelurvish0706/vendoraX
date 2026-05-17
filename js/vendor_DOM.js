@@ -6,34 +6,39 @@ const ProductPage = document.getElementById("ProductPage");
 let VendorShopToken = null;
 
 async function checkAuth() {
-
   try {
-
     const res = await fetch("./script/verify.php");
     const data = await res.json();
 
     // console.log(data);
 
     if (data.status === "valid") {
-
       // ✅ global vendor id
       VendorShopToken = data.vendor_id;
 
       // console.log("Vendor ID:", VendorShopToken);
 
-      manageShop();
+      const res2 = await fetch("./script/get_vendor.php");
+      const dataNew = await res2.json();
 
+      // console.log(dataNew.data.shop_open_close);
+
+      if (
+        dataNew.data.shop_open_close == "undefined" ||
+        dataNew.data.shop_open_close == null
+      ) {
+        // console.log("No Shop details, just Registered");
+        manageShop();
+      } else {
+        // console.log("All Data Filled");
+        defaultLoad();
+      }
     } else {
-
       Login();
-
     }
-
   } catch (err) {
-
     console.log(err);
     Login();
-
   }
 }
 
@@ -51,11 +56,11 @@ function closeOptMenus(more, acc) {
 
 async function defaultLoad() {
   let isLoggedin = true;
-  
+
   const token = getCookie("vendor_token");
   if (!token) {
-      showLogin();
-      return;
+    showLogin();
+    return;
   }
 
   if (!isLoggedin) {
@@ -93,7 +98,6 @@ async function defaultLoad() {
       theTime.innerHTML = `<p style="font-weight:600;">${dayName}</p><p>${todaysdate}</p><p>${time}</p>`;
     }, 1000);
 
-
     const res = await fetch("./script/get_vendor.php");
     const result = await res.json();
 
@@ -101,9 +105,9 @@ async function defaultLoad() {
 
     const d = result.data;
 
-
     welcomeVendor.innerHTML = ` 
-            <span id="ShopDets">Welcome, <b><i id="NameOfTheVendor">${d.vendor_name || ""}</i></b> <br />
+            <span id="ShopDets">Welcome, <b><i id="NameOfTheVendor">${d.vendor_name || ""
+      }</i></b> <br />
                 <span id="NameOfTheShop">${d.shop_name || ""}</span>
             </span>
             <span id="theTime" style="display: flex;flex-direction: column;">            
@@ -112,7 +116,7 @@ async function defaultLoad() {
 
     ShopkeeperOptionsBtns.innerHTML = ` <div class="optBtn hover" onclick="defaultLoad()">Products</div> 
                 <div class="optBtn" onclick="manageOrders()" >Orders</div> 
-                <div class="optBtn" onclick="manageSales()" >Sell</div>
+                <div class="optBtn" onclick="manageSales()" >Sales</div>
                 <div class="optBtn" onclick="manageComplains()" >Complains</div>
             `;
 
@@ -123,12 +127,7 @@ async function defaultLoad() {
 defaultLoad();
 
 function ShowMyShop() {
-
-  window.open(
-    `http://localhost/VendoraX/?shop=${VendorShopToken}`,
-    "_blank"
-  );
-
+  window.open(`http://localhost/VendoraX/?shop=${VendorShopToken}`, "_blank");
 }
 
 async function updateProduct(id, btn) {
@@ -239,9 +238,8 @@ function loadAllProds() {
             <textarea id="pdesc" rows="4">${p.description || ""}</textarea>
 
             <span style="margin:5px 0 0 0;">
-            <button style="margin:0 5px 0 0;" onclick="updateProduct(${
-              p.id
-            }, this)">Save</button>
+            <button style="margin:0 5px 0 0;" onclick="updateProduct(${p.id
+        }, this)">Save</button>
             <button style="margin:0 5px 0 0;" onclick="this.closest('div').parentElement.remove()">Cancel</button>
             </span>
         </div>
@@ -268,19 +266,21 @@ function loadAllProds() {
       // console.log(p)
       const card = document.createElement("div");
       card.className = "product";
-      card.style.height ="500px"
+      card.style.height = "500px";
 
       card.innerHTML = `
         <img src="./script/${p.image || "noimage.png"}" alt="">
-        <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${
-          p.category
+        <span style="position:absolute;font-size:0.7rem;background-color:white;padding:5px 8px;border-radius:5px;margin:5px;box-shadow:0px 0px 5px #e1e1e1;">${p.category
         }</span>
         
         <div style="display:flex;flex-direction:column;">
           <span id="productName"><b>${p.title}</b></span>
-          <span style="font-size:0.8rem;font-weight:400;margin:3px 0;word-break: break-word; overflow: scroll; height: 100px;">${p.description || ""}</span>
-          <span style="font-size:1rem;font-weight:600;margin:3px 0;"><small>${p.warranty} Months Warranty</small></span>
-          <span style="font-size:1.2rem;font-weight:700;margin:3px 0;">₹ ${p.price}</span>
+          <span style="font-size:0.8rem;font-weight:400;margin:3px 0;word-break: break-word; overflow: scroll; height: 100px;">${p.description || ""
+        }</span>
+          <span style="font-size:1rem;font-weight:600;margin:3px 0;"><small>${p.warranty
+        } Months Warranty</small></span>
+          <span style="font-size:1.2rem;font-weight:700;margin:3px 0;">₹ ${p.price
+        }</span>
         </div>
 
         <span style="margin:10px 0;">
@@ -629,9 +629,8 @@ function manageShop() {
       if (result.trim() === "success") {
         err.innerHTML = "<span style='color:green'>Saved</span>";
         window.location.href = "#ProductPage";
-        
-        defaultLoad()
 
+        defaultLoad();
       } else {
         err.innerText = result;
         window.location.href = "#ProductPage";
@@ -645,194 +644,7 @@ function manageShop() {
   closeOptMenus(false, false);
 }
 
-/*
-
-async function changeStatus(order_id, el ) {
-
-  console.log("STATUS:", order_id, el.value);
-
-  const fd = new FormData();
-  fd.append("order_id", order_id);
-  fd.append("status", el.value);
-
-  console.log(fd.order_id);
-
-
-  const r = await fetch("./script/update_order_status.php", {
-    method: "POST",
-    body: fd
-  });
-
-  console.log(await r.text());
-
-
-
-
-
-}
-
-async function acceptOrder(id) {
-  console.log("ACCEPT:", id);
-  changeStatus(id, {value:"shipped"});
-}
-
-async function denyOrder(id) {
-  console.log("DENY:", id);
-
-  if (!confirm("Deny order?")) return;
-
-  const fd = new FormData();
-  fd.append("order_id", id);
-
-  const r = await fetch("./script/deny_order.php", {
-    method: "POST",
-    body: fd
-  });
-
-  alert(await r.text());
-  manageOrders();
-}
-
-function updateOrderStatus(order_id, select ) {
-
-  const status = select.value;
-
-  console.log("Update:", order_id, status);
-
-  const data = new FormData();
-  data.append("order_id", order_id);
-  data.append("status", status);
-
-  fetch("./script/update_order_status.php", {
-    method: "POST",
-    body: data
-  })
-  .then(r => r.text())
-  .then(res => {
-    console.log(res);
-    alert(res);
-  });
-
-  loadVendorOrders("pending");
-
-}
-
-async function loadVendorOrders(type) {
-
-  const container = document.getElementById("addingTask");
-
-  const info = await fetch("./script/get_vendor_orders.php");
-  const resultdata = await info.json();
-
-  console.log("VENDOR:", resultdata);
-
-  if (resultdata.status !== "ok") return;
-
-  const list = resultdata.data.filter(o => o.status === type);
-
-  if (!list.length) {
-    container.innerHTML = "<p style='text-align:center;'>No Orders</p>";
-    return;
-  }
-
-  container.innerHTML = `<div id="ListingOrderItems"></div>`;
-  const box = document.getElementById("ListingOrderItems");
-
-  list.forEach(p => {
-
-    let actionBtns = "";
-    let selectBlock = "";
-
-    // ✅ pending
-    if (type === "pending") {
-      // selectBlock = `
-      //   <select onchange="changeStatus(${p.id}, this)">
-      //     <option value="pending" selected>Processing</option>
-      //     <option value="shipped">Shipped</option>
-      //     <option value="delivered">Completed</option>
-      //   </select>`;
-
-      actionBtns = `
-        <button onclick="acceptOrder(${p.id})">Accept</button>
-        <button onclick="denyOrder(${p.id})">Deny</button>`;
-    }
-
-    // ✅ shipped
-    if (type === "shipped") {
-//       selectBlock = `
-//         <select onchange="updateOrderStatus(ORDER_ID, this)">
-//   <option value="pending">Pending</option>
-//   <option value="shipped" selected>Shipped</option>
-//   <option value="delivered">Delivered</option>
-// </select>`;
-
-      actionBtns = `<button style="margin:5px" onclick="changeStatus(${p.id}, {value:'pending'})">Mark Pending</button>
-                <button style="margin:5px" onclick="changeStatus(${p.id}, {value:'delivered'})">Mark Delivered</button>`;
-    }
-
-    // ✅ delivered
-    if (type === "delivered") {
-      actionBtns = `
-        <label style="color:green;"><b>Delivery Successful</b></label>
-        <div>
-          <label>Ordered On: <b>${p.ordered_at || "-"}</b></label> <br>
-
-          <label>Delivered On: <b>${p.delivered_at ? p.delivered_at : "Not Delivered"}</b></label>
-        </div>     
-        `;
-    }
-
-    const div = document.createElement("div");
-
-    div.innerHTML = `
-    <div id="orderdetailContainer" style="margin-bottom:10px;">
-
-      <div id="editImage"
-        style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
-        ${p.category}
-      </div>
-
-      <div id="productImage" style="padding:0;">
-        <img src="./script/${p.image || 'noimage.png'}">
-      </div>
-
-      <div id="ProductEditInfo">
-
-        <form style="margin-bottom:0;">
-          <label style="font-size:1rem;margin:2px 0;"><b>${p.title}</b></label>
-          <label style="font-size:0.8rem; margin:2px 0;"><i>${p.category}</i></label>
-          <label style="font-size:0.8rem; margin:4px 0;">${p.description}</label>
-          <label style="font-size:0.7rem; margin:2px 0;"><span>Warranty</span> <b>${p.warranty} months</b></label>
-          <label style="font-size:0.95rem; margin:5px 0 2px 0;"><b>₹ ${p.price}</b> x <b>${p.qty}</b></label>
-          <label style="font-size:1.2rem;margin:2px 0;"><b>₹ ${p.price * p.qty}</b> Total</label>
-          <div><label style="font-size:0.95rem;">Cash On Delivery</label></div>
-        </form>
-
-        <form>
-          <label style="font-size:1rem;"><b>${p.name}</b></label>
-          <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
-          <label style="font-size:0.8rem;">${p.address}</label>
-          <label style="font-size:0.7rem;"><span>Quantity</span> <b>${p.qty}</b></label>
-          <label style="font-size:0.8rem;color:green;"><b>${p.stock} Product Available</b></label>
-        </form>
-
-        <form style="display:flex;align-items:flex-end;margin:0;">
-          <div>${selectBlock}</div>
-          <div>${actionBtns}</div>
-        </form>
-
-      </div>
-    </div>
-    `;
-
-    box.appendChild(div.firstElementChild);
-  });
-}
-
-*/
-
 async function changeStatus(order_id, el) {
-
   const status = el.value;
 
   const fd = new FormData();
@@ -840,10 +652,9 @@ async function changeStatus(order_id, el) {
   fd.append("status", status);
 
   try {
-
     const r = await fetch("./script/update_order_status.php", {
       method: "POST",
-      body: fd
+      body: fd,
     });
 
     const res = await r.text();
@@ -852,34 +663,31 @@ async function changeStatus(order_id, el) {
 
     // ✅ reload same tab automatically
     loadVendorOrders(
-      document.querySelector("#pendingOrders.hover") ? "pending" :
-      document.querySelector("#shiftedOrders.hover") ? "shipped" :
-      "delivered"
+      document.querySelector("#pendingOrders.hover")
+        ? "pending"
+        : document.querySelector("#shiftedOrders.hover")
+          ? "shipped"
+          : "delivered"
     );
-
   } catch (err) {
     console.log(err);
   }
 }
 
 async function acceptOrder(id) {
-
   await changeStatus(id, { value: "shipped" });
-
 }
 
 async function denyOrder(id) {
-
   if (!confirm("Deny order?")) return;
 
   const fd = new FormData();
   fd.append("order_id", id);
 
   try {
-
     const r = await fetch("./script/deny_order.php", {
       method: "POST",
-      body: fd
+      body: fd,
     });
 
     const res = await r.text();
@@ -888,20 +696,16 @@ async function denyOrder(id) {
 
     // ✅ stay in pending section
     loadVendorOrders("pending");
-
   } catch (err) {
     console.log(err);
   }
 }
 
 async function updateOrderStatus(order_id, select) {
-
   await changeStatus(order_id, select);
-
 }
 
 async function loadVendorOrders(type) {
-
   const container = document.getElementById("addingTask");
 
   const info = await fetch("./script/get_vendor_orders.php");
@@ -928,7 +732,7 @@ async function loadVendorOrders(type) {
     document.getElementById("completedOrders").classList = "optBtn hover";
   }
 
-  const list = resultdata.data.filter(o => o.status === type);
+  const list = resultdata.data.filter((o) => o.status === type);
 
   if (!list.length) {
     container.innerHTML = `
@@ -943,13 +747,11 @@ async function loadVendorOrders(type) {
 
   const box = document.getElementById("ListingOrderItems");
 
-  list.forEach(p => {
-
+  list.forEach((p) => {
     let actionBtns = "";
 
     // ✅ pending
     if (type === "pending") {
-
       actionBtns = `
         <button 
           type="button"
@@ -969,7 +771,6 @@ async function loadVendorOrders(type) {
 
     // ✅ shipped
     if (type === "shipped") {
-
       actionBtns = `
         <button 
           type="button"
@@ -989,7 +790,6 @@ async function loadVendorOrders(type) {
 
     // ✅ delivered
     if (type === "delivered") {
-
       actionBtns = `
       <div style="margin-top:5px;">
         <label style="color:green;font-size:0.9rem;">
@@ -1020,7 +820,7 @@ async function loadVendorOrders(type) {
       </div>
 
       <div id="productImage" style="padding:0;">
-        <img src="./script/${p.image || 'noimage.png'}">
+        <img src="./script/${p.image || "noimage.png"}">
       </div>
 
       <div id="ProductEditInfo" style="padding:10px 0 0 15px;display:flex;justify-content:space-between;">
@@ -1089,16 +889,14 @@ async function loadVendorOrders(type) {
     `;
 
     box.appendChild(div.firstElementChild);
-
   });
 }
 
 function manageOrders() {
-
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()">Products</div> 
     <div class="optBtn hover" onclick="manageOrders()">Orders</div> 
-    <div class="optBtn" onclick="manageSales()">Sell</div>
+    <div class="optBtn" onclick="manageSales()">Sales</div>
     <div class="optBtn" onclick="manageComplains()">Complains</div>
   `;
 
@@ -1134,17 +932,15 @@ function manageOrders() {
 }
 
 function setActive(id) {
-  ["pendingOrders","shiftedOrders","completedOrders"].forEach(i=>{
+  ["pendingOrders", "shiftedOrders", "completedOrders"].forEach((i) => {
     document.getElementById(i).classList = "optBtn";
   });
   document.getElementById(id).classList = "optBtn hover";
 }
 
-
-// 
+//
 
 async function manageSales() {
-
   closeOptMenus(false, false);
 
   ShopkeeperOptionsBtns.innerHTML = `
@@ -1155,6 +951,16 @@ async function manageSales() {
   `;
 
   ProductPage.innerHTML = `
+  
+  <fieldset style="padding-bottom:0;">
+  
+    <div id="ProductOptionsBtns">
+        <div class="optBtn hover" onclick="manageSales()">Dashboard</div>
+        <div class="optBtn" id="onSite" onclick="onsiteSell()">On-Site Sell</div>
+    </div>
+
+  </fieldset>
+ 
   <style>
   .salesCard{
     background:#fff;
@@ -1200,7 +1006,7 @@ async function manageSales() {
 
   console.log("SALES:", data);
 
-  if(data.status !== "ok"){
+  if (data.status !== "ok") {
     ProductPage.innerHTML = "<p>Failed Loading Sales</p>";
     return;
   }
@@ -1277,8 +1083,7 @@ async function manageSales() {
 
   let html = "";
 
-  data.products.forEach(p => {
-
+  data.products.forEach((p) => {
     html += `
     
     <div style="
@@ -1290,7 +1095,7 @@ async function manageSales() {
     ">
 
       <img 
-        src="./script/${p.image || 'noimage.png'}"
+        src="./script/${p.image || "noimage.png"}"
         style="
           width:70px;
           height:70px;
@@ -1333,159 +1138,1011 @@ async function manageSales() {
   document.getElementById("productPerformance").innerHTML = html;
 }
 
+// GLOBALS
+let onsiteCart = [];
+let onsiteProductsCache = [];
+let onsiteSearchValue = "";
 
-// complains
-/*
-async function manageComplains() {
-
-  ShopkeeperOptionsBtns.innerHTML = `
-    <div class="optBtn" onclick="defaultLoad()">Products</div> 
-    <div class="optBtn" onclick="manageOrders()">Orders</div> 
-    <div class="optBtn" onclick="manageSales()">Sell</div>
-    <div class="optBtn hover" onclick="manageComplains()">Complains</div>
-  `;
+async function onsiteSell() {
 
   ProductPage.innerHTML = `
-    <fieldset style="padding-bottom:0;">
-      <div id="ProductOptionsBtns">
-        <div class="optBtn " id="allC">All</div>
-        <div class="optBtn" id="procC">Processing</div>
-        <div class="optBtn" id="resC">Resolved</div>
-      </div>
-    </fieldset>
 
-    <div id="addingTask" style="margin:10px;background:transparent;border-radius:5px;box-shadow:none;"></div>
+  <fieldset style="padding-bottom:0;">
+  
+    <div id="ProductOptionsBtns">
+        <div class="optBtn" onclick="manageSales()">Dashboard</div>
+        <div class="optBtn hover" id="onSite" onclick="onsiteSell()">On-Site Sell</div>
+    </div>
+
+  </fieldset>
+  
+  <fieldset>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <h2>On-Site Sell</h2>
+
+      <button 
+        onclick="showCustomerStep()"
+        id="nextSellBtn"
+        disabled
+        style="
+          background:#ccc;
+          cursor:not-allowed;
+        "
+      >
+        Next
+      </button>
+    </div>
+
+    <div id="cartBox" style="margin:15px 0;"></div>
+
+    <input 
+      type="search"
+      id="sellSearch"
+      placeholder="Search Product"
+      style="margin:10px 0;"
+      value="${onsiteSearchValue}"
+    >
+
+    <div id="sellProducts"></div>
+
+  </fieldset>
   `;
 
-  const container = document.getElementById("addingTask");
+  // LOAD PRODUCTS
+  if (!onsiteProductsCache.length) {
 
-  const res = await fetch("./script/get_issues_vendor.php");
-  const result = await res.json();
+    const res = await fetch("./script/get_vendor_products.php");
+    const result = await res.json();
 
-  console.log("ISSUES:", result);
+    if (result.status !== "ok") return;
 
-  if (result.status !== "ok") {
-    alert("Error loading");
-    return;
+    onsiteProductsCache = result.data;
   }
 
-  function render(type = "all") {
+  const all = onsiteProductsCache;
 
-    container.innerHTML = "";
+  const cart = onsiteCart;
 
-    const data = result.data.filter(i => {
-      if (type === "processing") return i.status === "processing";
-      if (type === "resolved") return i.status === "resolved";
-      return true;
-    });
+  const cartBox = document.getElementById("cartBox");
 
-    if (!data.length) {
-      container.innerHTML = "<p style='text-align:center;'>No Complains</p>";
-      return;
+  // CART RENDER
+  function renderCart() {
+
+    const nextBtn = document.getElementById("nextSellBtn");
+
+    if (cart.length) {
+      nextBtn.disabled = false;
+      nextBtn.style.background = "#4c6381";
+      nextBtn.style.color = "#fff";
+      nextBtn.style.cursor = "pointer";
+    } else {
+      nextBtn.disabled = true;
+      nextBtn.style.background = "#ccc";
+      nextBtn.style.color = "#4c6381";
+      nextBtn.style.cursor = "not-allowed";
     }
 
-    data.forEach(p => {
+    if (!cart.length) {
 
-     const div = document.createElement("div");
-      div.classList.add("ListingOrderItems");
-
-      div.innerHTML = `
-      <div id="orderdetailContainer" style="background: #fff;margin-bottom:10px;display:flex;border-radius:5px;">
-      
-      <div id="productImage">
-        <div id="editImage"
-          style="position:absolute;margin:5px;background:#dfebff;border-radius:5px;padding:5px 10px;font-size:0.6rem;">
-          ${p.category}
-        </div>
-
-          <img src="./script/${p.image || 'noimage.png'}">
-        </div>
-
-        <div id="ProductEditInfo" style="display:flex;padding: 0 10px 0 0;width:stretch;">
-
-          <form style="margin:0;padding: 10px 0 0 10px;">
-            <label style="font-size:1rem;"><b>${p.title}</b></label>
-            <label style="font-size:0.8rem;"><i>${p.category}</i></label>
-            <label style="font-size:0.8rem;">${p.description || ""}</label>
-            <label style="font-size:0.7rem;">Warranty <b>${p.warranty} months</b></label>
-            <label style="font-size:1.2rem;"><b>₹ ${p.price}</b></label>
-          </form>
-
-          <form style="margin:0;padding: 10px 0 0 10px;">
-            <label style="font-size:1rem;"><b>${p.name}</b></label>
-            <label style="font-size:0.8rem;"><b>${p.mobile}</b></label>
-            <label style="font-size:0.8rem;">${p.address}</label>
-            <label style="font-size:0.7rem;">Qty <b>${p.qty}</b></label>
-            <label style="font-size:0.7rem;">Raised: <b>${p.created_at}</b></label>
-          </form>
-
-          <form style="margin:0;padding: 10px 0 0 10px;">
-            <label style="font-size:0.8rem;margin:3px 0;"><b>Problem</b></label>
-            <input value="${p.issue}" readonly>
-
-            <label style="font-size:0.8rem;margin:3px 0;"><b>Explain Issue</b></label>
-            <textarea rows="3" readonly>${p.description || ""}</textarea>
-
-          </form>
-
-          <form style="display:flex;align-items:flex-end;margin:0;padding: 10px 0 0 10px;">
-            <div>
-              <select onchange="updateIssueStatus(${p.id}, this.value)">
-                <option value="pending" ${p.status=="pending"?"selected":""}>Pending</option>
-                <option value="processing" ${p.status=="processing"?"selected":""}>Processing</option>
-                <option value="approved" ${p.status=="approved"?"selected":""}>Approved</option>
-                <option value="resolved" ${p.status=="resolved"?"selected":""}>Resolved</option>
-              </select>
-            </div>
-
-            <div>
-              <button type="button" style="margin:0;" onclick="updateIssueStatus(${p.id}, 'resolved')">Resolve</button>
-            </div>
-          </form>
-
-        </div>
+      cartBox.innerHTML = `
+      <div style="
+        padding:20px;
+        text-align:center;
+        border:1px dashed #ccc;
+        border-radius:10px;
+        color:#4c6381;
+        background:#fff;
+      ">
+        No Products Added
       </div>
       `;
 
-      container.appendChild(div.firstElementChild);
+      return;
+    }
+
+    let total = 0;
+
+    cartBox.innerHTML = `
+    
+    <div style="
+      background:#f5f8fc;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:15px;
+      border:1px solid #d9e2ec;
+    ">
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:15px;
+      ">
+        <label style="
+          font-size:1.1rem;
+          font-weight:700;
+          color:#4c6381;
+        ">
+          Selected Products
+        </label>
+
+        <label style="
+          background:#4c6381;
+          color:#fff;
+          padding:5px 10px;
+          border-radius:5px;
+          font-size:0.8rem;
+        ">
+          ${cart.length} Items
+        </label>
+      </div>
+    `;
+
+    cart.forEach((p, i) => {
+
+      const sub = p.price * p.qty;
+
+      total += sub;
+
+      cartBox.innerHTML += `
+      
+      <div style="
+        display:flex;
+        gap:10px;
+        background:#fff;
+        border-radius:10px;
+        padding:10px;
+        margin-bottom:10px;
+        align-items:center;
+        box-shadow:0 2px 8px #00000010;
+      ">
+
+        <img 
+          src="./script/${p.image || "noimage.png"}"
+          style="
+            width:70px;
+            height:70px;
+            object-fit:cover;
+            border-radius:8px;
+            border:1px solid #ddd;
+          "
+        >
+
+        <div style="flex:1;">
+
+          <div style="
+            font-size:1rem;
+            font-weight:700;
+            color:#4c6381;
+          ">
+            ${p.title}
+
+            <span style="
+              font-size:0.75rem;
+              color:#777;
+              font-weight:400;
+            ">
+              - ${p.category}
+            </span>
+          </div>
+
+          <div style="font-size:0.9rem;">
+            ₹${p.price} × ${p.qty}
+          </div>
+
+          <div style="
+            font-size:1rem;
+            font-weight:700;
+            color:#4c6381;
+          ">
+            ₹${sub}
+          </div>
+
+        </div>
+
+        <div style="
+          display:flex;
+          flex-direction:row;
+          gap:5px;
+        ">
+
+          <button 
+            onclick="changeQty(${i},1)"
+            style="
+              margin:0;
+              background:#4c6381;
+              color:#fff;
+            "
+          >+</button>
+
+          <button 
+            onclick="changeQty(${i},-1)"
+            style="
+              margin:0;
+              background:#4c6381;
+              color:#fff;
+            "
+          >-</button>
+
+          <button 
+            onclick="removeCartItem(${i})"
+            style="
+              margin:0;
+              background:#ffebeb;
+              color:red;
+            "
+          >
+            Remove
+          </button>
+
+        </div>
+
+      </div>
+      `;
+    });
+
+    cartBox.innerHTML += `
+    
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px solid #ddd;
+    ">
+
+      <label style="
+        font-size:1.1rem;
+        font-weight:700;
+        color:#4c6381;
+      ">
+        Total
+      </label>
+
+      <label style="
+        font-size:1.5rem;
+        font-weight:700;
+        color:#4c6381;
+      ">
+        ₹${total}
+      </label>
+
+    </div>
+
+    </div>
+    `;
+  }
+
+  // PRODUCT RENDER
+  function renderProducts(list) {
+
+    const box = document.getElementById("sellProducts");
+
+    box.innerHTML = "";
+
+    list.forEach((p) => {
+
+      const disabled = Number(p.stock) <= 0;
+
+      const div = document.createElement("div");
+
+      div.innerHTML = `
+    
+      <div id="orderdetailContainer" 
+        style="
+          margin-bottom:12px;
+          border-radius:10px;
+          overflow:hidden;
+          background:#fff;
+          box-shadow:0 2px 10px #00000010;
+          display:flex;
+        ">
+
+        <div id="productImage" style="padding:10px;width:220px;height:150px;position:relative;">
+
+          <img 
+            src="./script/${p.image || "noimage.png"}"
+            style="
+              width:100%;
+              height:100%;
+              object-fit:cover;
+            "
+          >
+
+          <div style="
+            position:absolute;
+            top:14px;
+            left:14px;
+            background:#fff;
+            color:#4c6381;
+            padding:5px 10px;
+            border-radius:5px;
+            font-size:0.7rem;
+            font-weight:600;
+          ">
+            ${p.category}
+          </div>
+
+        </div>
+
+        <div id="ProductEditInfo" 
+          style="
+            padding:15px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            width:100%;
+          ">
+
+          <div>
+
+            <label style="
+              font-size:1.1rem;
+              color:#4c6381;
+              font-weight:700;
+            ">
+              ${p.title}
+            </label>
+
+            <br>
+
+            <label style="
+              font-size:0.85rem;
+              margin:4px 0;
+            ">
+              ${p.description || ""}
+            </label>
+
+            <br>
+
+            <label style="
+              color:#4c6381;
+              font-size:1.2rem;
+              font-weight:700;
+            ">
+              ₹${p.price}
+            </label>
+
+            <br>
+
+            <label style="
+              font-size:0.8rem;
+              color:${p.stock > 5 ? "green" : "#d97706"};
+            ">
+              ${p.stock} In Stock
+            </label>
+
+          </div>
+
+          <div style="
+            display:flex;
+            justify-content:flex-end;
+            margin-top:10px;
+          ">
+
+            ${disabled
+          ?
+          `
+              <button 
+                disabled
+                style="
+                  background:#ccc;
+                  cursor:not-allowed;
+                  margin:0;
+                "
+              >
+                Out Of Stock
+              </button>
+              `
+          :
+          `
+              <button 
+                onclick='addToCart(${JSON.stringify(p)})'
+                style="
+                  margin:0;
+                  background:#4c6381;
+                  color:#fff;
+                "
+              >
+                Add To Cart
+              </button>
+              `
+        }
+
+          </div>
+
+        </div>
+
+      </div>
+      `;
+
+      box.appendChild(div.firstElementChild);
     });
   }
 
-  // default
-  render("all");
+  // ADD CART
+  window.addToCart = function (p) {
 
-  document.getElementById("allC").onclick = () => render("all");
-  document.getElementById("procC").onclick = () => render("processing");
-  document.getElementById("resC").onclick = () => render("resolved");
-}
+    const exist = cart.find((x) => x.id == p.id);
 
-async function updateIssueStatus(id, status) {
+    if (exist) {
 
-  console.log("Update Issue:", id, status);
+      if (exist.qty >= Number(p.stock)) {
+        alert("Stock Limit Reached");
+        return;
+      }
 
-  const fd = new FormData();
-  fd.append("id", id);
-  fd.append("status", status);
+      exist.qty++;
 
-  const res = await fetch("./script/update_issue.php", {
-    method: "POST",
-    body: fd
+    } else {
+
+      if (Number(p.stock) <= 0) {
+        alert("Out Of Stock");
+        return;
+      }
+
+      cart.push({
+        ...p,
+        qty: 1,
+      });
+    }
+
+    renderCart();
+  };
+
+  // CHANGE QTY
+  window.changeQty = function (i, type) {
+
+    if (type == 1) {
+
+      if (cart[i].qty >= Number(cart[i].stock)) {
+        alert("No More Stock");
+        return;
+      }
+
+      cart[i].qty++;
+
+    } else {
+
+      cart[i].qty--;
+
+      if (cart[i].qty <= 0) {
+        cart.splice(i, 1);
+      }
+    }
+
+    renderCart();
+  };
+
+  // REMOVE
+  window.removeCartItem = function (i) {
+
+    cart.splice(i, 1);
+
+    renderCart();
+  };
+
+  // SEARCH
+  document.getElementById("sellSearch").addEventListener("input", (e) => {
+
+    onsiteSearchValue = e.target.value;
+
+    const val = onsiteSearchValue.toLowerCase();
+
+    const filtered = all.filter((p) =>
+      p.title.toLowerCase().includes(val)
+    );
+
+    renderProducts(filtered);
   });
 
-  const r = await res.text();
-  console.log("Response:", r);
+  // SELECT EXISTING CUSTOMER
+  window.selectCustomer = async function (id) {
 
-  alert(r);
+    if (!onsiteCart.length) {
+      alert("Cart Empty");
+      return;
+    }
+
+    const fd = new FormData();
+
+    fd.append("customer_id", id);
+
+    fd.append(
+      "products",
+      JSON.stringify(
+        onsiteCart.map((p) => ({
+          product_id: p.id,
+          qty: p.qty,
+        }))
+      )
+    );
+
+    const res = await fetch("./script/save_offline_sale.php", {
+      method: "POST",
+      body: fd,
+    });
+
+    const result = await res.json();
+
+    if (result.status === "ok") {
+
+      alert("Offline Sale Saved");
+
+      onsiteCart = [];
+      onsiteSearchValue = "";
+
+      onsiteSell();
+
+    } else {
+
+      alert(result.message || "Sale Failed");
+    }
+  };
+
+  // BACK
+  window.backToSellProducts = function () {
+    onsiteSell();
+  };
+
+  // CUSTOMER STEP
+  window.showCustomerStep = function () {
+
+    if (!cart.length) {
+      alert("Add products");
+      return;
+    }
+
+    ProductPage.innerHTML = `
+
+  <fieldset style="
+    border:none;
+    padding:15px;
+    border-radius:12px;
+  ">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+    ">
+
+      <h2 style="
+        margin:0;
+        color:#4c6381;
+      ">
+        Customer Details
+      </h2>
+
+      <button 
+        onclick="backToSellProducts()"
+        style="
+          margin:0;
+          background:#fff;
+          color:#4c6381;
+          border:1px solid #4c6381;
+        "
+      >
+        ← Back
+      </button>
+
+    </div>
+
+    <div style="
+      background:#fff;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:20px;
+      box-shadow:0 2px 10px #00000010;
+    ">
+
+      <label style="
+        font-size:0.9rem;
+        color:#4c6381;
+        font-weight:600;
+        margin-bottom:8px;
+        display:block;
+      ">
+        Search Existing Customer
+      </label>
+
+      <input 
+        type="text"
+        id="searchCustomer"
+        placeholder="Enter Email or Mobile"
+        style="
+          width:100%;
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+          outline:none;
+          font-size:0.9rem;
+          margin-bottom:10px;
+        "
+      >
+
+      <div 
+        id="customerList"
+        style="
+          max-height:250px;
+          overflow:auto;
+        "
+      ></div>
+
+    </div>
+
+    <div style="
+      text-align:center;
+      margin:20px 0;
+      color:#4c6381;
+      font-weight:700;
+    ">
+      OR CREATE NEW CUSTOMER
+    </div>
+
+    <form 
+      id="offlineCustomerForm"
+      style="
+        width:55%;
+        display:flex;
+        flex-direction:column;
+        gap:5px;
+        background:#fff;
+        padding:20px;
+        border-radius:12px;
+        box-shadow:0 2px 10px #00000010;
+      "
+    >
+
+      <input 
+        type="text" 
+        id="name" 
+        placeholder="Customer Name"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <input 
+        type="email" 
+        id="email" 
+        placeholder="Email"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <input 
+        type="number" 
+        id="mobile" 
+        placeholder="Mobile"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <input 
+        type="number" 
+        id="pincode" 
+        placeholder="Pincode"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <textarea 
+        id="address" 
+        placeholder="Address"
+        rows="4"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+          resize:vertical;
+        "
+      ></textarea>
+
+      <input type="hidden" id="lat">
+      <input type="hidden" id="lng">
+
+      <div 
+        id="map" 
+        style="
+          height:320px;
+          border-radius:12px;
+          overflow:hidden;
+          border:1px solid #ccd6e0;
+        "
+      ></div>
+
+      <button 
+        type="submit"
+        style="
+          margin-top:10px;
+          background:#4c6381;
+          color:#fff;
+          padding:14px;
+          border:none;
+          border-radius:10px;
+          font-size:1rem;
+          font-weight:600;
+        "
+      >
+        Proceed Sale
+      </button>
+
+    </form>
+
+  </fieldset>
+  `;
+
+    // MAP
+    let map = L.map("map").setView([23.0225, 72.5714], 13);
+
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 300);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
+      .addTo(map);
+
+    let marker;
+
+    map.on("click", async function (e) {
+
+      const { lat, lng } = e.latlng;
+
+      document.getElementById("lat").value = lat;
+      document.getElementById("lng").value = lng;
+
+      if (marker) map.removeLayer(marker);
+
+      marker = L.marker([lat, lng]).addTo(map);
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+      );
+
+      const data = await res.json();
+
+      document.getElementById("address").value =
+        data.display_name || "";
+    });
+
+    // PINCODE
+    const pincode = document.getElementById("pincode");
+
+    let lastPin = "";
+
+    pincode.addEventListener("input", async () => {
+
+      if (pincode.value.length !== 6 || pincode.value === lastPin) return;
+
+      lastPin = pincode.value;
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+      );
+
+      const data = await res.json();
+
+      if (data.length) {
+
+        const lat = data[0].lat;
+        const lon = data[0].lon;
+
+        map.setView([lat, lon], 15);
+
+        if (marker) map.removeLayer(marker);
+
+        marker = L.marker([lat, lon]).addTo(map);
+
+        document.getElementById("lat").value = lat;
+        document.getElementById("lng").value = lon;
+      }
+    });
+
+    // SEARCH CUSTOMER
+    document
+      .getElementById("searchCustomer")
+      .addEventListener("input", async (e) => {
+
+        const val = e.target.value.trim();
+
+        const box = document.getElementById("customerList");
+
+        if (val.length < 3) {
+          box.innerHTML = "";
+          return;
+        }
+
+        const fd = new FormData();
+
+        fd.append("search", val);
+
+        const res = await fetch("./script/search_customer.php", {
+          method: "POST",
+          body: fd,
+        });
+
+        const result = await res.json();
+
+        box.innerHTML = "";
+
+        if (result.status !== "ok") return;
+
+        result.data.forEach((c) => {
+
+          box.innerHTML += `
+          
+          <div 
+            onclick="selectCustomer(${c.customer_id})"
+            style="
+              padding:12px;
+              border:1px solid #dde5ef;
+              border-radius:10px;
+              margin-bottom:10px;
+              cursor:pointer;
+              background:#fff;
+            "
+          >
+
+            <div style="
+              font-size:1rem;
+              color:#4c6381;
+              font-weight:700;
+            ">
+              ${c.name}
+            </div>
+
+            <div style="
+              font-size:0.85rem;
+              margin-top:4px;
+            ">
+              ${c.mobile}
+            </div>
+
+            <div style="
+              font-size:0.8rem;
+              color:#666;
+            ">
+              ${c.email}
+            </div>
+
+          </div>
+          `;
+        });
+      });
+
+    // CREATE CUSTOMER + SALE
+    // CREATE CUSTOMER + SALE
+    document
+      .getElementById("offlineCustomerForm")
+      .addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const pincode = document.getElementById("pincode").value.trim();
+        const address = document.getElementById("address").value.trim();
+
+        if (!name || !mobile || !address) {
+          alert("Fill Required Fields");
+          return;
+        }
+
+        // CHECK EXISTING CUSTOMER
+        const checkFd = new FormData();
+
+        checkFd.append("email", email);
+        checkFd.append("mobile", mobile);
+
+        const checkRes = await fetch("./script/check_customer_exists.php", {
+          method: "POST",
+          body: checkFd,
+        });
+
+        const checkResult = await checkRes.json();
+
+        if (checkResult.status === "exists") {
+
+          const useOld = confirm(
+            `Customer Already Exists\n\n${checkResult.data.name}\n${checkResult.data.mobile}\n\nUse Existing Customer?`
+          );
+
+          if (useOld) {
+
+            selectCustomer(checkResult.data.customer_id);
+
+            return;
+          }
+
+          return;
+        }
+
+        // CREATE NEW CUSTOMER
+        const fd = new FormData();
+
+        fd.append("name", name);
+        fd.append("email", email);
+        fd.append("mobile", mobile);
+        fd.append("pincode", pincode);
+        fd.append("address", address);
+        fd.append("lat", document.getElementById("lat").value);
+        fd.append("lng", document.getElementById("lng").value);
+
+        const res = await fetch("./script/create_customer_offline.php", {
+          method: "POST",
+          body: fd,
+        });
+
+        const result = await res.json();
+
+        if (result.status !== "ok") {
+          alert(result.message || "Customer Error");
+          return;
+        }
+
+        // SAVE SALE
+        const sale = new FormData();
+
+        sale.append("customer_id", result.customer_id);
+
+        sale.append(
+          "products",
+          JSON.stringify(
+            onsiteCart.map((p) => ({
+              product_id: p.id,
+              qty: p.qty,
+            }))
+          )
+        );
+
+        const save = await fetch("./script/save_offline_sale.php", {
+          method: "POST",
+          body: sale,
+        });
+
+        const s = await save.json();
+
+        if (s.status === "ok") {
+
+          alert("Offline Sale Complete");
+
+          onsiteCart = [];
+          onsiteSearchValue = "";
+
+          onsiteSell();
+
+        } else {
+
+          alert(s.message || "Sale Failed");
+        }
+      });
+  };
+
+  renderProducts(all);
+  renderCart();
 }
 
-*/
-
 async function manageComplains() {
-
   ShopkeeperOptionsBtns.innerHTML = `
     <div class="optBtn" onclick="defaultLoad()">Products</div> 
     <div class="optBtn" onclick="manageOrders()">Orders</div> 
-    <div class="optBtn" onclick="manageSales()">Sell</div>
+    <div class="optBtn" onclick="manageSales()">Sales</div>
     <div class="optBtn hover" onclick="manageComplains()">Complains</div>
   `;
 
@@ -1511,7 +2168,6 @@ async function manageComplains() {
   let currentTab = "all";
 
   async function loadIssues() {
-
     const res = await fetch("./script/get_issues_vendor.php");
     const result = await res.json();
 
@@ -1530,7 +2186,6 @@ async function manageComplains() {
   }
 
   function setActive(tab) {
-
     currentTab = tab;
 
     document.getElementById("allC").classList = "optBtn";
@@ -1556,31 +2211,24 @@ async function manageComplains() {
   }
 
   function render(allData) {
-
     container.innerHTML = "";
 
     let data = allData;
 
     if (currentTab === "pending") {
-      data = allData.filter(i =>
-        i.status === "pending" 
-      );
+      data = allData.filter((i) => i.status === "pending");
     }
 
     if (currentTab === "processing") {
-      data = allData.filter(i =>
-        i.status === "processing"
-      );
+      data = allData.filter((i) => i.status === "processing");
     }
 
     if (currentTab === "approved") {
-      data = allData.filter(i =>
-        i.status === "approved" 
-      );
+      data = allData.filter((i) => i.status === "approved");
     }
 
     if (currentTab === "resolved") {
-      data = allData.filter(i => i.status === "resolved");
+      data = allData.filter((i) => i.status === "resolved");
     }
 
     if (!data.length) {
@@ -1592,8 +2240,7 @@ async function manageComplains() {
       return;
     }
 
-    data.forEach(p => {
-
+    data.forEach((p) => {
       const div = document.createElement("div");
 
       div.innerHTML = `
@@ -1607,7 +2254,7 @@ async function manageComplains() {
             ${p.category}
           </div>
 
-          <img src="./script/${p.image || 'noimage.png'}">
+          <img src="./script/${p.image || "noimage.png"}">
 
         </div>
 
@@ -1686,22 +2333,22 @@ async function manageComplains() {
               <select id="issue_status_${p.id}">
 
                 <option value="pending"
-                  ${p.status=="pending"?"selected":""}>
+                  ${p.status == "pending" ? "selected" : ""}>
                   Pending
                 </option>
 
                 <option value="processing"
-                  ${p.status=="processing"?"selected":""}>
+                  ${p.status == "processing" ? "selected" : ""}>
                   Processing
                 </option>
 
                 <option value="approved"
-                  ${p.status=="approved"?"selected":""}>
+                  ${p.status == "approved" ? "selected" : ""}>
                   Approved
                 </option>
 
                 <option value="resolved"
-                  ${p.status=="resolved"?"selected":""}>
+                  ${p.status == "resolved" ? "selected" : ""}>
                   Resolved
                 </option>
 
@@ -1733,10 +2380,8 @@ async function manageComplains() {
     });
   }
 
-  window.updateIssueStatus = async function(id) {
-
-    const status =
-      document.getElementById(`issue_status_${id}`).value;
+  window.updateIssueStatus = async function (id) {
+    const status = document.getElementById(`issue_status_${id}`).value;
 
     console.log("Update:", id, status);
 
@@ -1745,10 +2390,9 @@ async function manageComplains() {
     fd.append("status", status);
 
     try {
-
       const res = await fetch("./script/update_issue.php", {
         method: "POST",
-        body: fd
+        body: fd,
       });
 
       const r = await res.text();
@@ -1757,13 +2401,10 @@ async function manageComplains() {
 
       // ✅ auto refresh current tab
       loadIssues();
-
     } catch (err) {
-
       console.log(err);
-
     }
-  }
+  };
 
   document.getElementById("allC").onclick = () => {
     setActive("pending");

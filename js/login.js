@@ -97,10 +97,12 @@ function showLogin() {
     LoginForm.style.display = "flex"
     RegForm.style.display = "none"
     document.getElementById('ErrRegister').innerHTML = ``;
-
 }
 
 function showReg() {
+
+    // logout()
+
     RegForm.style.display = "flex"
     LoginForm.style.display = "none"
     document.getElementById('Errlogin').innerHTML = ``;

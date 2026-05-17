@@ -305,6 +305,11 @@ button{
 </tr>
 
 <tr>
+<td>Payment</td>
+<td><b>Cash On Delivery</b></td>
+</tr>
+
+<tr>
 <td>Warranty</td>
 <td><?php echo $p['warranty']; ?> Months</td>
 </tr>
