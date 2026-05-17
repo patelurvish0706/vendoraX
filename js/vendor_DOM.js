@@ -1040,25 +1040,34 @@ async function manageSales() {
       <h2>${data.pending_orders}</h2>
     </div>
 
-    <div class="salesCard">
+    <div class="salesCard" style="    background: #50c3ff;
+    color: white;">
       <label>Most Selling Product</label>
       <h3>${data.top_product}</h3>
     </div>
 
-    <div class="salesCard">
+    <div class="salesCard" style="background: #ff50a8;
+    color: white;">
       <label>Highest Revenue Product</label>
       <h3>${data.high_revenue_product}</h3>
     </div>
 
-    <div class="salesCard">
+    <div class="salesCard" style="background: #fc9541;
+    color: white;">
       <label>Most Complained Product</label>
       <h3>${data.most_complained}</h3>
     </div>
 
-    <div class="salesCard">
+    <div class="salesCard" style="    background: #ff5050;
+    color: white;">
       <label>Low Stock Product</label>
       <h3>${data.low_stock}</h3>
     </div>
+
+<div class="salesCard">
+  <label>On-Site Best Seller</label>
+  <h3>${data.onsite_best_seller}</h3>
+</div>
 
   `;
 
@@ -1639,6 +1648,7 @@ async function onsiteSell() {
   });
 
   // SELECT EXISTING CUSTOMER
+  /*
   window.selectCustomer = async function (id) {
 
     if (!onsiteCart.length) {
@@ -1680,6 +1690,61 @@ async function onsiteSell() {
 
       alert(result.message || "Sale Failed");
     }
+  };*/
+
+  window.selectCustomer = async function (id) {
+
+    if (!onsiteCart.length) {
+      alert("Cart Empty");
+      return;
+    }
+
+    try {
+
+      const savePromises = onsiteCart.map(async (p) => {
+
+        const fd = new FormData();
+
+        fd.append("customer_id", id);
+        fd.append("product_id", p.id);
+        fd.append("qty", p.qty);
+        fd.append("type", "offline_buy");
+
+        return fetch("./script/order.php", {
+          method: "POST",
+          body: fd,
+        });
+      });
+
+      const responses = await Promise.all(savePromises);
+
+      const texts = await Promise.all(
+        responses.map(r => r.text())
+      );
+
+      const failed = texts.find(t =>
+        !t.toLowerCase().includes("order placed")
+      );
+
+      if (failed) {
+
+        alert(failed || "Sale Failed");
+        return;
+      }
+
+      alert("Offline Sale Saved");
+
+      onsiteCart = [];
+      onsiteSearchValue = "";
+
+      onsiteSell();
+
+    } catch (err) {
+
+      console.log(err);
+
+      alert("Sale Failed");
+    }
   };
 
   // BACK
@@ -1687,7 +1752,8 @@ async function onsiteSell() {
     onsiteSell();
   };
 
-  // CUSTOMER STEP
+  // CUSTOMER STEP 
+  /*
   window.showCustomerStep = function () {
 
     if (!cart.length) {
@@ -2131,6 +2197,441 @@ async function onsiteSell() {
 
           alert(s.message || "Sale Failed");
         }
+      });
+  }; */
+
+  window.showCustomerStep = function () {
+
+    if (!onsiteCart.length) {
+      alert("Add products");
+      return;
+    }
+
+    ProductPage.innerHTML = `
+
+  <fieldset style="
+    border:none;
+    padding:15px;
+    border-radius:12px;
+  ">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+    ">
+
+      <h2 style="
+        margin:0;
+        color:#4c6381;
+      ">
+        Customer Details
+      </h2>
+
+      <button 
+        onclick="backToSellProducts()"
+        style="
+          margin:0;
+          background:#fff;
+          color:#4c6381;
+          border:1px solid #4c6381;
+        "
+      >
+        ← Back
+      </button>
+
+    </div>
+
+    <div style="
+      background:#fff;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:20px;
+      box-shadow:0 2px 10px #00000010;
+    ">
+
+      <label style="
+        font-size:0.9rem;
+        color:#4c6381;
+        font-weight:600;
+        margin-bottom:8px;
+        display:block;
+      ">
+        Search Existing Customer
+      </label>
+
+      <input 
+        type="text"
+        id="searchCustomer"
+        placeholder="Enter Email or Mobile"
+        style="
+          width:100%;
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+          outline:none;
+          font-size:0.9rem;
+          margin-bottom:10px;
+        "
+      >
+
+      <div 
+        id="customerList"
+        style="
+          max-height:250px;
+          overflow:auto;
+        "
+      ></div>
+
+    </div>
+
+    <div style="
+      text-align:center;
+      margin:20px 0;
+      color:#4c6381;
+      font-weight:700;
+    ">
+      OR CREATE NEW CUSTOMER
+    </div>
+
+    <form 
+      id="offlineCustomerForm"
+      style="
+        width:55%;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        background:#fff;
+        padding:20px;
+        border-radius:12px;
+        box-shadow:0 2px 10px #00000010;
+      "
+    >
+
+      <input 
+        type="text" 
+        id="name" 
+        placeholder="Customer Name"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <input 
+        type="email" 
+        id="email" 
+        placeholder="Email"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <input 
+        type="number" 
+        id="mobile" 
+        placeholder="Mobile"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <input 
+        type="number" 
+        id="pincode" 
+        placeholder="Pincode"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+        "
+      >
+
+      <textarea 
+        id="address" 
+        placeholder="Address"
+        rows="4"
+        style="
+          padding:12px;
+          border-radius:8px;
+          border:1px solid #ccd6e0;
+          resize:vertical;
+        "
+      ></textarea>
+
+      <input type="hidden" id="lat">
+      <input type="hidden" id="lng">
+
+      <div 
+        id="map" 
+        style="
+          height:320px;
+          border-radius:12px;
+          overflow:hidden;
+          border:1px solid #ccd6e0;
+        "
+      ></div>
+
+      <button 
+        type="submit"
+        style="
+          margin-top:10px;
+          background:#4c6381;
+          color:#fff;
+          padding:14px;
+          border:none;
+          border-radius:10px;
+          font-size:1rem;
+          font-weight:600;
+          cursor:pointer;
+        "
+      >
+        Proceed Sale
+      </button>
+
+    </form>
+
+  </fieldset>
+  `;
+
+    // MAP
+    let map = L.map("map").setView([23.0225, 72.5714], 13);
+
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 300);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
+      .addTo(map);
+
+    let marker;
+
+    map.on("click", async function (e) {
+
+      const { lat, lng } = e.latlng;
+
+      document.getElementById("lat").value = lat;
+      document.getElementById("lng").value = lng;
+
+      if (marker) map.removeLayer(marker);
+
+      marker = L.marker([lat, lng]).addTo(map);
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+      );
+
+      const data = await res.json();
+
+      document.getElementById("address").value =
+        data.display_name || "";
+    });
+
+    // PINCODE
+    const pincode = document.getElementById("pincode");
+
+    let lastPin = "";
+
+    pincode.addEventListener("input", async () => {
+
+      if (pincode.value.length !== 6 || pincode.value === lastPin) return;
+
+      lastPin = pincode.value;
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+      );
+
+      const data = await res.json();
+
+      if (data.length) {
+
+        const lat = data[0].lat;
+        const lon = data[0].lon;
+
+        map.setView([lat, lon], 15);
+
+        if (marker) map.removeLayer(marker);
+
+        marker = L.marker([lat, lon]).addTo(map);
+
+        document.getElementById("lat").value = lat;
+        document.getElementById("lng").value = lon;
+      }
+    });
+
+    // SEARCH CUSTOMER
+    document
+      .getElementById("searchCustomer")
+      .addEventListener("input", async (e) => {
+
+        const val = e.target.value.trim();
+
+        const box = document.getElementById("customerList");
+
+        if (val.length < 3) {
+          box.innerHTML = "";
+          return;
+        }
+
+        const fd = new FormData();
+
+        fd.append("search", val);
+
+        const res = await fetch("./script/search_customer.php", {
+          method: "POST",
+          body: fd,
+        });
+
+        const result = await res.json();
+
+        box.innerHTML = "";
+
+        if (result.status !== "ok") return;
+
+        result.data.forEach((c) => {
+
+          box.innerHTML += `
+        
+        <div 
+          onclick="selectCustomer(${c.customer_id})"
+          style="
+            padding:12px;
+            border:1px solid #dde5ef;
+            border-radius:10px;
+            margin-bottom:10px;
+            cursor:pointer;
+            background:#fff;
+          "
+        >
+
+          <div style="
+            font-size:1rem;
+            color:#4c6381;
+            font-weight:700;
+          ">
+            ${c.name}
+          </div>
+
+          <div style="
+            font-size:0.85rem;
+            margin-top:4px;
+          ">
+            ${c.mobile}
+          </div>
+
+          <div style="
+            font-size:0.8rem;
+            color:#666;
+          ">
+            ${c.email}
+          </div>
+
+        </div>
+        `;
+        });
+      });
+
+    // CREATE CUSTOMER + OFFLINE ORDER
+    document
+      .getElementById("offlineCustomerForm")
+      .addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const pincode = document.getElementById("pincode").value.trim();
+        const address = document.getElementById("address").value.trim();
+
+        if (!name || !mobile || !address) {
+          alert("Fill Required Fields");
+          return;
+        }
+
+        // CHECK EXISTING CUSTOMER
+        const checkFd = new FormData();
+
+        checkFd.append("email", email);
+        checkFd.append("mobile", mobile);
+
+        const checkRes = await fetch("./script/check_customer_exists.php", {
+          method: "POST",
+          body: checkFd,
+        });
+
+        const checkResult = await checkRes.json();
+
+        if (checkResult.status === "exists") {
+
+          const useOld = confirm(
+            `Customer Already Exists\n\n${checkResult.data.name}\n${checkResult.data.mobile}\n\nUse Existing Customer?`
+          );
+
+          if (useOld) {
+
+            selectCustomer(checkResult.data.customer_id);
+
+            return;
+          }
+
+          return;
+        }
+
+        // CREATE CUSTOMER
+        const fd = new FormData();
+
+        fd.append("name", name);
+        fd.append("email", email);
+        fd.append("mobile", mobile);
+        fd.append("pincode", pincode);
+        fd.append("address", address);
+        fd.append("lat", document.getElementById("lat").value);
+        fd.append("lng", document.getElementById("lng").value);
+
+        const res = await fetch("./script/create_customer_offline.php", {
+          method: "POST",
+          body: fd,
+        });
+
+        const result = await res.json();
+
+        if (result.status !== "ok") {
+          alert(result.message || "Customer Error");
+          return;
+        }
+
+        // SAVE OFFLINE ORDERS
+        const savePromises = onsiteCart.map(async (p) => {
+
+          const sale = new FormData();
+
+          sale.append("customer_id", result.customer_id);
+          sale.append("product_id", p.id);
+          sale.append("qty", p.qty);
+          sale.append("type", "offline_buy");
+
+          return fetch("./script/order.php", {
+            method: "POST",
+            body: sale,
+          });
+        });
+
+        await Promise.all(savePromises);
+
+        alert("Offline Sale Complete");
+
+        onsiteCart = [];
+        onsiteSearchValue = "";
+
+        onsiteSell();
       });
   };
 

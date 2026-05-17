@@ -836,6 +836,7 @@ function downloadInvoice(order_id){
 
 }
 
+/*
 async function manageOrders() {
 
   closeOptMenus(false, false);
@@ -965,6 +966,323 @@ async function manageOrders() {
 
   container.appendChild(div.firstElementChild);
 });
+}*/
+
+async function manageOrders() {
+
+  closeOptMenus(false, false);
+
+  ShopkeeperOptionsBtns.innerHTML = `
+    <div class="optBtn" onclick="defaultLoad()">Back</div>
+    <div class="optBtn hover">My Orders</div>
+  `;
+
+  ProductPage.innerHTML = `
+  <fieldset>
+      <div id="ListingOrderItems"></div>
+  </fieldset>
+  `;
+
+  const container = document.getElementById("ListingOrderItems");
+
+  const res = await fetch("./script/get_orders.php");
+  const result = await res.json();
+
+  if (result.status !== "ok") {
+    showLogin();
+    return;
+  }
+
+  if (!result.data.length) {
+    container.innerHTML = "<p style='text-align:center;'>No Orders</p>";
+    return;
+  }
+
+  result.data.forEach(p => {
+
+    let actionBtn = "";
+    let paymentText = "";
+    let dateInfo = "";
+    let onsiteBadge = "";
+    let cardBorder = "#dfe7f1";
+    let cardBg = "#fff";
+
+    // WARRANTY CHECK
+    let warrantyValid = true;
+
+    if (p.delivered_at && Number(p.warranty) > 0) {
+
+      const start = new Date(p.delivered_at);
+
+      const expiry = new Date(start);
+
+      expiry.setMonth(expiry.getMonth() + Number(p.warranty));
+
+      if (new Date() > expiry) {
+        warrantyValid = false;
+      }
+    }
+
+    // OFFLINE PURCHASE STYLE
+    if (p.order_type === "offline") {
+
+      cardBorder = "#4c6381";
+      cardBg = "#f5f8fc";
+
+      onsiteBadge = `
+      <div style="
+        position:absolute;
+        top:10px;
+        right:20px;
+        background:#4c6381;
+        color:#fff;
+        padding:6px 12px;
+        border-radius:30px;
+        font-size:0.7rem;
+        font-weight:600;
+        z-index:0;
+      ">
+        On-Site Purchase
+      </div>
+      `;
+    }
+
+    // DELIVERED
+    if (p.status === "delivered") {
+
+      actionBtn = `
+        <button 
+          type="button"
+          style="margin:0 0 5px;"
+          onclick="downloadInvoice(${p.id})"
+        >
+          Invoice
+        </button>
+      `;
+
+      // WARRANTY VALID
+      if (warrantyValid) {
+
+        actionBtn += `
+          <button 
+            type="button"
+            style="margin:0;"
+            onclick="raiseIssue(${p.id})"
+          >
+            Raise Issue
+          </button>
+        `;
+      }
+
+      paymentText = `
+        <label style="color:green;">
+          <b>Paid</b>
+        </label>
+      `;
+
+      // OFFLINE DATE
+      if (p.order_type === "offline") {
+
+        dateInfo = `
+          <label style="font-size:0.75rem;">
+            Purchased At: <b>${p.ordered_at || "-"}</b>
+          </label>
+        `;
+
+      } else {
+
+        dateInfo = `
+          <label style="font-size:0.75rem;">
+            Ordered: <b>${p.ordered_at || "-"}</b>
+          </label>
+
+          <label style="font-size:0.75rem;">
+            Delivered: <b>${p.delivered_at || "-"}</b>
+          </label>
+        `;
+      }
+
+    } else {
+
+      actionBtn = `
+        <button 
+          type="button"
+          style="margin:0;"
+          onclick="cancelOrder(${p.id})"
+        >
+          Cancel Order
+        </button>
+      `;
+
+      paymentText = `
+        <label style="color:orange;">
+          <b>Pay After Delivery</b>
+        </label>
+      `;
+
+      dateInfo = `
+        <label style="font-size:0.75rem;">
+          Ordered: <b>${p.ordered_at || "-"}</b>
+        </label>
+      `;
+    }
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <div id="orderdetailContainer" 
+      style="
+        margin:10px 0;
+        border-radius:10px;
+        position:relative;
+        border:2px solid ${cardBorder};
+        background:${cardBg};
+        overflow:hidden;
+      "
+    >
+
+      ${onsiteBadge}
+
+      <div id="editImage"
+        style="
+          position:absolute;
+          margin:5px;
+          background:#dfebff;
+          border-radius:5px;
+          padding:5px 10px;
+          font-size:0.6rem;
+          z-index:1;
+        "
+      >
+        ${p.category}
+      </div>
+
+      <div id="productImage" style="padding:0;">
+        <img src="./script/${p.image || 'noimage.png'}">
+      </div>
+
+      <div id="ProductEditInfo" 
+        style="
+          display:flex;
+          justify-content:space-between;
+        "
+      >
+
+        <form style="margin-bottom:0;width:33.33%">
+
+          <label style="font-size:1rem;">
+            <b>${p.title}</b>
+          </label>
+
+          <label style="font-size:0.8rem;">
+            <i>${p.category}</i>
+          </label>
+
+          <label style="font-size:0.8rem;">
+            ${p.description || ""}
+          </label>
+
+          <label style="
+            font-size:0.9rem;
+            font-weight:600;
+            margin:4px 0;
+          ">
+            ₹${p.price} x ${p.qty}
+          </label>
+
+          <label style="
+            font-size:0.9rem;
+            margin:3px 0;
+          ">
+            <b style="font-size:1.4rem;">
+              ₹${p.price * p.qty}
+            </b> Total
+          </label>
+
+          <label style="font-size:0.9rem;">
+            ${paymentText}
+          </label>
+
+        </form>
+
+        <form style="margin-bottom:0;width:33.33%">
+
+          <label style="font-size:1rem;">
+            <b>${p.shop_name}</b>
+          </label>
+
+          <label style="
+            font-size:0.8rem;
+            margin:2px 0;
+            font-weight:400;
+          ">
+            Seller:
+            <b style="
+              font-size:0.9rem;
+              margin:2px 0;
+              font-weight:500;
+            ">
+              ${p.vendor_name}
+            </b>
+          </label>
+
+          <label style="font-size:0.8rem;">
+            Phone: <b>${p.vendor_phone}</b>
+          </label>
+
+          <label style="font-size:0.8rem;">
+            ${p.address}
+          </label>
+
+          <label style="font-size:0.7rem;">
+            <span>Quantity</span> <b>${p.qty}</b>
+          </label>
+
+          <label style="
+            font-size:0.8rem;
+            color:green;
+          ">
+            <b>${p.status}</b>
+          </label>
+
+          <label style="font-size:0.9rem;">
+            <span>Warranty</span>
+            <b>
+              <i>
+                ${p.warranty} Months
+                ${!warrantyValid ? "(Expired)" : ""}
+              </i>
+            </b>
+          </label>
+
+        </form>
+
+        <form style="
+          display:flex;
+          flex-direction: column;
+          align-items:flex-end;
+          justify-content: flex-end;
+          margin:0;
+        ">
+
+          <div style="    display: flex;
+    align-items: flex-end;
+    flex-direction: column;">
+
+            ${actionBtn}
+
+            ${dateInfo}
+
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+    `;
+
+    container.appendChild(div.firstElementChild);
+  });
 }
 
 function raiseIssue(order_id) {

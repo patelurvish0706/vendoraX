@@ -48,7 +48,19 @@ if(!$res->num_rows){
 $p = $res->fetch_assoc();
 
 
-// ✅ warranty last date
+// OFFLINE PURCHASE CHECK
+$isOffline = false;
+
+if (
+    $p['ordered_at'] &&
+    $p['delivered_at'] &&
+    $p['ordered_at'] == $p['delivered_at']
+) {
+    $isOffline = true;
+}
+
+
+// WARRANTY LAST DATE
 $warranty_end = "-";
 
 if($p['delivered_at']){
@@ -59,7 +71,7 @@ if($p['delivered_at']){
 }
 
 
-// ✅ issues
+// ISSUES
 $issues = [];
 
 $iq = $conn->query("
@@ -78,7 +90,9 @@ while($i = $iq->fetch_assoc()){
 <html>
 <head>
 <title>Invoice</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
 <style>
 
 body{
@@ -145,70 +159,10 @@ button{
     margin-top:5px;
 }
 
-.printInfo{
-    margin-top:6px;
-    font-size:10px;
-}
-
-#navbar {
-    display: flex;
-    justify-content: space-between;
-    color: #4c6381;
-    padding: 10px 20px;
-    align-items: center;
-    user-select: none;
-}
-
-#Navlogo {
-    color: #4c6381;
-    display: flex;
-    align-items: center;
-    font-family: "Montserrat Alternates", sans-serif;
-}
-
-#Navlogo #VX {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    font-size: 1.2rem;
-}
-
-#Navlogo #endora {
-    display: flex;
-    align-items: center;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin: 0 2px -1px 0;
-}
-
-#Navlogo #tagline {
-    font-size: 0.58rem;
-    margin-left: 6px;
-    align-self: center;
-}
-
-#cornerStart {
-    align-self: flex-end;
-    margin: 0 0px -3px 0;
-    font-size: 0.55rem;
-}
-
-#cornerEnd {
-    align-self: flex-start;
-    margin: -3px 0 0 1px;
-    font-size: 0.55rem;
-}
-
 @media print{
 
     body{
         padding:0;
-        font-size:12px;
-    }
-
-    .box{
-        margin-bottom:5px;
-        padding:6px 8px;
     }
 
     button{
@@ -221,28 +175,19 @@ button{
 }
 
 </style>
-
 </head>
 
 <body>
 
-
-<div id="Navlogo" style="margin:0 0 15px 0;">
-    <div id="cornerStart">◣</div>
-
-    <div id="VX">V</div>
-    <div id="endora">endora</div>
-    <div id="VX">X</div>
-    <div id="tagline">Buy easy.<br>Service assured.</div>
-
-    <div id="cornerEnd">◥</div>
+<div style="margin:0 0 15px 0;">
+    <h2>VendoraX Invoice</h2>
 </div>
 
 <div class="box">
 
-
-
-<h2>INVOICE</h2>
+<h2>
+<?php echo $isOffline ? "ON-SITE PURCHASE INVOICE" : "ONLINE ORDER INVOICE"; ?>
+</h2>
 
 <table>
 
@@ -254,6 +199,15 @@ button{
 <tr>
 <td>Order Status</td>
 <td><b><?php echo strtoupper($p['status']); ?></b></td>
+</tr>
+
+<tr>
+<td>Purchase Type</td>
+<td>
+<b>
+<?php echo $isOffline ? "On-Site Purchase" : "Online Purchase"; ?>
+</b>
+</td>
 </tr>
 
 </table>
@@ -306,7 +260,11 @@ button{
 
 <tr>
 <td>Payment</td>
-<td><b>Cash On Delivery</b></td>
+<td>
+<b>
+<?php echo $isOffline ? "Cash Payment" : "Cash On Delivery"; ?>
+</b>
+</td>
 </tr>
 
 <tr>
@@ -383,9 +341,20 @@ button{
 
 <div class="box">
 
-<h3>Order Dates</h3>
+<h3>
+<?php echo $isOffline ? "Purchase Date" : "Order Dates"; ?>
+</h3>
 
 <table>
+
+<?php if($isOffline){ ?>
+
+<tr>
+<td style="width:120px;">Purchased At</td>
+<td><?php echo $p['ordered_at']; ?></td>
+</tr>
+
+<?php } else { ?>
 
 <tr>
 <td style="width:120px;">Ordered On</td>
@@ -396,6 +365,8 @@ button{
 <td>Delivered On</td>
 <td><?php echo $p['delivered_at']; ?></td>
 </tr>
+
+<?php } ?>
 
 </table>
 

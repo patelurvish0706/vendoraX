@@ -85,6 +85,28 @@ LIMIT 1
 $top_product = $r->num_rows ? $r->fetch_assoc()['title'] : "-";
 
 
+// ONSITE BEST SELLER
+$r = $conn->query("
+SELECT p.title, SUM(o.qty) sold
+FROM orders o
+JOIN products p ON o.product_id=p.id
+
+WHERE p.vendor_id=$vid
+AND o.status='delivered'
+AND o.ordered_at = o.delivered_at
+
+GROUP BY p.id
+
+ORDER BY sold DESC
+
+LIMIT 1
+");
+
+$onsite_best_seller = $r->num_rows
+? $r->fetch_assoc()['title']
+: "-";
+
+
 // HIGH REVENUE PRODUCT
 $r = $conn->query("
 SELECT p.title, SUM(o.total) rev
@@ -176,6 +198,8 @@ echo json_encode([
     "pending_orders"=>$pending_orders,
 
     "top_product"=>$top_product,
+    "onsite_best_seller"=>$onsite_best_seller,
+
     "high_revenue_product"=>$high_revenue_product,
     "low_stock"=>$low_stock,
     "most_complained"=>$most_complained,
