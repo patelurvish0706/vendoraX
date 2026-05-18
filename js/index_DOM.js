@@ -93,7 +93,7 @@ function defaultLoad___() {
             <span id="productCompany"><i>${p.productCompany}</i></span>
             <span id="productDescription">${p.productDescription}</span>
             <span id="productSeller"><span class="material-symbols-outlined" style="font-size:1rem;padding:5px 5px 5px 0;">store</span>${p.productSeller}</span>
-            <span id="productWarranty">${p.productWarranty} <b style="font-size:0.55rem;"> Warranty</b></span>
+            <span id="productWarranty">${p.productWarranty} <b style="font-size:0.55rem;"> Months Warranty</b></span>
             <span id="productPrice">₹${p.productPrice}</span>
             </div>
             <div >
@@ -327,7 +327,7 @@ function defaultLoad() {
           }</span>
           <span id="productWarranty" style="font-size:0.85rem;font-weight:700;">${
             p.warranty
-          } <b style="font-size:0.65rem;font-weight:400;"> Warranty</b></span>
+          } <b style="font-size:0.65rem;font-weight:400;"> Months Warranty</b></span>
           <span id="productPrice">₹${p.price}</span>
         </div>
 
@@ -1770,7 +1770,7 @@ async function openVendorShop(vendor_id) {
         <div style="display:flex;flex-direction:column;margin-top:auto;">
           <span id="productWarranty"
             style="font-size:0.85rem;font-weight:700;">
-            ${p.warranty} Warranty
+            ${p.warranty} Months Warranty
           </span>
 
           <span id="productPrice">₹${p.price}</span>

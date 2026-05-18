@@ -1648,49 +1648,6 @@ async function onsiteSell() {
   });
 
   // SELECT EXISTING CUSTOMER
-  /*
-  window.selectCustomer = async function (id) {
-
-    if (!onsiteCart.length) {
-      alert("Cart Empty");
-      return;
-    }
-
-    const fd = new FormData();
-
-    fd.append("customer_id", id);
-
-    fd.append(
-      "products",
-      JSON.stringify(
-        onsiteCart.map((p) => ({
-          product_id: p.id,
-          qty: p.qty,
-        }))
-      )
-    );
-
-    const res = await fetch("./script/save_offline_sale.php", {
-      method: "POST",
-      body: fd,
-    });
-
-    const result = await res.json();
-
-    if (result.status === "ok") {
-
-      alert("Offline Sale Saved");
-
-      onsiteCart = [];
-      onsiteSearchValue = "";
-
-      onsiteSell();
-
-    } else {
-
-      alert(result.message || "Sale Failed");
-    }
-  };*/
 
   window.selectCustomer = async function (id) {
 

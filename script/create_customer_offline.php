@@ -29,7 +29,15 @@ if($pincode){
     $fullAddress .= " - ".$pincode;
 }
 
-$pass = "";
+/*
+|--------------------------------------------------------------------------
+| RANDOM PASSWORD
+|--------------------------------------------------------------------------
+*/
+
+$pass = substr(str_shuffle(
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789@#"
+), 0, 10);
 
 $stmt = $conn->prepare("
 INSERT INTO customers
@@ -52,7 +60,8 @@ if($stmt->execute()){
 
     echo json_encode([
         "status"=>"ok",
-        "customer_id"=>$stmt->insert_id
+        "customer_id"=>$stmt->insert_id,
+        "password"=>$pass
     ]);
 
 }else{

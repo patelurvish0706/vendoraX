@@ -91,8 +91,8 @@ while($i = $iq->fetch_assoc()){
 <head>
 <title>Invoice</title>
 
+<link rel="shortcut icon" href="../css/logo.svg" type="image/x-icon">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800;900&display=swap">
-
 <style>
 
 body{

@@ -1,0 +1,8 @@
+# Ignore all uploaded files
+.env
+/vendor/
+node_modules/
+
+script/uploads/
+
+!script/uploads/.gitkeep

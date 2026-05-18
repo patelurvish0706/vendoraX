@@ -1,451 +1,473 @@
 <!-- <!DOCTYPE html> -->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>VendoraX - Explore Local Tech Stores</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/login.css" />
+  <title>VendoraX - Explore Local Tech Stores</title>
 
-    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/login.css" />
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> -->
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-  </head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
 
-  <body>
-    <div id="container">
-      <div id="navbar">
-        <div id="Navlogo">
-          <div id="cornerStart">◣</div>
+<body>
+  <div id="container">
+    <div id="navbar">
+      <div id="Navlogo">
+        <div id="cornerStart">◣</div>
 
-          <div id="VX">V</div>
-          <div id="endora">endora</div>
-          <div id="VX">X</div>
-          <div id="tagline">Buy easy.<br />Service assured.</div>
+        <div id="VX">V</div>
+        <div id="endora">endora</div>
+        <div id="VX">X</div>
+        <div id="tagline">Buy easy.<br />Service assured.</div>
 
-          <div id="cornerEnd">◥</div>
-        </div>
-
-        <div id="NavlinkContainer">
-          <div class="NavLink" id="AccountServices">
-            <span class="material-symbols-outlined">person</span>
-          </div>
-          <div id="AccountServicesBtns" class="NavMenu">
-            <div id="NavMenuBtn" onclick="Login()">
-              <span id="btnSmallTag">Already Customer? - </span> Sign-In
-            </div>
-            <div id="NavMenuBtn" onclick="Register()">
-              <span id="btnSmallTag">New Customer? - </span> Register
-            </div>
-            <div id="NavMenuBtn" onclick="manageCustomerInfo()">
-              Your Account
-            </div>
-          </div>
-
-          <div class="NavLink" id="MoreServices">
-            <span class="material-symbols-outlined">menu</span>
-          </div>
-
-          <div id="MoreServicesBtns" class="NavMenu">
-            <div id="NavMenuBtn" onclick="manageCart()">
-              <span class="material-symbols-outlined">shopping_cart</span>Cart
-            </div>
-            <div id="NavMenuBtn" onclick="manageOrders()">
-              <span class="material-symbols-outlined">orders</span>Orders
-            </div>
-            <div id="NavMenuBtn" onclick="nearestShop(range = 5)">
-              <span class="material-symbols-outlined">storefront</span>Nearest
-              Shops
-            </div>
-            <div id="NavMenuBtn" onclick="manageComplains()">
-              <span class="material-symbols-outlined">person_raised_hand</span
-              >Complains
-            </div>
-            <div id="NavMenuBtn" onclick="gotoVendor()">
-              <span id="btnSmallTag">For vendor - </span> Manage Business
-            </div>
-            <div id="NavMenuBtn" onclick="gotoVendorFaqs()">FAQ's</div>
-            <div id="NavMenuBtn" onclick="gotoAboutVendoraX()">
-              About Vendora-X
-            </div>
-          </div>
-        </div>
+        <div id="cornerEnd">◥</div>
       </div>
 
-      <div id="pageContent">
-        <div id="ShopkeeperProcessArea">
-          <div id="ShopkeeperOptionsBtns">
-            <div class="optBtn" style="color: #fff; background-color: #4c6381">
-              <span class="material-symbols-outlined">arrow_back_ios</span>Back
-            </div>
-
-            <!-- Content -->
-
-            <div
-              class="optBtn"
-              style="background-color: transparent; box-shadow: none"
-            ></div>
-            <div class="optBtn" id="endBtnCover"></div>
+      <div id="NavlinkContainer">
+        <div class="NavLink" id="AccountServices">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+        <div id="AccountServicesBtns" class="NavMenu">
+          <div id="NavMenuBtn" onclick="Login()">
+            <span id="btnSmallTag">Already Customer? - </span> Sign-In
           </div>
+          <div id="NavMenuBtn" onclick="Register()">
+            <span id="btnSmallTag">New Customer? - </span> Register
+          </div>
+          <div id="NavMenuBtn" onclick="manageCustomerInfo()">
+            Your Account
+          </div>
+        </div>
 
-          <!-- all products -->
-          <div id="ProductPage"></div>
+        <div class="NavLink" id="MoreServices">
+          <span class="material-symbols-outlined">menu</span>
+        </div>
+
+        <div id="MoreServicesBtns" class="NavMenu">
+          <div id="NavMenuBtn" onclick="manageCart()">
+            <span class="material-symbols-outlined">shopping_cart</span>Cart
+          </div>
+          <div id="NavMenuBtn" onclick="manageOrders()">
+            <span class="material-symbols-outlined">orders</span>Orders
+          </div>
+          <div id="NavMenuBtn" onclick="nearestShop(range = 5)">
+            <span class="material-symbols-outlined">storefront</span>Nearest
+            Shops
+          </div>
+          <div id="NavMenuBtn" onclick="manageComplains()">
+            <span class="material-symbols-outlined">person_raised_hand</span>Complains
+          </div>
+          <div id="NavMenuBtn" onclick="gotoVendor()">
+            <span id="btnSmallTag">For vendor - </span> Manage Business
+          </div>
+          <div id="NavMenuBtn" onclick="gotoVendorFaqs()">FAQ's</div>
+          <div id="NavMenuBtn" onclick="gotoAboutVendoraX()">
+            About Vendora-X
+          </div>
         </div>
       </div>
     </div>
 
-    <div
-      class="LoginRegisterContainer"
-      style="display: none; width: 100%; height: 100%"
-    >
-      <div id="blurlayer" style="width: inherit; padding: 20px 0">
-        <div class="formContainer" id="registerForm" style="display: none">
-          <form id="theRegForm">
-            <p></p>
-            <div
-              style="
+    <div id="pageContent">
+      <div id="ShopkeeperProcessArea">
+        <div id="ShopkeeperOptionsBtns">
+          <div class="optBtn" style="color: #fff; background-color: #4c6381">
+            <span class="material-symbols-outlined">arrow_back_ios</span>Back
+          </div>
+
+          <!-- Content -->
+
+          <div class="optBtn" style="background-color: transparent; box-shadow: none"></div>
+          <div class="optBtn" id="endBtnCover"></div>
+        </div>
+
+        <!-- all products -->
+        <div id="ProductPage"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="LoginRegisterContainer" style="display: none; width: 100%; height: 100%">
+    <div id="blurlayer" style="width: inherit; padding: 20px 0">
+      <div class="formContainer" id="registerForm" style="display: none">
+        <form id="theRegForm">
+          <p></p>
+          <div style="
                 height: 50px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-              "
-            >
-              <h2>Register</h2>
-              <h2
-                id="close"
-                style="
+              ">
+            <h2>Register</h2>
+            <h2 id="close" style="
                   font-weight: 500;
                   border-radius: 5px;
                   cursor: pointer;
                   padding: 0 8px 3px 8px;
                   background-color: #0001;
-                "
-                onclick="closeTab()"
-              >
-                x
-              </h2>
-            </div>
+                " onclick="closeTab()">
+              x
+            </h2>
+          </div>
 
-            <p style="color: red" class="errPlace" id="ErrRegister"></p>
+          <p style="color: red" class="errPlace" id="ErrRegister"></p>
 
-            <label for="uname">*Name</label>
-            <input
-              type="text"
-              id="uname"
-              name="uname"
-              placeholder="Alison Burgers"
-            />
+          <label for="uname">*Name</label>
+          <input type="text" id="uname" name="uname" placeholder="Alison Burgers" />
 
-            <label for="email">*Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="alison@gmail.com"
-            />
+          <label for="email">*Email</label>
+          <input type="email" id="email" name="email" placeholder="alison@gmail.com" />
 
-            <label for="mobile">*Mobile No</label>
-            <input
-              type="number"
-              id="mobile"
-              name="mobile"
-              placeholder="9987456321"
-            />
+          <label for="mobile">*Mobile No</label>
+          <input type="number" id="mobile" name="mobile" placeholder="9987456321" />
 
-            <label for="pass">*Password</label>
-            <input
-              type="password"
-              id="pass"
-              name="pass"
-              placeholder="Burgers@50"
-            />
+          <label for="pass">*Password</label>
+          <input type="password" id="pass" name="pass" placeholder="Burgers@50" />
 
-            <label for="repass">*Re-Enter Password</label>
-            <input
-              type="password"
-              id="repass"
-              name="repass"
-              placeholder="Burgers@50"
-            />
+          <label for="repass">*Re-Enter Password</label>
+          <input type="password" id="repass" name="repass" placeholder="Burgers@50" />
 
-            <label for="pincode">*Pincode</label>
-            <input
-              type="number"
-              id="pincode"
-              name="pincode"
-              placeholder="380006"
-            />
+          <label for="pincode">*Pincode</label>
+          <input type="number" id="pincode" name="pincode" placeholder="380006" />
 
-            <label for="selectLocation">*Select Location on Map</label>
-            <div id="map" style="width: 100%; height: 300px"></div>
+          <label for="selectLocation">*Select Location on Map</label>
+          <div id="map" style="width: 100%; height: 300px"></div>
 
-            <label>*Address</label>
-            <textarea
-              id="address"
-              placeholder="Select from map or type"
-            ></textarea>
+          <label>*Address</label>
+          <textarea id="address" placeholder="Select from map or type"></textarea>
 
-            <input type="hidden" id="lat" name="lat" />
-            <input type="hidden" id="lng" name="lng" />
+          <input type="hidden" id="lat" name="lat" />
+          <input type="hidden" id="lng" name="lng" />
 
-            <div>
-              <button type="submit">Register</button>
-              <button type="reset">Cancel</button>
-            </div>
+          <div>
+            <button type="submit">Register</button>
+            <button type="reset">Cancel</button>
+          </div>
 
-            <label
-              for="pass"
-              onclick="showLogin()"
-              style="text-decoration: 1px solid underline; cursor: pointer"
-              >Login Here</label
-            >
-            <p></p>
-          </form>
+          <label for="pass" onclick="showLogin()" style="text-decoration: 1px solid underline; cursor: pointer">Login
+            Here</label>
+          <p></p>
+        </form>
 
-          <script>
-            const form = document.getElementById("theRegForm");
-            const err = document.getElementById("ErrRegister");
+        <script>
+          const form = document.getElementById("theRegForm");
+          const err = document.getElementById("ErrRegister");
 
-            const uname = document.getElementById("uname");
-            const email = document.getElementById("email");
-            const mobile = document.getElementById("mobile");
-            const pass = document.getElementById("pass");
-            const repass = document.getElementById("repass");
-            const pincode = document.getElementById("pincode");
-            const address = document.getElementById("address");
+          const uname = document.getElementById("uname");
+          const email = document.getElementById("email");
+          const mobile = document.getElementById("mobile");
+          const pass = document.getElementById("pass");
+          const repass = document.getElementById("repass");
+          const pincode = document.getElementById("pincode");
+          const address = document.getElementById("address");
 
-            let map = L.map("map").setView([23.0225, 72.5714], 13);
-            let marker;
+          let map = L.map("map").setView([23.0225, 72.5714], 13);
+          let marker;
 
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-              maxZoom: 19,
-              attribution: "© OpenStreetMap",
-            }).addTo(map);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: "© OpenStreetMap",
+          }).addTo(map);
 
-            // setTimeout(() => map.invalidateSize(), 200);
-            setTimeout(() => {
-              map.invalidateSize();
-            }, 2000);
+          // setTimeout(() => map.invalidateSize(), 200);
+          setTimeout(() => {
+            map.invalidateSize();
+          }, 2000);
 
-            // click to select location
-            map.on("click", async function (e) {
-              const { lat, lng } = e.latlng;
+          // click to select location
+          map.on("click", async function (e) {
+            const { lat, lng } = e.latlng;
+
+            if (marker) map.removeLayer(marker);
+            marker = L.marker([lat, lng]).addTo(map);
+
+            document.getElementById("lat").value = lat;
+            document.getElementById("lng").value = lng;
+
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+            );
+            const data = await res.json();
+
+            address.value = data.display_name;
+          });
+
+          // pincode → map location
+          // const pincode = document.getElementById("pincode");
+
+          pincode.addEventListener("input", async () => {
+            if (pincode.value.length !== 6) return;
+
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+            );
+            const data = await res.json();
+
+            if (data.length > 0) {
+              const lat = data[0].lat;
+              const lon = data[0].lon;
+
+              map.setView([lat, lon], 15);
 
               if (marker) map.removeLayer(marker);
-              marker = L.marker([lat, lng]).addTo(map);
+              marker = L.marker([lat, lon]).addTo(map);
+            }
+          });
 
-              document.getElementById("lat").value = lat;
-              document.getElementById("lng").value = lng;
+          let lastPin = "";
 
-              const res = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-              );
-              const data = await res.json();
+          pincode.addEventListener("input", async () => {
+            if (pincode.value.length !== 6 || pincode.value === lastPin)
+              return;
 
-              address.value = data.display_name;
+            lastPin = pincode.value;
+
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
+            );
+            const data = await res.json();
+
+            if (data.length > 0) {
+              const lat = data[0].lat;
+              const lon = data[0].lon;
+
+              map.setView([lat, lon], 15);
+
+              if (marker) map.removeLayer(marker);
+              marker = L.marker([lat, lon]).addTo(map);
+            }
+          });
+
+          // submit
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            if (
+              !uname.value ||
+              !email.value ||
+              !mobile.value ||
+              !pass.value ||
+              !repass.value
+            ) {
+              err.innerText = "All * fields required";
+              return;
+            }
+
+            if (pass.value !== repass.value) {
+              err.innerText = "Passwords not match";
+              return;
+            }
+
+            const formData = new FormData(form);
+            formData.append("address", address.value);
+
+            const res = await fetch("./script/customer_register.php", {
+              method: "POST",
+              body: formData,
             });
 
-            // pincode → map location
-            // const pincode = document.getElementById("pincode");
+            const result = await res.text();
 
-            pincode.addEventListener("input", async () => {
-              if (pincode.value.length !== 6) return;
+            if (result === "success") {
+              err.innerHTML = "<span style='color:green'>Registered</span>";
+              form.reset();
+            } else {
+              err.innerText = result;
+            }
+          });
+        </script>
+      </div>
 
-              const res = await fetch(
-                `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
-              );
-              const data = await res.json();
-
-              if (data.length > 0) {
-                const lat = data[0].lat;
-                const lon = data[0].lon;
-
-                map.setView([lat, lon], 15);
-
-                if (marker) map.removeLayer(marker);
-                marker = L.marker([lat, lon]).addTo(map);
-              }
-            });
-
-            let lastPin = "";
-
-            pincode.addEventListener("input", async () => {
-              if (pincode.value.length !== 6 || pincode.value === lastPin)
-                return;
-
-              lastPin = pincode.value;
-
-              const res = await fetch(
-                `https://nominatim.openstreetmap.org/search?format=json&q=${pincode.value}`
-              );
-              const data = await res.json();
-
-              if (data.length > 0) {
-                const lat = data[0].lat;
-                const lon = data[0].lon;
-
-                map.setView([lat, lon], 15);
-
-                if (marker) map.removeLayer(marker);
-                marker = L.marker([lat, lon]).addTo(map);
-              }
-            });
-
-            // submit
-            form.addEventListener("submit", async (e) => {
-              e.preventDefault();
-
-              if (
-                !uname.value ||
-                !email.value ||
-                !mobile.value ||
-                !pass.value ||
-                !repass.value
-              ) {
-                err.innerText = "All * fields required";
-                return;
-              }
-
-              if (pass.value !== repass.value) {
-                err.innerText = "Passwords not match";
-                return;
-              }
-
-              const formData = new FormData(form);
-              formData.append("address", address.value);
-
-              const res = await fetch("./script/customer_register.php", {
-                method: "POST",
-                body: formData,
-              });
-
-              const result = await res.text();
-
-              if (result === "success") {
-                err.innerHTML = "<span style='color:green'>Registered</span>";
-                form.reset();
-              } else {
-                err.innerText = result;
-              }
-            });
-          </script>
-        </div>
-
-        <div class="formContainer" id="loginForm">
-          <form id="theloginForm">
-            <p></p>
-            <div
-              style="
+      <div class="formContainer" id="loginForm">
+        <form id="theloginForm">
+          <p></p>
+          <div style="
                 height: 50px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-              "
-            >
-              <h2>Login</h2>
-              <h2
-                id="close"
-                style="
+              ">
+            <h2>Login</h2>
+            <h2 id="close" style="
                   font-weight: 500;
                   border-radius: 5px;
                   cursor: pointer;
                   padding: 0 8px 3px 8px;
                   background-color: #0001;
-                "
-                onclick="closeTab()"
-              >
-                x
-              </h2>
-            </div>
+                " onclick="closeTab()">
+              x
+            </h2>
+          </div>
 
-            <p style="color: red" class="errPlace" id="Errlogin"></p>
+          <p style="color: red" class="errPlace" id="Errlogin"></p>
 
-            <label for="logEmail">*Email / Mobile</label>
-            <input
-              type="email"
-              id="logEmail"
-              name="logEmail"
-              placeholder="alison@gmail.com"
-            />
+          <label for="logEmail">*Email / Mobile</label>
+          <input type="email" id="logEmail" name="logEmail" placeholder="alison@gmail.com" />
 
-            <label for="logPass">*Password</label>
-            <input
-              type="password"
-              id="logPass"
-              name="logPass"
-              placeholder="Burgers@50"
-            />
+          <label for="logPass">*Password</label>
+          <input type="password" id="logPass" name="logPass" placeholder="Burgers@50" />
 
-            <div>
-              <button type="submit">Login</button>
-              <button type="reset">Cancel</button>
-            </div>
-            <label
-              for="pass"
-              onclick="showReg()"
-              style="text-decoration: 1px solid underline; cursor: pointer"
-              >Register Here</label
-            >
-            <p></p>
-          </form>
+          <label id="forgotPasswordBtn"
+            style="margin-top:8px;display:inline-block;color:#4c6381;cursor:pointer;text-decoration:underline;font-size:0.9rem;">
+            Forgot Password?
+          </label>
 
-          <script>
-            const loginForm = document.querySelector("#theloginForm");
-            const Errlogin = document.getElementById("Errlogin");
+          <div>
+            <button type="submit">Login</button>
+            <button type="reset">Cancel</button>
+          </div>
+          <label for="pass" onclick="showReg()" style="text-decoration: 1px solid underline; cursor: pointer">Register
+            Here</label>
+          <p></p>
+        </form>
 
-            loginForm.addEventListener("submit", async function (e) {
-              e.preventDefault();
+        <script>
+          const loginForm = document.querySelector("#theloginForm");
+          const Errlogin = document.getElementById("Errlogin");
 
-              const input = document.getElementById("logEmail").value.trim();
-              const pass = document.getElementById("logPass").value;
+          loginForm.addEventListener("submit", async function (e) {
 
-              if (!input || !pass) {
-                Errlogin.innerText = "All * fields are required";
-                return;
-              }
+            e.preventDefault();
 
-              const formData = new FormData();
-              formData.append("logEmail", input);
-              formData.append("logPass", pass);
+            const input = document.getElementById("logEmail").value.trim();
+            const pass = document.getElementById("logPass").value;
 
-              const res = await fetch("./script/customer_login.php", {
-                method: "POST",
-                body: formData,
-              });
+            if (!input || !pass) {
 
-              const result = await res.text();
+              Errlogin.innerText = "All * fields are required";
+              return;
+            }
 
-              if (result === "success") {
-                Errlogin.innerHTML = `<p style="color:green;">Login Success</p>`;
-                loginForm.reset();
+            const formData = new FormData();
 
-                setTimeout(() => {
-                  closeTab();
-                  Errlogin.innerHTML = ``;
-                  location.reload();
-                }, 800);
-              } else {
-                Errlogin.innerHTML = `<p style="color:orange;">${result}</p>`;
-              }
+            formData.append("logEmail", input);
+            formData.append("logPass", pass);
+
+            const res = await fetch("./script/customer_login.php", {
+              method: "POST",
+              body: formData,
             });
-          </script>
-        </div>
+
+            const result = await res.text();
+
+            if (result === "success") {
+
+              Errlogin.innerHTML = `
+                <p style="color:green;">
+                  Login Success
+                </p>
+              `;
+
+              loginForm.reset();
+
+              setTimeout(() => {
+
+                closeTab();
+
+                Errlogin.innerHTML = ``;
+
+                location.reload();
+
+              }, 800);
+
+            } else {
+
+              Errlogin.innerHTML = `
+                <p style="color:orange;">
+                  ${result}
+                </p>
+              `;
+            }
+          });
+
+          // FORGOT PASSWORD
+
+          const forgotBtn = document.getElementById("forgotPasswordBtn");
+
+          forgotBtn.addEventListener("click", async () => {
+
+            if (forgotBtn.dataset.loading === "true") return;
+
+            const email = document.getElementById("logEmail").value.trim();
+
+            if (!email) {
+              Errlogin.innerHTML = `<p style="color:orange;">Enter Email First</p>`;
+              return;
+            }
+
+            forgotBtn.dataset.loading = "true";
+            forgotBtn.style.opacity = "0.5";
+            forgotBtn.style.pointerEvents = "none";
+            forgotBtn.innerText = "Sending...";
+
+            const fd = new FormData();
+            fd.append("email", email);
+
+            const res = await fetch("./script/customer_forgot_password.php", {
+              method: "POST",
+              body: fd,
+            });
+
+            const result = await res.json();
+
+            if (result.status === "ok") {
+
+              Errlogin.innerHTML = `
+      <p style="color:green;">
+        Password Sent To Email
+      </p>
+    `;
+
+            } else {
+
+              Errlogin.innerHTML = `
+      <p style="color:orange;">
+        ${result.message}
+      </p>
+    `;
+            }
+
+            let sec = 10;
+
+            forgotBtn.innerText = `Wait ${sec}s`;
+
+            const timer = setInterval(() => {
+
+              sec--;
+
+              forgotBtn.innerText = `Wait ${sec}s`;
+
+              if (sec <= 0) {
+
+                clearInterval(timer);
+
+                forgotBtn.dataset.loading = "false";
+                forgotBtn.style.opacity = "1";
+                forgotBtn.style.pointerEvents = "auto";
+                forgotBtn.innerText = "Forgot Password?";
+              }
+
+            }, 1000);
+          });
+
+
+        </script>
       </div>
     </div>
+  </div>
 
-    <script src="js/login.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/index_DOM.js"></script>
-  </body>
+  <script src="js/login.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/index_DOM.js"></script>
+</body>
+
 </html>
